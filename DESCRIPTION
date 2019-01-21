@@ -1,0 +1,18 @@
+Package: configural
+Type: Package
+Title: An R package for profile analysis 
+Version: 0.0.0.9999
+Date: 2019-01-20
+Authors@R: c( person("Brenton M.", "Wiernik", role = c("aut", "cre"), email = "brenton@wiernik.org")
+              )
+BugReports: https://github.com/bwiernik/configural/issues
+Description: R functions for criterion profile analysis and related methods. Bugs can be reported to <https://github.com/bwiernik/configural/issues> or <brenton@wiernik.org>.
+License: GPL (>= 3)
+Depends: R (>= 3.4.0)
+Encoding: UTF-8
+LazyData: true
+Imports: stats, MASS, dplyr, ggplot2, rlang, crayon, cli, stringr
+RoxygenNote: 6.1.1
+Roxygen: list(markdown = TRUE)
+NeedsCompilation: no
+Packaged: 2018-05-01 18:29:28 UTC; brenton
