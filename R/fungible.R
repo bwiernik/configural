@@ -21,11 +21,7 @@
     vcos <- function(x, y) t(norm(x)) %*% norm(y)
     GenU <- function(mat, u) qr.Q(qr(cbind(u, mat)))[, -1]
 
-    gradf <- function(sv,
-                      p = get("p"), r = get("r"), u = get("u"), U = get("U"),
-                      e = get("e"), V = get("V"), Linv.sqrt = get("Linv.sqrt"),
-                      b.unit = get("b.unit")
-    ) {
+    gradf <- function(sv) {
       z <- sv[1:(p - 1)]
       zpz <- t(z) %*% z
       L <- sv[p]
@@ -46,11 +42,7 @@
       c(dfdz, dfdL)
     }
 
-    minv <- function(sv,
-                     p = get("p"), r = get("r"), u = get("u"), U = get("U"),
-                     V = get("V"), Linv.sqrt = get("Linv.sqrt"),
-                     b.unit = get("b.unit")
-    ) {
+    minv <- function(sv) {
       z <- sv[1:(p - 1)]
       zpz <- t(z) %*% z
       L <- sv[p]
@@ -70,7 +62,6 @@
     p <- ncol(Rxx)
     b <- crossprod(solve(Rxx), rxy)
     b.unit <- norm(b)
-    len.b <- sqrt(t(b) %*% b)
     R2 <- as.numeric(crossprod(rxy, b))
     r <- sqrt(1 - theta / R2)
     e <- sqrt(1 - r^2)
@@ -78,7 +69,6 @@
     VLV <- eigen(Rxx)
     V <- VLV$vectors
     L <- diag(VLV$values)
-    Linv <- solve(L)
     Linv.sqrt <- solve(sqrt(L))
     u <- (sqrt(L) %*% t(V) %*% b) / as.numeric(sqrt(t(b) %*% Rxx %*% b))
     mat <- matrix(stats::rnorm(p * (p - 1)), p, p - 1)
@@ -87,18 +77,17 @@
     FNSCALE <- 1
     if (MaxMin == "max") FNSCALE <- FNSCALE * -1
     minf <- 99 * FNSCALE
-    maxf <- -1
     breakflag <- 0
     iter <- 0
     while (iter < Nstarts) {
       sv <- c(stats::rnorm(p - 1) / sqrt(p - 1), 1000)
-      tmp <- try(stats::optim(par = sv, fn = minv, gr = gradf, method = "BFGS",
-                              control = list(fnscale = FNSCALE, maxit = 500,
-                                             parscale = c(rep(1, p - 1), 1))))
+      tmp <- try(suppressWarnings(
+        optimx::optimr(par = sv, fn = minv, gr = gradf, method = "Rcgmin",
+                       control = list(fnscale = FNSCALE, maxit = 500,
+                                      parscale = c(rep(1, p - 1), 1)))))
       if (abs(tmp$value) > 1) tmp$convergence <- 1
       if ((FNSCALE * tmp$value <= FNSCALE * minf) & (tmp$convergence == 0)) {
         iter <- iter + 1
-        fdelta <- minf - tmp$value
         minf <- tmp$value
         out <- tmp
         z <- out$par[1:(p - 1)]
@@ -202,8 +191,10 @@ fungible <- function(object, theta = .005, Nstarts = 100,
 fungible.cpa <- function(object, theta = .005, Nstarts = 100,
                          MaxMin = c("min", "max"), silent = FALSE, ...) {
   if (!inherits(object, "cpa")) stop("'object' must have class 'cpa'")
+  MaxMin <- match.arg(MaxMin)
 
-  R2 <- object$r.squared
+  R2 <- object$fit["Total", "R-squared"]
+  lev2 <- object$fit["Level", "R-squared"]
   Rxx <- object$model$Rxx
   rxy <- object$model$rxy
   theta <- theta[theta > 0 & theta < R2]
@@ -213,47 +204,47 @@ fungible.cpa <- function(object, theta = .005, Nstarts = 100,
 
   for (i in 1:length(theta)) {
     fun_ex[[i]] <- .fungible_extrema(theta[[i]], Rxx = Rxx, rxy = rxy,
-                                     Nstarts = Nstarts, MaxMin = MaxMin)
+                                     Nstarts = Nstarts, MaxMin = MaxMin, silent = silent)
   }
   for (i in 1:length(theta)) {
     fun_ex[[i]]$astar <- fun_ex[[i]]$a - mean(fun_ex[[i]]$a)
+    attributes(fun_ex[[i]]$astar) <- attributes(fun_ex[[i]]$a)
     fun_ex[[i]]$pat2_a <- (t(rxy) %*% fun_ex[[i]]$astar)^2 / (t(fun_ex[[i]]$astar) %*% Rxx %*% fun_ex[[i]]$astar)
     fun_ex[[i]]$pat_a <- sqrt(fun_ex[[i]]$pat2_a)
     fun_ex[[i]]$delta_lev_a <- fun_ex[[i]]$r.squared.a - fun_ex[[i]]$pat2_a
-    fun_ex[[i]]$delta_pat_a <- fun_ex[[i]]$r.squared.a - fun_ex[[i]]$lev2_a
+    fun_ex[[i]]$delta_pat_a <- fun_ex[[i]]$r.squared.a - lev2
   }
 
-  b <- matrix(object$beta, 1)
+  b <- matrix(as.numeric(object$beta[,1]), 1)
   rownames(b) <- "b (OLS)"
-  bstar <- matrix(object$bstar, 1)
+  bstar <- matrix(as.numeric(object$bstar[,1]), 1)
   rownames(bstar) <- "bstar"
-  fit_b <- matrix(object$fit[3, c(1, 5)], 1)
-  rownames(fit_b) <- "b (OLS)"
-  fit_bstar <- object$fit[, c(1, 5, 10, 10)]
+  fit_bstar <- object$fit[1:2, c(1, 5, 10, 10)]
   rownames(fit_bstar) <- c("Level", "Pattern (bstar)")
   colnames(fit_bstar) <- c("R", "R-squared", "Delta R-squared (Level)", "Delta R-squared (Pattern)")
   fit_bstar[2, 4] <- fit_bstar[1, 4]
-  fit_bstar[1, 3:4] <- NA
+  fit_bstar[1, 3:4] <- NA_integer_
 
   a <- t(sapply(fun_ex, function(x) x$a))
   astar <- t(sapply(fun_ex, function(x) x$astar))
-  fit_a <- t(sapply(fun_ex, function(x) x[c("multiple.r.a", "r.squared.a")]))
   fit_astar <- t(sapply(fun_ex, function(x) x[c("pat_a", "pat2_a", "delta_lev_a", "delta_pat_a")]))
   fungible_params <- t(sapply(fun_ex, function(x) x[c("theta", "r.yhata.yhatb", "cos.ab", "k", "z", "u")]))
   gradient <- t(sapply(fun_ex, function(x) x$gradient))
 
-  rownames(a) <- rownames(fit_a) <- paste0("a (theta = ", theta, ")")
+  rownames(a) <- paste0("a (theta = ", theta, ")")
   rownames(astar) <- paste0("astar (theta = ", theta, ")")
   rownames(fit_astar) <- paste0("Pattern (astar, theta = ", theta, ")")
   rownames(fungible_params) <- rownames(gradient) <- paste0("theta = ", theta)
 
   coefficients_ols <- rbind(b, a)
   coefficients_cpa <- rbind(bstar, astar)
-  fit_ols <- rbind(fit_b, fit_a)
   fit_cpa <- rbind(fit_bstar, fit_astar)
+  dim_names <- dimnames(fit_cpa)
+  fit_cpa <- apply(fit_cpa, 2, as.numeric)
+  dimnames(fit_cpa) <- dim_names
 
   out <- list(coefficients_cpa = coefficients_cpa, coefficients_ols = coefficients_ols,
-              fit_cpa = fit_cpa, fit_ols = fit_ols, fungible_params = fungible_params,
+              fit_cpa = fit_cpa, fungible_params = fungible_params,
               gradient = gradient, MaxMin = MaxMin, vcov = object$vcov)
   class(out) <- "fungible_extrema"
   return(out)
@@ -271,19 +262,15 @@ print.fungible_extrema <- function(object,
     cat("  Identifying most dissimilar coefficients\n\n")
   }
 
-  if (exists(object$coefficients_ols)) {
+  if (exists("coefficients_ols", object)) {
     cat("OLS Regression:\n\n")
 
     cat("Regression coefficients:\n")
     print(round(object$coefficients_ols, digits))
     cat("\n\n")
-
-    cat("Model comparison:\n")
-    print(round(object$fit_ols, digits))
-    cat("\n\n")
   }
 
-  if (exists(object$coefficients_cpa)) {
+  if (exists("coefficients_cpa", object)) {
     cat("Criterion Profile Analysis:\n\n")
 
     cat("Criterion pattern:\n")
@@ -298,3 +285,87 @@ print.fungible_extrema <- function(object,
   invisible(object)
 }
 
+#' Locate extrema of fungible OLS regression weights
+#'
+#' Identify maximally similar or dissimilar sets of fungible standardized regression coefficients from an OLS regression model
+#'
+#' @param object A fitted model object of class "lm" or "summary.lm".
+#' @param theta A vector of values to decrement from R-squared to compute families of fungible coefficients.
+#' @param Nstarts Maximum number of (max) minimizations from random starting configurations.
+#' @param MaxMin Should the cosine between the observed and alternative weights be maximized ("max") to find the maximally similar coefficients or minimized ("min") to find the maximally dissimilar coefficients?
+#' @param silent Should current optimization values be printed to the console (`FALSE`) or suppressed (`TRUE`)?
+#' @param ... Additional arguments
+#'
+#' @references
+#' Waller, N. G., & Jones, J. A. (2009).
+#' Locating the extrema of fungible regression weights.
+#' _Psychometrika, 74_(4), 589–602. <https://doi.org/10/c3wbtd>
+#'
+#' @return A list containing the alternative weights and other fungible weights estimation parameters
+#'
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#'   lm_mtcars <- lm(mpg ~ cyl + disp + hp + drat + wt + qsec + vs + am + gear + carb,
+#'                   data = mtcars)
+#'   lm_mtcars_fung <- fungible(lm_mtcars)
+#' }
+fungible.lm <- function(object, theta = .005, Nstarts = 100,
+                        MaxMin = c("min", "max"), silent = FALSE, ...) {
+  if (!inherits(object, "lm")) stop("'object' must have class 'lm'")
+  if (!is.null(model.offset(object))) stop("models with offsets not yet supported")
+  MaxMin <- match.arg(MaxMin)
+
+  X <- model.matrix(object)
+  if ("(Intercept)" %in% colnames(X)) X <- X[, -1]
+  y <- object$model[, 1]
+  w <- model.weights(object)
+  if (is.null(w)) w <- rep(1, nrow(X))
+
+  if (is.null(na.action(object))) {
+    corr <- wt_cor(cbind(X, y), wt = w, use = "listwise")
+    Rxx <- corr[1:ncol(X), 1:ncol(X)]
+    rxy <- corr[1:ncol(X), ncol(X) + 1]
+  }
+  else if (na.action(object) %in% c("na.omit", "na.exclude")) {
+    corr <- wt_cor(cbind(X, y), wt = w, use = "listwise")
+    Rxx <- corr[1:ncol(X), 1:ncol(X)]
+    rxy <- corr[1:ncol(X), ncol(X) + 1]
+  } else {
+    corr <- wt_cor(cbind(X, y), wt = w)
+    Rxx <- corr[1:ncol(X), 1:ncol(X)]
+    rxy <- corr[1:ncol(X), ncol(X) + 1]
+  }
+
+  R2 <- t(rxy) %*% solve(Rxx) %*% rxy
+
+  theta <- theta[theta > 0 & theta < R2]
+
+  fun_ex <- vector("list", length(theta))
+  names(fun_ex) <- paste("theta =", theta)
+
+  for (i in 1:length(theta)) {
+    fun_ex[[i]] <- .fungible_extrema(theta[[i]], Rxx = Rxx, rxy = rxy,
+                                     Nstarts = Nstarts, MaxMin = MaxMin, silent = silent)
+  }
+
+  b <- t(rxy) %*% solve(Rxx)
+  rownames(b) <- "b (OLS)"
+
+  a <- t(sapply(fun_ex, function(x) x$a))
+  fungible_params <- t(sapply(fun_ex, function(x) x[c("theta", "r.yhata.yhatb", "cos.ab", "k", "z", "u")]))
+  gradient <- t(sapply(fun_ex, function(x) x$gradient))
+
+  rownames(a) <- paste0("a (theta = ", theta, ")")
+  rownames(fungible_params) <- rownames(gradient) <- paste0("theta = ", theta)
+
+  coefficients_ols <- rbind(b, a)
+
+  out <- list(coefficients_ols = coefficients_ols,
+              fungible_params = fungible_params,
+              gradient = gradient, MaxMin = MaxMin)
+  class(out) <- "fungible_extrema"
+  return(out)
+
+}

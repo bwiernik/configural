@@ -1,13 +1,12 @@
-citHeader("To cite ‘psychmeta’ in publications, use:")
+citHeader("To cite ‘configural’ in publications, use:")
 
-citEntry(entry = "Article",
-  author       = c(person("Jeffrey A.", "Dahlke"),
-              person("Brenton M.", "Wiernik")),
-  year         = "2018",
-  title        = "{psychmeta}: An R Package for Psychometric Meta-Analysis",
-  journal      = "Applied Psychological Measurement",
-  note         = "Advance online publication",
-  doi	       = "10.1177/0146621618795933",
+citEntry(entry = "Misc",
+  author       = c(person("Brenton M.", "Wiernik")),
+  year         = "2019",
+  title        = "{configural: {An} {R} Package for Profile Analysis}",
+  shorttitle   = "{configural}",
+  url          = "{https://github.org/bwiernik/configural}",
 
   textVersion  =
-  paste("Dahlke, J. A., & Wiernik, B. M. (2018). psychmeta: An R package for psychometric meta-analysis. Applied Psychological Measurement. Advance online publication. https://doi.org/10.1177/0146621618795933"))
+  "Wiernik, B. M. (2019). configural: An R package for profile analysis [R package]. https://github.org/bwiernik/configural"
+)

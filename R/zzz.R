@@ -1,4 +1,4 @@
-## Messages to be displayed when the user loads psychmeta:
+## Messages to be displayed when the user loads configural:
 #' @importFrom rlang .data
 .onAttach <- function(libname, pkgname) {
     version <- read.dcf(file=system.file("DESCRIPTION", package=pkgname), fields="Version")
@@ -95,7 +95,7 @@
 #' Retrieve the NEWS file for the configural package
 #'
 #' @description
-#' This function gives a shortcut to the `utils::news(package = "configural")` function and displays psychmeta's NEWS file, which contains version information, outlines additions and changes to the package, and describes other updates.
+#' This function gives a shortcut to the `utils::news(package = "configural")` function and displays configural's NEWS file, which contains version information, outlines additions and changes to the package, and describes other updates.
 #'
 #' @export
 #'

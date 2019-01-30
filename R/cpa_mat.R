@@ -74,7 +74,7 @@ cpa_mat <- function(formula, cov_mat, n = Inf,
   delta_lev_adj <- R2_adj - pat2_adj
   delta_pat_adj <- R2_adj - lev2
 
-  se_var <- var_error_cpa(Rxx = Rxx, rxy = rxy, n = n, se_var_mat = se_var_mat, Rsq_adj = R2_adj)
+  se_var <- var_error_cpa(Rxx = Rxx, rxy = rxy, n = n, se_var_mat = se_var_mat, adjust = adjust)
 
   if (is.infinite(n)) {
     moe <- stats::qnorm((1 - conf_level) / 2, lower.tail = FALSE)
@@ -94,57 +94,69 @@ cpa_mat <- function(formula, cov_mat, n = Inf,
   )
 
   bstar_mat <- cbind(bstar, se_bstar, bstar - se_bstar * moe, bstar + se_bstar * moe)
-  rownames(beta_mat) <- x_col
-  colnames(beta_mat) <- c("bstar",
-                          "SE bstar",
-                          paste0((1 - conf_level) / 2 * 100, "%"),
-                          paste0((1 - (1 - conf_level) / 2) * 100, "%")
+  rownames(bstar_mat) <- x_col
+  colnames(bstar_mat) <- c("bstar",
+                           "SE",
+                           paste0((1 - conf_level) / 2 * 100, "%"),
+                           paste0((1 - (1 - conf_level) / 2) * 100, "%")
   )
 
-  se_R <- unlist(sqrt(se_var[c("r.level", "r.pattern", "r.total")]))
-  se_delta <- c(unlist(sqrt(se_var[c("delta.r.squared.level", "delta.r.squared.pattern")])), NA)
+  se_R <- sqrt(unlist(se_var[c("r.level", "r.pattern", "r.total")]))
+  se_R2 <- sqrt(unlist(se_var[c("r.level.squared", "r.pattern.squared", "r.total.squared")]))
+  se_delta <- c(sqrt(unlist(se_var[c("delta.r.squared.level", "delta.r.squared.pattern")])), NA)
   summary_mat <- cbind(c(lev, pat, R_total),
                        se_R,
                        c(lev, pat, R_total) - se_R * moe,
                        c(lev, pat, R_total) + se_R * moe,
+                       c(lev2, pat2, R2_total),
+                       se_R2,
+                       c(lev2, pat2, R2_total) - se_R2 * moe,
+                       c(lev2, pat2, R2_total) + se_R2 * moe,
+                       c(beta_cpa, NA),
                        c(delta_lev, delta_pat, NA),
                        se_delta,
                        c(delta_lev, delta_pat, NA) - se_delta * moe,
                        c(delta_lev, delta_pat, NA) + se_delta * moe
   )
   rownames(summary_mat) <- c("Level", "Pattern", "Total")
-  colnames(summary_mat) <- c("R", "SE R",
+  colnames(summary_mat) <- c("R", "SE",
                              paste0((1 - conf_level) / 2 * 100, "%"),
                              paste0((1 - (1 - conf_level) / 2) * 100, "%"),
-                             "R-squared", "SE R-squared",
+                             "R-squared", "SE",
                              paste0((1 - conf_level) / 2 * 100, "%"),
                              paste0((1 - (1 - conf_level) / 2) * 100, "%"),
                              "beta",
-                             "Delta R-squared", "SE Delta R-squared",
+                             "Delta R-squared", "SE",
                              paste0((1 - conf_level) / 2 * 100, "%"),
                              paste0((1 - (1 - conf_level) / 2) * 100, "%")
   )
 
-  se_adj_R <- unlist(sqrt(se_var[c("r.level", "r.pattern", "r.total")]))
-  se_adj_delta <- c(unlist(sqrt(se_var[c("delta.r.squared.level", "delta.r.squared.pattern")])), NA)
+  se_R_adj <- sqrt(unlist(se_var[c("r.level", "adjusted.r.pattern", "adjusted.r.total")]))
+  se_R2_adj <- sqrt(unlist(se_var[c("r.level.squared", "adjusted.r.pattern.squared", "adjusted.r.total.squared")]))
+  se_delta_adj <- c(sqrt(unlist(se_var[c("adjusted.delta.r.squared.level", "adjusted.delta.r.squared.pattern")])), NA)
   adj_summary_mat <- cbind(c(lev, pat_adj, R_adj),
-                           se_adj_R,
-                           c(lev, pat_adj, R_adj) - se_adj_R * moe,
-                           c(lev, pat_adj, R_adj) + se_adj_R * moe,
+                           se_R_adj,
+                           c(lev, pat_adj, R_adj) - se_R_adj * moe,
+                           c(lev, pat_adj, R_adj) + se_R_adj * moe,
+                           c(lev2, pat2_adj, R2_adj),
+                           se_R2_adj,
+                           c(lev2, pat2_adj, R2_adj) - se_R2_adj * moe,
+                           c(lev2, pat2_adj, R2_adj) + se_R2_adj * moe,
+                           c(beta_cpa_adj, NA),
                            c(delta_lev_adj, delta_pat_adj, NA),
-                           se_adj_delta,
-                           c(delta_lev_adj, delta_pat_adj, NA) - se_adj_delta * moe,
-                           c(delta_lev_adj, delta_pat_adj, NA) + se_adj_delta * moe
+                           se_delta_adj,
+                           c(delta_lev_adj, delta_pat_adj, NA) - se_delta_adj * moe,
+                           c(delta_lev_adj, delta_pat_adj, NA) + se_delta_adj * moe
   )
   rownames(adj_summary_mat) <- c("Level", "Pattern", "Total")
-  colnames(adj_summary_mat) <- c("R", "SE R",
+  colnames(adj_summary_mat) <- c("Adj. R", "SE",
                                  paste0((1 - conf_level) / 2 * 100, "%"),
                                  paste0((1 - (1 - conf_level) / 2) * 100, "%"),
-                                 "Adj. R-squared", "SE Adj. R-squared",
+                                 "Adj. R-squared", "SE",
                                  paste0((1 - conf_level) / 2 * 100, "%"),
                                  paste0((1 - (1 - conf_level) / 2) * 100, "%"),
                                  "Adj. beta",
-                                 "Adj. Delta R-squared", "SE Adj. Delta R-squared",
+                                 "Adj. Delta R-squared", "SE",
                                  paste0((1 - conf_level) / 2 * 100, "%"),
                                  paste0((1 - (1 - conf_level) / 2) * 100, "%"))
 
@@ -167,21 +179,21 @@ cpa_mat <- function(formula, cov_mat, n = Inf,
 
 }
 
-print.cpa <- function(object, ...) {
+print.cpa <- function(object, digits = max(3L, getOption("digits") - 3L), ...) {
 
   cat("\nCall:\n", paste(deparse(object$call), sep = "\n", collapse = "\n"),
       "\n\n", sep = "")
 
   cat("\nCriterion Pattern:\n")
-  print(object$bstar)
+  print(object$bstar, digits = digits)
 
   cat("\n\nVariance Decomposition:\n")
-  print(object$fit)
+  print(object$fit, digits = digits)
 
   cat("\n\nAdjusted Variance Decomposition:\n")
-  print(object$adjusted_fit)
+  print(object$adjusted_fit, digits = digits)
 
-  cat("\nDegrees of freedom:\n  Level: 1 and", object$n - 2,
+  cat("\n\nDegrees of freedom:\n  Level: 1 and", object$n - 2,
       "\n  Pattern:", object$rank - 2, "and", object$n - object$rank + 1,
       "\n  Total:", object$rank - 1, "and", object$n - object$rank)
 
@@ -189,7 +201,7 @@ print.cpa <- function(object, ...) {
 }
 
 summary.cpa <- function(object, ...) {
-  print.cpa(object, ...)
+  object
 }
 
 vcov.cpa <- function(object, parameter = NULL, ...) {
