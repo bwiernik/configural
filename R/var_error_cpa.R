@@ -9,6 +9,8 @@
 #' @return A list containing sampling covariance matrices or sampling erorr variance estimates for CPA parameters
 #' @export
 #'
+#' @encoding UTF-8
+#'
 #' @examples
 #' \dontrun{
 #'   var_error_cpa(mindful_rho[1:5, 1:5], mindful_rho[1:5, 6],

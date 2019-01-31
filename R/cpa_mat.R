@@ -12,10 +12,16 @@
 #' @return An object of class "cpa" containing the criterion pattern vector and CPA variance decomposition
 #' @export
 #'
+#' @encoding UTF-8
+#'
 #' @references
 #' Jones, J. A., & Waller, N. G. (2015).
 #' The normal-theory and asymptotic distribution-free (ADF) covariance matrix of standardized regression coefficients: Theoretical extensions and finite sample behavior.
 #' \emph{Psychometrika, 80}(2), 365–378. \url{https://doi.org/10/gckfx5}
+#'
+#' Wiernik, B. M., Wilmot, M. P., Davison, M. L., & Ones, D. S. (2019).
+#' _Meta-analytic criterion profile analysis._
+#' Manuscript submitted for publication.
 #'
 #' @examples
 #' sevar <- cor_covariance_meta(mindfulness$r, mindfulness$n, mindfulness$sevar_r, mindfulness$source)

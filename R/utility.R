@@ -10,6 +10,8 @@
 #' @return An adjusted R-squared value.
 #' @export
 #'
+#' @encoding UTF-8
+#'
 #' @references
 #' Shieh, G. (2008).
 #' Improved shrinkage estimation of squared multiple correlation coefficient and squared cross-validity coefficient.
@@ -43,8 +45,10 @@ adjust_Rsq <- function(Rsq, n, p, adjust = c("fisher", "pop", "cv")) {
 #'
 #' @return The harmonic mean of x
 #'
-#' @author From [psych::harmonic.mean()] by William Revelle
+#' @author Adapted from [psych::harmonic.mean()] by William Revelle
 #' @export
+#'
+#' @encoding UTF-8
 #'
 #' @examples
 #' harmonic_mean(1:10)
@@ -69,6 +73,8 @@ harmonic_mean <- function(x, na.rm = TRUE, zero = TRUE) {
 #' @author Based on internal functions from the \pkg{fungible} package by Niels Waller
 #'
 #' @export
+#'
+#' @encoding UTF-8
 #'
 #' @keywords internal
 #'
@@ -109,6 +115,8 @@ transition <- function(p) {
 #'
 #' @return The asymptotic sampling covariance matrix
 #' @export
+#'
+#' @encoding UTF-8
 #'
 #' @author Based on an internal function from the \pkg{fungible} package by Niels Waller
 #'
@@ -158,8 +166,10 @@ cor_covariance <- function(R, n) {
 #'
 #' @param var_names A character vector of variable names
 #'
-#' @return A vector of correlation labels with
+#' @return A vector of correlation labels
 #' @export
+#'
+#' @encoding UTF-8
 #'
 #' @examples
 #' cor_labels(colnames(mindfulness$r))
@@ -180,6 +190,8 @@ cor_labels <- function(var_names) {
 #'
 #' @return The estimated asymptotic sampling covariance matrix
 #' @export
+#'
+#' @encoding UTF-8
 #'
 #' @references
 #' Nel, D. G. (1985).
@@ -273,6 +285,8 @@ cor_covariance_meta <- function(R, n, sevar, source = NULL, n_overlap = NULL) {
 #' @return The quadratic product
 #' @export
 #'
+#' @encoding UTF-8
+#'
 #' @examples
 #' diag(5) %&% 1:5
 `%&%` <- function(A, x) {
@@ -320,6 +334,8 @@ cor_covariance_meta <- function(R, n, sevar, source = NULL, n_overlap = NULL) {
 #' @author Jeffrey A. Dahlke
 #'
 #' @keywords univar
+#'
+#' @encoding UTF-8
 #'
 #' @examples
 #' wt_dist(x = c(.1, .3, .5), wt = c(100, 200, 300))
@@ -400,6 +416,8 @@ wt_var <- function(x, wt = rep(1, length(x)), unbiased = TRUE, df_type = c("coun
 #' @export
 #'
 #' @author Jeffrey A. Dahlke
+#'
+#' @encoding UTF-8
 #'
 #' @examples
 #' wt_cov(x = c(1, 0, 2), y = c(1, 2, 3), wt = c(1, 2, 2), as_cor = FALSE, use = "everything")
@@ -516,6 +534,8 @@ wt_cor <- function(x, y = NULL, wt = NULL, use = "everything"){
 #'
 #' @param x A matrix
 #'
+#' @encoding UTF-8
+#'
 #' @return A vector of values
 #'
 #' @author Based on functions from the the \pkg{OpenMx} package
@@ -569,6 +589,8 @@ rvec <- function(x) {
 #' @param diagonal A value or vector of values to enter on the diagonal for `vechs2full` (default = 1)
 #'
 #' @return A symmetric matrix
+#'
+#' @encoding UTF-8
 #'
 #' @author Based on functions from the the \pkg{OpenMx} package
 #'

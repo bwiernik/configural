@@ -106,6 +106,8 @@
 #'
 #' @importFrom utils news
 #'
+#' @encoding UTF-8
+#'
 #' @examples
 #' configural_news()
 configural_news <- function(){

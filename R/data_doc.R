@@ -6,6 +6,8 @@
 #'
 #' @docType data
 #'
+#' @encoding UTF-8
+#'
 #' @usage data(mindfulness)
 #'
 #' @format list with entries `r` (mean oberseved correlations), `rho` (mean
@@ -43,6 +45,8 @@
 #'
 #' @docType data
 #'
+#' @encoding UTF-8
+#'
 #' @usage data(disorders)
 #'
 #' @format list with entries `rho` (mean corrected correlations),
@@ -72,6 +76,8 @@
 #' from Guest et al. (2004).
 #'
 #' @docType data
+#'
+#' @encoding UTF-8
 #'
 #' @usage data(hrm)
 #'
@@ -107,6 +113,8 @@
 #'
 #' @usage data(team)
 #'
+#' @encoding UTF-8
+#'
 #' @format list with entries `rho` (mean corrected correlations),
 #' `n` (sample sizes), `sevar_rho` (sampling error variances for mean corrected
 #' correlations), and `source` (character labels indicating which meta-analytic
@@ -132,6 +140,8 @@
 #' associated with _larger_ prejudice reduction.
 #'
 #' @docType data
+#'
+#' @encoding UTF-8
 #'
 #' @usage data(prejudice)
 #'

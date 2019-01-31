@@ -7,8 +7,10 @@
 #' @param MaxMin Should the cosine between the OLS and alternative weights be maximized ("max") to find the maximally similar coefficients or minimized ("min") to find the maximally dissimilar coefficients?
 #' @param silent Should current optimization values be printed to the console (`FALSE`) or suppressed (`TRUE`)?
 #'
+#' @encoding UTF-8
+#'
 #' @return A list containing the alternative weights and other fungible weights estimation parameters
-#' @author Adapted from [fungible::fungibleExtrema()] by Niels Waller
+#' @author Adapted from [fungible::fungibleExtrema()] by Niels Waller and Jeff Jones
 #'
 #' @export
 #'
@@ -143,6 +145,8 @@
 #'
 #' @author Niels Waller, Jeff Jones, Brenton M. Wiernik. Adapted from [fungible::fungibleExtrema()].
 #'
+#' @encoding UTF-8
+#'
 #' @export
 #'
 #' @references
@@ -183,6 +187,8 @@ fungible <- function(object, theta = .005, Nstarts = 1000,
 #' Manuscript submitted for publication, University of South Florida.
 #'
 #' @return A list containing the alternative weights and other fungible weights estimation parameters
+#'
+#' @encoding UTF-8
 #'
 #' @export
 #'
@@ -307,6 +313,8 @@ print.fungible_extrema <- function(object,
 #' _Psychometrika, 74_(4), 589–602. <https://doi.org/10/c3wbtd>
 #'
 #' @return A list containing the alternative weights and other fungible weights estimation parameters
+#'
+#' @encoding UTF-8
 #'
 #' @export
 #'
