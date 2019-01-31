@@ -53,15 +53,15 @@ cpa_mat <- function(formula, cov_mat, n = Inf,
   R2_total <- t(rxy) %*% beta
   R_total <- sqrt(R2_total)
   R2_adj <- adjust_Rsq(R2_total, n, p, adjust)
-  R_adj <- if (R2_adj < 1) 0 else sqrt(R2_adj)
+  R_adj <- if (R2_adj < 0) 0 else sqrt(R2_adj)
 
   bstar <- Q %*% beta
-  lev2 <- (t(rxy) %*% one)^2 / (t(one) %*% Rxx %*% one)
-  lev <- sqrt(lev2)
-  pat2 <- (t(rxy) %*% bstar)^2 / (t(bstar) %*% Rxx %*% bstar)
-  pat <- sqrt(pat2)
-  levpat2 <- (t(one) %*% Rxx %*% bstar)^2 / (t(bstar) %*% Rxx %*% bstar %*% t(one) %*% Rxx %*% one)
-  levpat <- sqrt(levpat2)
+  lev <- (t(rxy) %*% one) / sqrt(t(one) %*% Rxx %*% one)
+  lev2 <- lev^2
+  pat <- (t(rxy) %*% bstar) / sqrt(t(bstar) %*% Rxx %*% bstar)
+  pat2 <- pat^2
+  levpat <- (t(one) %*% Rxx %*% bstar) / sqrt(t(bstar) %*% Rxx %*% bstar %*% t(one) %*% Rxx %*% one)
+  levpat2 <- levpat^2
 
   Rxx_cpa <- matrix(c(1, levpat, levpat, 1), nrow = 2)
   beta_cpa <- solve(Rxx_cpa) %*% c(lev, pat)
@@ -89,7 +89,7 @@ cpa_mat <- function(formula, cov_mat, n = Inf,
   beta_mat <- cbind(beta, se_beta, beta - se_beta * moe, beta + se_beta * moe)
   rownames(beta_mat) <- x_col
   colnames(beta_mat) <- c("beta",
-                          "SE beta",
+                          "SE",
                           paste0((1 - conf_level) / 2 * 100, "%"),
                           paste0((1 - (1 - conf_level) / 2) * 100, "%")
   )
@@ -161,11 +161,21 @@ cpa_mat <- function(formula, cov_mat, n = Inf,
                                  paste0((1 - conf_level) / 2 * 100, "%"),
                                  paste0((1 - (1 - conf_level) / 2) * 100, "%"))
 
+  se_levpat <- sqrt(se_var$r.level.pattern)
+  levpat_mat <- cbind(levpat, se_levpat, levpat - se_levpat * moe, levpat + se_levpat * moe)
+  rownames(levpat_mat) <- ""
+  colnames(levpat_mat) <- c("r.pattern.level",
+                          "SE",
+                          paste0((1 - conf_level) / 2 * 100, "%"),
+                          paste0((1 - (1 - conf_level) / 2) * 100, "%")
+  )
+
   out <- list(
     beta = beta_mat,
     bstar = bstar_mat,
     fit = summary_mat,
     adjusted_fit = adj_summary_mat,
+    r.level.pattern = levpat_mat,
     df.residual = n - p - 1,
     call = match.call(),
     n = n,
@@ -193,6 +203,9 @@ print.cpa <- function(object, digits = max(3L, getOption("digits") - 3L), ...) {
 
   cat("\n\nAdjusted Variance Decomposition:\n")
   print(object$adjusted_fit, digits = digits)
+
+  cat("\n\nCorrelation Between Profile Level and Criterion Pattern Similarity:\n")
+  print(object$r.level.pattern, digits = digits)
 
   cat("\n\nDegrees of freedom:\n  Level: 1 and", object$n - 2,
       "\n  Pattern:", object$rank - 2, "and", object$n - object$rank + 1,
