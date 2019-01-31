@@ -4,7 +4,7 @@
 \alias{fungible}
 \title{Locate extrema of fungible weights for regression and related models}
 \usage{
-fungible(object, theta = 0.005, Nstarts = 100, MaxMin = c("min",
+fungible(object, theta = 0.005, Nstarts = 1000, MaxMin = c("min",
   "max"), silent = FALSE, ...)
 }
 \arguments{

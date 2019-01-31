@@ -5,7 +5,7 @@
 \title{Estimate the asymptotic sampling covariance matrix for the unique elements of
 a meta-analytic correlation matrix}
 \usage{
-cor_covariance_meta(R, n, sevar, origin = NULL, n_overlap = NULL)
+cor_covariance_meta(R, n, sevar, source = NULL, n_overlap = NULL)
 }
 \arguments{
 \item{R}{A meta-analytic correlation matrix (can be full or lower-triangular).}
@@ -14,7 +14,7 @@ cor_covariance_meta(R, n, sevar, origin = NULL, n_overlap = NULL)
 
 \item{sevar}{A matrix of estimated sampling error variances for the meta-analytic correlations in \code{R} (can be full or lower-triangular).}
 
-\item{origin}{A matrix indicating the sources of the meta-analytic correlations in \code{R} (can be full or lower-triangular). Used to estimate overlapping sample size for correlations when \code{n_overlap == NULL}.}
+\item{source}{A matrix indicating the sources of the meta-analytic correlations in \code{R} (can be full or lower-triangular). Used to estimate overlapping sample size for correlations when \code{n_overlap == NULL}.}
 
 \item{n_overlap}{A matrix indicating the overlapping sample size for the unique (lower triangular) values in \code{R} (can be full or lower-triangular). Values must be arranged in the order returned by \code{cor_labels(colnames(R))}.}
 }
@@ -26,7 +26,7 @@ Estimate the asymptotic sampling covariance matrix for the unique elements of
 a meta-analytic correlation matrix
 }
 \details{
-If both \code{origin} and \code{n_overlap} are \code{NULL}, it is assumed that all meta-analytic correlations come from the the same source.
+If both \code{source} and \code{n_overlap} are \code{NULL}, it is assumed that all meta-analytic correlations come from the the same source.
 }
 \examples{
 cor_covariance_meta(mindfulness$r, mindfulness$n, mindfulness$sevar_r, mindfulness$source)

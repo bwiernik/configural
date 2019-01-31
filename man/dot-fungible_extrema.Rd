@@ -4,7 +4,7 @@
 \alias{.fungible_extrema}
 \title{Locate extrema of fungible OLS regression weights}
 \usage{
-.fungible_extrema(theta, Rxx, rxy, Nstarts = 100, MaxMin = c("min",
+.fungible_extrema(theta, Rxx, rxy, Nstarts = 1000, MaxMin = c("min",
   "max"), silent = FALSE)
 }
 \arguments{

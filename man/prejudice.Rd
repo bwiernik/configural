@@ -12,7 +12,9 @@ data(prejudice)
 \description{
 Correlations among study design moderators and study design
 moderator–observed prejudice reduction effect sizes from Pettigrew and Tropp
-(2008).
+(2008). Note that correlations with effect size have been reverse-coded so
+that a positive correlation indicates that a higher level of the moderator is
+associated with \emph{larger} prejudice reduction.
 }
 \examples{
 data(prejudice)
