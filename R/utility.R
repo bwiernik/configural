@@ -47,7 +47,7 @@ adjust_Rsq <- function(Rsq, n, p, adjust = c("fisher", "pop", "cv")) {
 #' @export
 #'
 #' @examples
-#' harmonic.mean(1:10)
+#' harmonic_mean(1:10)
 harmonic_mean <- function(x, na.rm = TRUE, zero = TRUE) {
   if (!zero) {
     x[x == 0] <- NA
@@ -162,7 +162,7 @@ cor_covariance <- function(R, n) {
 #' @export
 #'
 #' @examples
-#' cor_labels(colnames(mindfulness_r))
+#' cor_labels(colnames(mindfulness$r))
 cor_labels <- function(var_names) {
   return(vechs(t(outer(var_names, var_names, paste, sep = "-"))))
 }
@@ -173,10 +173,10 @@ cor_labels <- function(var_names) {
 #' @param R A meta-analytic correlation matrix (can be full or lower-triangular).
 #' @param n A matrix of total sample sizes for the meta-analytic correlations in `R` (can be full or lower-triangular).
 #' @param sevar A matrix of estimated sampling error variances for the meta-analytic correlations in `R` (can be full or lower-triangular).
-#' @param source A matrix indicating the sources of the meta-analytic correlations in `R` (can be full or lower-triangular). Used to estimate overlapping sample size for correlations when `n_overlap == NULL`.
+#' @param origin A matrix indicating the sources of the meta-analytic correlations in `R` (can be full or lower-triangular). Used to estimate overlapping sample size for correlations when `n_overlap == NULL`.
 #' @param n_overlap A matrix indicating the overlapping sample size for the unique (lower triangular) values in `R` (can be full or lower-triangular). Values must be arranged in the order returned by `cor_labels(colnames(R))`.
 #'
-#' @details If both `source` and `n_overlap` are `NULL`, it is assumed that all meta-analytic correlations come from the the same source.
+#' @details If both `origin` and `n_overlap` are `NULL`, it is assumed that all meta-analytic correlations come from the the same source.
 #'
 #' @return The estimated asymptotic sampling covariance matrix
 #' @export
@@ -191,28 +191,28 @@ cor_labels <- function(var_names) {
 #' Unpublished manuscript.
 #'
 #' @examples
-#' cor_covariance_meta(mindfulness_r, mindfulness_n, mindfulness_sevar_r, mindfulness_source)
-cor_covariance_meta <- function(R, n, sevar, source = NULL, n_overlap = NULL) {
+#' cor_covariance_meta(mindfulness$r, mindfulness$n, mindfulness$sevar_r, mindfulness$source)
+cor_covariance_meta <- function(R, n, sevar, origin = NULL, n_overlap = NULL) {
   if (is.null(colnames(R))) colnames(R) <- 1:ncol(R)
   if (is.null(rownames(R))) rownames(R) <- 1:nrow(R)
-  if (colnames(R) != rownames(R)) stop("Row names and column names of R must be the same")
+  if (!all(colnames(R) == rownames(R))) stop("Row names and column names of 'R' must be the same")
   var_names <- colnames(R)
   cor_names <- outer(var_names, var_names, paste, sep = "-") %>% t() %>% vechs()
 
-  if (is.null(colnames(n))) if (colnames(n) != var_names) stop("Column names of n and R must be the same")
-  if (is.null(rownames(n))) if (rownames(n) != var_names) stop("Row names of n and R must be the same")
+  if (is.null(colnames(n))) if (!all(colnames(n) == var_names)) stop("Column names of 'n' and 'R' must be the same")
+  if (is.null(rownames(n))) if (!all(rownames(n) == var_names)) stop("Row names of 'n' and 'R' must be the same")
 
-  if (is.null(colnames(sevar))) if (colnames(sevar) != var_names) stop("Column names of sevar and R must be the same")
-  if (is.null(rownames(sevar))) if (rownames(sevar) != var_names) stop("Row names of sevar and R must be the same")
+  if (is.null(colnames(sevar))) if (!all(colnames(sevar) == var_names)) stop("Column names of 'sevar' and 'R' must be the same")
+  if (is.null(rownames(sevar))) if (!all(rownames(sevar) == var_names)) stop("Row names of 'sevar' and 'R' must be the same")
 
   if (!is.null(source)) {
-    if (is.null(colnames(source))) if (colnames(source) != var_names) stop("Column names of source and R must be the same")
-    if (is.null(rownames(source))) if (rownames(source) != var_names) stop("Row names of source and R must be the same")
+    if (is.null(colnames(origin))) if (!all(colnames(origin) == var_names)) stop("Column names of 'origin' and 'R' must be the same")
+    if (is.null(rownames(origin))) if (!all(rownames(origin) == var_names)) stop("Row names of 'origin' and 'R' must be the same")
   }
 
   if (!is.null(n_overlap)) {
-    if (!is.null(colnames(n_overlap))) if (colnames(n_overlap) != cor_names) stop("Column names of n_overlap must be identical to cor_labels(colnames(R))")
-    if (!is.null(rownames(n_overlap))) if (rownames(n_overlap) != cor_names) stop("Row names of n_overlap and R must be identical to cor_labels(colnames(R))")
+    if (!is.null(colnames(n_overlap))) if (!all(colnames(n_overlap) == cor_names)) stop("Column names of 'n_overlap' must be identical to 'cor_labels(colnames(R))'")
+    if (!is.null(rownames(n_overlap))) if (!all(rownames(n_overlap) == cor_names)) stop("Row names of 'n_overlap' must be identical to 'cor_labels(colnames(R))'")
   }
 
   R <- vechs2full(vechs(R))
@@ -221,13 +221,12 @@ cor_covariance_meta <- function(R, n, sevar, source = NULL, n_overlap = NULL) {
 
   if (is.null(n_overlap)) {
     n_overlap <- outer(n, n, FUN = function(X, Y) apply(cbind(X, Y), 1, min))
-    dim(n_overlap) <- c(length(R), length(R))
-    if (!is.null(source)) {
-      same_source <- outer(vechs(source), vechs(source), `==`)
+    if (!is.null(origin)) {
+      same_source <- outer(vechs(origin), vechs(origin), `==`)
     } else same_source <- matrix(1, nrow(R), ncol(R))
   } else same_source <- matrix(1, nrow(R), ncol(R))
 
-  n_overlap <- vechs(n_overlap * same_source)
+  n_overlap <- n_overlap * same_source
   n_product <- outer(n, n)
 
   p <- ncol(R)
@@ -259,7 +258,9 @@ cor_covariance_meta <- function(R, n, sevar, source = NULL, n_overlap = NULL) {
              Md %*% (id %x% R + R %x% id))
 
   Kpc <- transition(p)
-  return((Kpc %*% Psi %*% t(Kpc)) * (n_overlap / n_product))
+  out <- (Kpc %*% Psi %*% t(Kpc)) * (n_overlap / n_product)
+  dimnames(out) <- list(cor_names, cor_names)
+  out
 }
 
 #' Quadratic form matrix product
@@ -490,7 +491,7 @@ wt_cov <- function(x, y = NULL, wt = NULL, as_cor = FALSE,
   }
   rownames(out) <- colnames(x)
   colnames(out) <- colnames(y)
-  if (as_cor) out <- cov2cor(out)
+  if (as_cor) out <- stats::cov2cor(out)
   if (length(out) == 1) {
     drop(out)
   } else out

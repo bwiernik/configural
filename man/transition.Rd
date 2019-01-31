@@ -2,7 +2,7 @@
 % Please edit documentation in R/utility.R
 \name{transition}
 \alias{transition}
-\title{Calculate a transition matric for a symmetric matrix}
+\title{Calculate a transition matrix for a symmetric matrix}
 \usage{
 transition(p)
 }

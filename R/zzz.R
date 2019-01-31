@@ -1,11 +1,16 @@
 ## Messages to be displayed when the user loads configural:
 #' @importFrom rlang .data
 .onAttach <- function(libname, pkgname) {
-    version <- read.dcf(file=system.file("DESCRIPTION", package=pkgname), fields="Version")
+    version <- read.dcf(file = system.file("DESCRIPTION", package = pkgname), fields = "Version")
     packageStartupMessage(crayon::white("----------------------------------------------------- ", crayon::bold(paste(pkgname, "version", version)), " --"))
     packageStartupMessage("\nPlease report any bugs to ", crayon::italic("github.com/bwiernik/configural/issues"), "\nor ", crayon::italic("brenton@wiernik.org"))
-    packageStartupMessage("\nWe work hard to produce these open-source tools for the R community, \nplease cite configural when you use it in your research: \n  Wiernik, B. M., Wilmot, M. P., Davison, M. L., & Ones, D. S. (2019). \n  ",
-                          crayon::italic("Meta-analytic criterion profile analysis"), ". \n  Manuscript submitted for publication, University of South Florida.")
+    packageStartupMessage("\nWe work hard to produce these open-source tools for the R community, \n",
+                          "please cite configural when you use it in your research: \n",
+                          "  Wiernik, B. M. (2019). \n  configural: An R package for profile analysis [R package].",
+                          "\n  https://github.org/bwiernik/configural\n\n",
+                          "  Wiernik, B. M., Wilmot, M. P., Davison, M. L., & Ones, D. S. (2019). \n  ",
+                          crayon::italic("Meta-analytic criterion profile analysis"), ". \n",
+                          "  Manuscript submitted for publication.")
     packageStartupMessage("\nFind info about configural on the web at ", crayon::italic("wiernik.org"))
 
     # Check if there is an internet connection. If there is, check whether the local version of configural is up to date compared to the CRAN version.

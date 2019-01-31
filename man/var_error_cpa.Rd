@@ -4,7 +4,8 @@
 \alias{var_error_cpa}
 \title{Estimate the sampling error variance for criterion profile analysis parameters}
 \usage{
-var_error_cpa(Rxx, rxy, n, se_var_mat = "normal", Rsq_adj = NULL)
+var_error_cpa(Rxx, rxy, n, se_var_mat = "normal", adjust = c("fisher",
+  "pop", "cv"))
 }
 \arguments{
 \item{Rxx}{An intercorrelation matrix among the predictor variables}
@@ -15,7 +16,7 @@ var_error_cpa(Rxx, rxy, n, se_var_mat = "normal", Rsq_adj = NULL)
 
 \item{se_var_mat}{The method used to calculate the sampling covariance matrix for the unique elements of Rxx and rxy. Can be "normal" to estimate the covariance matrix using "n" or a matrix of sampling covariance values.}
 
-\item{Rsq_adj}{The adjusted R-squared value used to estimate sampling covariances for parameters adjusted for overfitting.}
+\item{adjust}{Method to adjust R-squared for overfitting. See \code{\link{adjust_Rsq}} for details.}
 }
 \value{
 A list containing sampling covariance matrices or sampling erorr variance estimates for CPA parameters

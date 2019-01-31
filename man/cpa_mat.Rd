@@ -13,7 +13,7 @@ cpa_mat(formula, cov_mat, n = Inf, se_var_mat = NULL,
 
 \item{cov_mat}{Correlation matrix containing the variables to be used in the regression.}
 
-\item{n}{Sample size to be used in calculating standard errors and adjusted R-squared}
+\item{n}{Sample size to be used in calculating adjusted R-squared and, if \code{se_var_mat} is NULL, standard errors.}
 
 \item{se_var_mat}{Optional. The sampling error covariance matrix among the unique elements of \code{cov_mat}. Used to calculate standard errors. If not supplied, the sampling covariance matrix is calculated using \code{n}.}
 
@@ -32,11 +32,12 @@ An object of class "cpa" containing the criterion pattern vector and CPA varianc
 Conduct criterion profile analysis using a correlation matrix
 }
 \examples{
-\dontrun{
-  cpa_mat(mindfulness ~ ES + A + C + Ex + O,
-          cov_mat = mindful_rho,
-          n = 17060)
-}
+sevar <- cor_covariance_meta(mindfulness$r, mindfulness$n, mindfulness$sevar_r, mindfulness$source)
+cpa_mat(mindfulness ~ ES + A + C + Ex + O,
+          cov_mat = mindfulness$rho,
+          n = harmonic_mean(vechs(mindfulness$n)),
+          se_var_mat = sevar,
+          adjust = "pop")
 }
 \references{
 Jones, J. A., & Waller, N. G. (2015).

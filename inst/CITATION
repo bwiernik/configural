@@ -10,3 +10,17 @@ citEntry(entry = "Misc",
   textVersion  =
   "Wiernik, B. M. (2019). configural: An R package for profile analysis [R package]. https://github.org/bwiernik/configural"
 )
+
+citEntry(entry = "Unpublished",
+  author       = c(person("Brenton M.", "Wiernik"),
+                   person("Michael P.", "Wilmot"),
+                   person("Mark L.", "Davison"),
+                   person("Deniz S.", "Ones")
+                   ),
+  year         = "2019",
+  title        = "Meta-Analytic Criterion Profile Analysis",
+  note         = "Manuscript submitted for publication",
+
+  textVersion  =
+  "Wiernik, B. M., Wilmot, M. P., Davison, M. L., & Ones, D. S. (2019). Meta-analytic criterion profile analysis. Manuscript submitted for publication."
+)

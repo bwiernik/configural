@@ -7,7 +7,7 @@
 configural_news()
 }
 \description{
-This function gives a shortcut to the \code{utils::news(package = "configural")} function and displays psychmeta's NEWS file, which contains version information, outlines additions and changes to the package, and describes other updates.
+This function gives a shortcut to the \code{utils::news(package = "configural")} function and displays configural's NEWS file, which contains version information, outlines additions and changes to the package, and describes other updates.
 }
 \examples{
 configural_news()

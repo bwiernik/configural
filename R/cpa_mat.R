@@ -2,7 +2,7 @@
 #'
 #' @param formula Regression formula with a single outcome variable on the left-hand side and one or more predictor variables on the right-hand side (e.g., Y ~ X1 + X2).
 #' @param cov_mat Correlation matrix containing the variables to be used in the regression.
-#' @param n Sample size to be used in calculating standard errors and adjusted R-squared
+#' @param n Sample size to be used in calculating adjusted R-squared and, if `se_var_mat` is NULL, standard errors.
 #' @param se_var_mat Optional. The sampling error covariance matrix among the unique elements of \code{cov_mat}. Used to calculate standard errors. If not supplied, the sampling covariance matrix is calculated using \code{n}.
 #' @param se_beta_method Method to use to estimate the standard errors of standardized regression (beta) coefficients. Current options include "normal" (use the Jones-Waller, 2015, normal-theory approach) and "lm" (estimate standard errors using conventional regression formulas).
 #' @param adjust Method to adjust R-squared for overfitting. See \code{\link{adjust_Rsq}} for details.
@@ -18,11 +18,12 @@
 #' \emph{Psychometrika, 80}(2), 365–378. \url{https://doi.org/10/gckfx5}
 #'
 #' @examples
-#' \dontrun{
-#'   cpa_mat(mindfulness ~ ES + A + C + Ex + O,
-#'           cov_mat = mindful_rho,
-#'           n = 17060)
-#' }
+#' sevar <- cor_covariance_meta(mindfulness$r, mindfulness$n, mindfulness$sevar_r, mindfulness$source)
+#' cpa_mat(mindfulness ~ ES + A + C + Ex + O,
+#'           cov_mat = mindfulness$rho,
+#'           n = harmonic_mean(vechs(mindfulness$n)),
+#'           se_var_mat = sevar,
+#'           adjust = "pop")
 cpa_mat <- function(formula, cov_mat, n = Inf,
                     se_var_mat = NULL,
                     se_beta_method = c("normal", "lm"),

@@ -314,21 +314,21 @@ print.fungible_extrema <- function(object,
 fungible.lm <- function(object, theta = .005, Nstarts = 100,
                         MaxMin = c("min", "max"), silent = FALSE, ...) {
   if (!inherits(object, "lm")) stop("'object' must have class 'lm'")
-  if (!is.null(model.offset(object))) stop("models with offsets not yet supported")
+  if (!is.null(stats::model.offset(object))) stop("models with offsets not yet supported")
   MaxMin <- match.arg(MaxMin)
 
-  X <- model.matrix(object)
+  X <- stats::model.matrix(object)
   if ("(Intercept)" %in% colnames(X)) X <- X[, -1]
   y <- object$model[, 1]
-  w <- model.weights(object)
+  w <- stats::model.weights(object)
   if (is.null(w)) w <- rep(1, nrow(X))
 
-  if (is.null(na.action(object))) {
+  if (is.null(stats::na.action(object))) {
     corr <- wt_cor(cbind(X, y), wt = w, use = "listwise")
     Rxx <- corr[1:ncol(X), 1:ncol(X)]
     rxy <- corr[1:ncol(X), ncol(X) + 1]
   }
-  else if (na.action(object) %in% c("na.omit", "na.exclude")) {
+  else if (stats::na.action(object) %in% c("na.omit", "na.exclude")) {
     corr <- wt_cor(cbind(X, y), wt = w, use = "listwise")
     Rxx <- corr[1:ncol(X), 1:ncol(X)]
     rxy <- corr[1:ncol(X), ncol(X) + 1]
