@@ -14,7 +14,7 @@
 #'
 #' @keywords internal
 .fungible_extrema <-
-  function(theta, Rxx, rxy, Nstarts = 100, MaxMin = c("min", "max"), silent = FALSE) {
+  function(theta, Rxx, rxy, Nstarts = 1000, MaxMin = c("min", "max"), silent = FALSE) {
     MaxMin <- match.arg(MaxMin)
 
     norm <- function(x) x / as.numeric(sqrt(t(x) %*% x))
@@ -79,28 +79,32 @@
     minf <- 99 * FNSCALE
     breakflag <- 0
     iter <- 0
+    solutions <- 0
     while (iter < Nstarts) {
       sv <- c(stats::rnorm(p - 1) / sqrt(p - 1), 1000)
       tmp <- try(suppressWarnings(
         optimx::optimr(par = sv, fn = minv, gr = gradf, method = "BFGS",
                        control = list(fnscale = FNSCALE, maxit = 500,
-                                      parscale = c(rep(1, p - 1), 1),
-                                      lmm = 17))))
+                                      parscale = c(rep(1, p - 1), 1)))))
       if (abs(tmp$value) > 1) tmp$convergence <- 1
-      if ((FNSCALE * tmp$value <= FNSCALE * minf) & (tmp$convergence == 0)) {
+      if (tmp$convergence == 0) {
         iter <- iter + 1
-        minf <- tmp$value
-        out <- tmp
-        z <- out$par[1:(p - 1)]
-        k <- r * u + U %*% z * sqrt(1 - r^2)
-        a <- a.tilde <- V %*% Linv.sqrt %*% k
-        scaling.weight <- (t(rxy) %*% a) / (t(a) %*% Rxx %*% a)
-        a <- as.numeric(scaling.weight) * a
-        if (!silent) {
-          cat(c(iter, " Current function val", minf, "\n"))
-          print(max(abs(gradf(out$par))))
+        if ((FNSCALE * tmp$value <= FNSCALE * minf)) {
+          solutions <- solutions + 1
+          minf <- tmp$value
+          out <- tmp
+          z <- out$par[1:(p - 1)]
+          k <- r * u + U %*% z * sqrt(1 - r^2)
+          a <- a.tilde <- V %*% Linv.sqrt %*% k
+          scaling.weight <- (t(rxy) %*% a) / (t(a) %*% Rxx %*% a)
+          a <- as.numeric(scaling.weight) * a
+          if (max(abs(gradf(out$par))) <= 1e-05) breakflag <- 1
         }
-        if (max(abs(gradf(out$par))) <= 1e-05) breakflag <- 1
+        if (!silent & iter %% 100 == 0) {
+          cat("Solution count:", iter,
+              "  Current function val:", minf,
+              "  Gradient:", max(abs(gradf(out$par))), "\n")
+        }
       }
       if (breakflag) break
     }
@@ -157,7 +161,7 @@
 #'                   n = 17060)
 #'   mind_fung <- fungible(mind)
 #' }
-fungible <- function(object, theta = .005, Nstarts = 100,
+fungible <- function(object, theta = .005, Nstarts = 1000,
                      MaxMin = c("min", "max"), silent = FALSE, ...) {
   UseMethod("fungible")
 }
@@ -189,7 +193,7 @@ fungible <- function(object, theta = .005, Nstarts = 100,
 #'                   n = 17060)
 #'   mind_fung <- fungible(mind)
 #' }
-fungible.cpa <- function(object, theta = .005, Nstarts = 100,
+fungible.cpa <- function(object, theta = .005, Nstarts = 1000,
                          MaxMin = c("min", "max"), silent = FALSE, ...) {
   if (!inherits(object, "cpa")) stop("'object' must have class 'cpa'")
   MaxMin <- match.arg(MaxMin)
@@ -312,7 +316,7 @@ print.fungible_extrema <- function(object,
 #'                   data = mtcars)
 #'   lm_mtcars_fung <- fungible(lm_mtcars)
 #' }
-fungible.lm <- function(object, theta = .005, Nstarts = 100,
+fungible.lm <- function(object, theta = .005, Nstarts = 1000,
                         MaxMin = c("min", "max"), silent = FALSE, ...) {
   if (!inherits(object, "lm")) stop("'object' must have class 'lm'")
   if (!is.null(stats::model.offset(object))) stop("models with offsets not yet supported")
