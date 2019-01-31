@@ -1,7 +1,7 @@
 Package: configural
 Type: Package
 Title: An R package for profile analysis 
-Version: 0.0.0.9999
+Version: 0.1.0
 Date: 2019-01-20
 Authors@R: c( person("Brenton M.", "Wiernik", role = c("aut", "cre"), email = "brenton@wiernik.org")
               )
