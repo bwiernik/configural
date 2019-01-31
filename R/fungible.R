@@ -82,7 +82,7 @@
     while (iter < Nstarts) {
       sv <- c(stats::rnorm(p - 1) / sqrt(p - 1), 1000)
       tmp <- try(suppressWarnings(
-        optimx::optimr(par = sv, fn = minv, gr = gradf, method = "Rcgmin",
+        optimx::optimr(par = sv, fn = minv, gr = gradf, method = "L-BFGS-B",
                        control = list(fnscale = FNSCALE, maxit = 500,
                                       parscale = c(rep(1, p - 1), 1)))))
       if (abs(tmp$value) > 1) tmp$convergence <- 1
