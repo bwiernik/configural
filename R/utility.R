@@ -173,10 +173,10 @@ cor_labels <- function(var_names) {
 #' @param R A meta-analytic correlation matrix (can be full or lower-triangular).
 #' @param n A matrix of total sample sizes for the meta-analytic correlations in `R` (can be full or lower-triangular).
 #' @param sevar A matrix of estimated sampling error variances for the meta-analytic correlations in `R` (can be full or lower-triangular).
-#' @param origin A matrix indicating the sources of the meta-analytic correlations in `R` (can be full or lower-triangular). Used to estimate overlapping sample size for correlations when `n_overlap == NULL`.
+#' @param source A matrix indicating the sources of the meta-analytic correlations in `R` (can be full or lower-triangular). Used to estimate overlapping sample size for correlations when `n_overlap == NULL`.
 #' @param n_overlap A matrix indicating the overlapping sample size for the unique (lower triangular) values in `R` (can be full or lower-triangular). Values must be arranged in the order returned by `cor_labels(colnames(R))`.
 #'
-#' @details If both `origin` and `n_overlap` are `NULL`, it is assumed that all meta-analytic correlations come from the the same source.
+#' @details If both `source` and `n_overlap` are `NULL`, it is assumed that all meta-analytic correlations come from the the same source.
 #'
 #' @return The estimated asymptotic sampling covariance matrix
 #' @export
@@ -192,7 +192,7 @@ cor_labels <- function(var_names) {
 #'
 #' @examples
 #' cor_covariance_meta(mindfulness$r, mindfulness$n, mindfulness$sevar_r, mindfulness$source)
-cor_covariance_meta <- function(R, n, sevar, origin = NULL, n_overlap = NULL) {
+cor_covariance_meta <- function(R, n, sevar, source = NULL, n_overlap = NULL) {
   if (is.null(colnames(R))) colnames(R) <- 1:ncol(R)
   if (is.null(rownames(R))) rownames(R) <- 1:nrow(R)
   if (!all(colnames(R) == rownames(R))) stop("Row names and column names of 'R' must be the same")
@@ -206,8 +206,8 @@ cor_covariance_meta <- function(R, n, sevar, origin = NULL, n_overlap = NULL) {
   if (is.null(rownames(sevar))) if (!all(rownames(sevar) == var_names)) stop("Row names of 'sevar' and 'R' must be the same")
 
   if (!is.null(source)) {
-    if (is.null(colnames(origin))) if (!all(colnames(origin) == var_names)) stop("Column names of 'origin' and 'R' must be the same")
-    if (is.null(rownames(origin))) if (!all(rownames(origin) == var_names)) stop("Row names of 'origin' and 'R' must be the same")
+    if (is.null(colnames(source))) if (!all(colnames(source) == var_names)) stop("Column names of 'source' and 'R' must be the same")
+    if (is.null(rownames(source))) if (!all(rownames(source) == var_names)) stop("Row names of 'source' and 'R' must be the same")
   }
 
   if (!is.null(n_overlap)) {
@@ -221,8 +221,8 @@ cor_covariance_meta <- function(R, n, sevar, origin = NULL, n_overlap = NULL) {
 
   if (is.null(n_overlap)) {
     n_overlap <- outer(n, n, FUN = function(X, Y) apply(cbind(X, Y), 1, min))
-    if (!is.null(origin)) {
-      same_source <- outer(vechs(origin), vechs(origin), `==`)
+    if (!is.null(source)) {
+      same_source <- outer(vechs(source), vechs(source), `==`)
     } else same_source <- matrix(1, nrow(R), ncol(R))
   } else same_source <- matrix(1, nrow(R), ncol(R))
 
