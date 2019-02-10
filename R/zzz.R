@@ -2,15 +2,14 @@
 .onAttach <- function(libname, pkgname) {
     version <- read.dcf(file = system.file("DESCRIPTION", package = pkgname), fields = "Version")
     packageStartupMessage(crayon::white("----------------------------------------------------- ", crayon::bold(paste(pkgname, "version", version)), " --"))
-    packageStartupMessage("\nPlease report any bugs to ", crayon::italic("github.com/bwiernik/configural/issues"), "\nor ", crayon::italic("brenton@wiernik.org"))
+    packageStartupMessage("\nThis package is provided to facilitate peer review. Please do not cite this without permission.",
+                          "\nPlease report any bugs to ", crayon::italic("Blinded for Review"), "\nor ", crayon::italic("Blinded for Review"))
     packageStartupMessage("\nWe work hard to produce these open-source tools for the R community, \n",
                           "please cite configural when you use it in your research: \n",
-                          "  Wiernik, B. M. (2019). \n  configural: An R package for profile analysis [R package].",
-                          "\n  https://github.org/bwiernik/configural\n\n",
-                          "  Wiernik, B. M., Wilmot, M. P., Davison, M. L., & Ones, D. S. (2019). \n  ",
+                          "  Blinded for Review. (2019). \n  ",
                           crayon::italic("Meta-analytic criterion profile analysis"), ". \n",
                           "  Manuscript submitted for publication.")
-    packageStartupMessage("\nFind info about configural on the web at ", crayon::italic("wiernik.org"))
+    packageStartupMessage("\nFind info about configural on the web at ", crayon::italic("Blinded for Review"))
 
     # Check if there is an internet connection. If there is, check whether the local version of configural is up to date compared to the CRAN version.
     # if(try(is.character(RCurl::getURL("http://www.r-pkg.org/badges/version/configural")), silent = TRUE) == TRUE){
@@ -84,11 +83,11 @@
     #
     # }
 
-    sys_v_char <- stringr::str_split(version, "[.]")[[1]]
-    sys_v_num <- as.numeric(sys_v_char)
-    if(length(sys_v_num) == 3) sys_v_num <- c(sys_v_num, 0)
-    if(sys_v_num[4] > 0)
-         packageStartupMessage(paste0("NOTE: You are currently using an UNRELEASED development build (augmentation of release v", paste(sys_v_char[1:3], collapse = "."), ")"))
+    # sys_v_char <- stringr::str_split(version, "[.]")[[1]]
+    # sys_v_num <- as.numeric(sys_v_char)
+    # if(length(sys_v_num) == 3) sys_v_num <- c(sys_v_num, 0)
+    # if(sys_v_num[4] > 0)
+    #      packageStartupMessage(paste0("NOTE: You are currently using an UNRELEASED development build (augmentation of release v", paste(sys_v_char[1:3], collapse = "."), ")"))
 }
 
 .support_unicode <- function(override = NULL) {

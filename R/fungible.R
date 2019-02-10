@@ -143,7 +143,7 @@
 #'
 #' @return A list containing the alternative weights and other fungible weights estimation parameters
 #'
-#' @author Niels Waller, Jeff Jones, Brenton M. Wiernik. Adapted from [fungible::fungibleExtrema()].
+#' @author Niels Waller, Jeff Jones, Blinded for Review. Adapted from [fungible::fungibleExtrema()].
 #'
 #' @encoding UTF-8
 #'
@@ -185,7 +185,7 @@ fungible <- function(object, theta = .005, Nstarts = 1000,
 #' @param ... Additional arguments
 #'
 #' @references
-#' Wiernik, B. M., Wilmot, M. P., Davison, M. L., & Ones, D. S. (2019).
+#' Blinded for Review. (2019).
 #' _Meta-analytic criterion profile analysis_.
 #' Manuscript submitted for publication, University of South Florida.
 #'

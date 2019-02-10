@@ -3,10 +3,10 @@ Type: Package
 Title: Multivariate Profile Analysis 
 Version: 0.1.1
 Date: 2019-01-20
-Authors@R: c( person("Brenton M.", "Wiernik", role = c("aut", "cre"), email = "brenton@wiernik.org")
+Authors@R: c( person("Blinded", "for Review", role = c("aut", "cre"), email = "blinded@blinded.org")
               )
-BugReports: https://github.com/bwiernik/configural/issues
-Description: R functions for criterion profile analysis, Davison and Davenport (2002) <doi:10.1037/1082-989X.7.4.468> and meta-analytic criterion profile analysis, Wiernik, Wilmot, Davison, and Ones (2019). Sensitivity analyses to aid in interpreting criterion profile analysis results are also included.
+BugReports: https://osf.io/aqmpc/?view_only=ae091554d51249e19daeda01d8d1d6d9
+Description: R functions for criterion profile analysis, Davison and Davenport (2002) <doi:10.1037/1082-989X.7.4.468> and meta-analytic criterion profile analysis. Sensitivity analyses to aid in interpreting criterion profile analysis results are also included.
 License: GPL (>= 3)
 Depends: R (>= 3.4.0)
 Encoding: UTF-8
@@ -15,4 +15,4 @@ Imports: stats, dplyr, crayon, cli, stringr
 RoxygenNote: 6.1.1
 Roxygen: list(markdown = TRUE)
 NeedsCompilation: no
-Packaged: 2018-05-01 18:29:28 UTC; brenton
+Packaged: 2018-05-01 18:29:28 UTC; blinded

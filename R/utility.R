@@ -200,10 +200,6 @@ cor_labels <- function(var_names) {
 #' A matrix derivation of the asymptotic covariance matrix of sample correlation coefficients.
 #' _Linear Algebra and Its Applications, 67_, 137–145. <https://doi.org/10/c75jmg>
 #'
-#' Wiernik, B. M. (2018).
-#' _Accounting for dependency in meta-analytic structural equations modeling: A flexible alternative to generalized least squares and two-stage structural equations modeling._
-#' Unpublished manuscript.
-#'
 #' @examples
 #' cor_covariance_meta(r = mindfulness$r, n = mindfulness$n,
 #'                     sevar = mindfulness$sevar_r, source = mindfulness$source)

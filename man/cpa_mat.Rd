@@ -45,7 +45,7 @@ Jones, J. A., & Waller, N. G. (2015).
 The normal-theory and asymptotic distribution-free (ADF) covariance matrix of standardized regression coefficients: Theoretical extensions and finite sample behavior.
 \emph{Psychometrika, 80}(2), 365–378. \url{https://doi.org/10/gckfx5}
 
-Wiernik, B. M., Wilmot, M. P., Davison, M. L., & Ones, D. S. (2019).
+Blinded for Review. (2019).
 \emph{Meta-analytic criterion profile analysis.}
 Manuscript submitted for publication.
 }

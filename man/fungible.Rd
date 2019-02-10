@@ -48,5 +48,5 @@ Locating the extrema of fungible regression weights.
 \emph{Psychometrika, 74}(4), 589–602. \url{https://doi.org/10/c3wbtd}
 }
 \author{
-Niels Waller, Jeff Jones, Brenton M. Wiernik. Adapted from \code{\link[fungible:fungibleExtrema]{fungible::fungibleExtrema()}}.
+Niels Waller, Jeff Jones, Blinded for Review. Adapted from \code{\link[fungible:fungibleExtrema]{fungible::fungibleExtrema()}}.
 }

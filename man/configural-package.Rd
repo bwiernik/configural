@@ -10,16 +10,16 @@
 Overview of the \pkg{configural} package.
 }
 \details{
-The \pkg{configural} package provides tools for conducting configural and profile analyses. It currently supports criterion profile anlaysis (Davison & Davenport, 2002) and meta-analytic criterion profile analysis (Wiernik et al., 2019). Functions are provided to calculate criterion patterns and CPA variance decomposition, as well as for computing confidence intervals, shrinkage corrections, and fungible patterns.
+The \pkg{configural} package provides tools for conducting configural and profile analyses. It currently supports criterion profile anlaysis (Davison & Davenport, 2002) and meta-analytic criterion profile analysis. Functions are provided to calculate criterion patterns and CPA variance decomposition, as well as for computing confidence intervals, shrinkage corrections, and fungible patterns.
 }
 \seealso{
 Useful links:
 \itemize{
-  \item Report bugs at \url{https://github.com/bwiernik/configural/issues}
+  \item Report bugs at \url{https://osf.io/aqmpc/?view_only=ae091554d51249e19daeda01d8d1d6d9}
 }
 
 }
 \author{
-\strong{Maintainer}: Brenton M. Wiernik \email{brenton@wiernik.org}
+\strong{Maintainer}: Blinded for Review \email{blinded@blinded.org}
 
 }
