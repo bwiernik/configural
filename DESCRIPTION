@@ -1,17 +1,17 @@
 Package: configural
 Type: Package
-Title: An R package for profile analysis 
-Version: 0.1.0
+Title: Multivariate Profile Analysis 
+Version: 0.1.1
 Date: 2019-01-20
 Authors@R: c( person("Brenton M.", "Wiernik", role = c("aut", "cre"), email = "brenton@wiernik.org")
               )
 BugReports: https://github.com/bwiernik/configural/issues
-Description: R functions for criterion profile analysis and related methods. Bugs can be reported to <https://github.com/bwiernik/configural/issues> or <brenton@wiernik.org>.
+Description: R functions for criterion profile analysis, Davison and Davenport (2002) <doi:10.1037/1082-989X.7.4.468> and meta-analytic criterion profile analysis, Wiernik, Wilmot, Davison, and Ones (2019). Sensitivity analyses to aid in interpreting criterion profile analysis results are also included.
 License: GPL (>= 3)
 Depends: R (>= 3.4.0)
 Encoding: UTF-8
 LazyData: true
-Imports: stats, MASS, dplyr, ggplot2, rlang, crayon, cli, stringr, optimx
+Imports: stats, dplyr, crayon, cli, stringr
 RoxygenNote: 6.1.1
 Roxygen: list(markdown = TRUE)
 NeedsCompilation: no

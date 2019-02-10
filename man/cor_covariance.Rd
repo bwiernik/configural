@@ -5,10 +5,10 @@
 \alias{cor_covariance}
 \title{Calculate the asymptotic sampling covariance matrix for the unique elements of a correlation matrix}
 \usage{
-cor_covariance(R, n)
+cor_covariance(r, n)
 }
 \arguments{
-\item{R}{A correlation matrix}
+\item{r}{A correlation matrix}
 
 \item{n}{The sample size}
 }

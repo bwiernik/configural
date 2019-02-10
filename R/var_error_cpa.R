@@ -77,7 +77,8 @@ var_error_cpa <- function(Rxx, rxy, n, se_var_mat = "normal", adjust = c("fisher
     v.R <- v.R2 / (4 * R2)
 
     # Level Squared
-    lev2 <- (t(rxy) %*% one)^2 / (t(one) %*% Rxx %*% one)
+    lev <- (t(rxy) %*% one) / sqrt(t(one) %*% Rxx %*% one)
+    lev2 <- lev^2
     dlev2.drxx <- -1 * ((t(rxy) %*% one) / (t(one) %*% Rxx %*% one))^2 %*% (t(one) %x% t(one)) %*% t(Kpc)
     dlev2.drxy <- 2 * ((t(rxy) %*% one) / (t(one) %*% Rxx %*% one)) %*% t(one)
     j.lev2 <- cbind(dlev2.drxx, dlev2.drxy)
@@ -86,7 +87,8 @@ var_error_cpa <- function(Rxx, rxy, n, se_var_mat = "normal", adjust = c("fisher
     v.lev <- v.lev2 / (4 * lev2)
 
     # Pattern Squared
-    pat2 <- (t(rxy) %*% bstar)^2 / (t(bstar) %*% Rxx %*% bstar)
+    pat <- (t(rxy) %*% bstar) / sqrt(t(bstar) %*% Rxx %*% bstar)
+    pat2 <- pat^2
     dpat2.drxx <-
       -1 * ((t(rxy) %*% bstar) / (t(bstar) %*% Rxx %*% bstar)) %*%
       ((t(beta) %x% (t(rxy) %*% Q %*% Rinv)) + ((t(rxy) %*% Q %*% Rinv) %x% t(beta)) -
@@ -102,7 +104,8 @@ var_error_cpa <- function(Rxx, rxy, n, se_var_mat = "normal", adjust = c("fisher
     v.pat <- v.pat2 / (4 * pat2)
 
     # Level-Pattern Squared
-    levpat2 <- (t(one) %*% Rxx %*% bstar)^2 / (t(bstar) %*% Rxx %*% bstar %*% t(one) %*% Rxx %*% one)
+    levpat <- (t(one) %*% Rxx %*% bstar) / sqrt(t(bstar) %*% Rxx %*% bstar %*% t(one) %*% Rxx %*% one)
+    levpat2 <- levpat^2
     dlevpat2.drxx <-
       (1 / (t(bstar) %*% Rxx %*% bstar %*% t(one) %*% Rxx %*% one)) %*%
       (((t(bstar) %x% t(one)) - (t(beta) %x% (t(one) %*% Rxx %*% Q  %*% Rinv))) -
@@ -181,7 +184,7 @@ var_error_cpa <- function(Rxx, rxy, n, se_var_mat = "normal", adjust = c("fisher
     # Adjusted Pattern Squared
     pat_adj <- sqrt(lev2) * sqrt(levpat2) + sqrt(max((1 - levpat2) * (R2_adj - lev2), 0))
     pat2_adj <- pat_adj^2
-    # TODO: Replace this with a propoer delta method se_var
+    # TODO: Replace this with a proper delta method se_var (as R2_adj above)
     v.pat_adj <- v.pat / (pat2 / pat2_adj)
     v.pat2_adj <- v.pat2 / (pat2 / pat2_adj)^2
 

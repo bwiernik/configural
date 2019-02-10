@@ -49,10 +49,11 @@
 #'
 #' @usage data(disorders)
 #'
-#' @format list with entries `rho` (mean corrected correlations),
-#' `n` (sample sizes), `sevar_rho` (sampling error variances for mean corrected
-#' correlations), and `source` (character labels indicating which meta-analytic
-#' correlations came from the same source)
+#' @format list with entries `r` (mean oberseved correlations), `rho` (mean
+#' corrected correlations), `n` (sample sizes), `sevar_r` (sampling error
+#' variances for mean observed correlations), `sevar_rho` (sampling error
+#' variances for mean corrected correlations), and `source` (character labels
+#' indicating which meta-analytic correlations came from the same source)
 #'
 #' @keywords datasets
 #'
@@ -109,16 +110,23 @@
 #' Team process intercorrelations and team process–team performance/affect
 #' correlations from LePine et al. (2008).
 #'
+#' Note that LePine et al. (2008) did not report confidence intervals, sampling
+#' error variances, or heterogeneity estimates for correlations among team
+#' processes; included sampling error variances in this list are based on total
+#' sample size only and do not include uncertainty stemmming from any effect
+#' size heterogeneity.
+#'
 #' @docType data
 #'
 #' @usage data(team)
 #'
 #' @encoding UTF-8
 #'
-#' @format list with entries `rho` (mean corrected correlations),
-#' `n` (sample sizes), `sevar_rho` (sampling error variances for mean corrected
-#' correlations), and `source` (character labels indicating which meta-analytic
-#' correlations came from the same source)
+#' @format list with entries `r` (mean oberseved correlations), `rho` (mean
+#' corrected correlations), `n` (sample sizes), `sevar_r` (sampling error
+#' variances for mean observed correlations), `sevar_rho` (sampling error
+#' variances for mean corrected correlations), and `source` (character labels
+#' indicating which meta-analytic correlations came from the same source)
 #'
 #' @keywords datasets
 #'
@@ -158,3 +166,33 @@
 #' @examples
 #' data(prejudice)
 "prejudice"
+
+
+#' Meta-analytic correlations of job characteristics with performance and satisfaction
+#'
+#' Self-rated job characteristics intercorrelations and correlations with
+#' other-rated job performance and self-rated job satisfaction from Humphrey et
+#' al. (2007).
+#'
+#' @docType data
+#'
+#' @encoding UTF-8
+#'
+#' @usage data(jobchar)
+#'
+#' @format list with entries `r` (mean oberseved correlations), `rho` (mean
+#' corrected correlations), `n` (sample sizes), `sevar_r` (sampling error
+#' variances for mean observed correlations), `sevar_rho` (sampling error
+#' variances for mean corrected correlations), and `source` (character labels
+#' indicating which meta-analytic correlations came from the same source)
+#'
+#' @keywords datasets
+#'
+#' @references
+#' Humphrey, S. E., Nahrgang, J. D., & Morgeson, F. P. (2007).
+#' Integrating motivational, social, and contextual work design features: A meta-analytic summary and theoretical extension of the work design literature.
+#' _Journal of Applied Psychology, 92_(5), 1332–1356. <https://doi.org/10/dch52t>
+#'
+#' @examples
+#' data(jobchar)
+"jobchar"

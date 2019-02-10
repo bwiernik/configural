@@ -110,7 +110,7 @@ transition <- function(p) {
 
 #' Calculate the asymptotic sampling covariance matrix for the unique elements of a correlation matrix
 #'
-#' @param R A correlation matrix
+#' @param r A correlation matrix
 #' @param n The sample size
 #'
 #' @return The asymptotic sampling covariance matrix
@@ -127,8 +127,8 @@ transition <- function(p) {
 #'
 #' @examples
 #' cor_covariance(matrix(c(1, .2, .3, .2, 1, .3, .3, .3, 1), ncol = 3), 100)
-cor_covariance <- function(R, n) {
-  p <- ncol(R)
+cor_covariance <- function(r, n) {
+  p <- ncol(r)
   id <- diag(p)
 
   Ms <-
@@ -150,11 +150,11 @@ cor_covariance <- function(R, n) {
     diag()
 
   Psi <-
-    0.5 * (4 * Ms %*% (R %x% R) %*% Ms -
-             2 * (R %x% R) %*% Md %*% (id %x% R + R %x% id) -
-             2 * (id %x% R + R %x% id) %*% Md %*% (R %x% R) +
-             (id %x% R + R %x% id) %*% Md %*% (R %x% R) %*%
-             Md %*% (id %x% R + R %x% id))
+    0.5 * (4 * Ms %*% (r %x% r) %*% Ms -
+             2 * (r %x% r) %*% Md %*% (id %x% r + r %x% id) -
+             2 * (id %x% r + r %x% id) %*% Md %*% (r %x% r) +
+             (id %x% r + r %x% id) %*% Md %*% (r %x% r) %*%
+             Md %*% (id %x% r + r %x% id))
 
   Kpc <- transition(p)
   return((Kpc %*% Psi %*% t(Kpc)) / (n - 3))
@@ -180,11 +180,13 @@ cor_labels <- function(var_names) {
 #' Estimate the asymptotic sampling covariance matrix for the unique elements of
 #' a meta-analytic correlation matrix
 #'
-#' @param R A meta-analytic correlation matrix (can be full or lower-triangular).
-#' @param n A matrix of total sample sizes for the meta-analytic correlations in `R` (can be full or lower-triangular).
-#' @param sevar A matrix of estimated sampling error variances for the meta-analytic correlations in `R` (can be full or lower-triangular).
-#' @param source A matrix indicating the sources of the meta-analytic correlations in `R` (can be full or lower-triangular). Used to estimate overlapping sample size for correlations when `n_overlap == NULL`.
-#' @param n_overlap A matrix indicating the overlapping sample size for the unique (lower triangular) values in `R` (can be full or lower-triangular). Values must be arranged in the order returned by `cor_labels(colnames(R))`.
+#' @param r A meta-analytic matrix of observed correlations (can be full or lower-triangular).
+#' @param n A matrix of total sample sizes for the meta-analytic correlations in `r` (can be full or lower-triangular).
+#' @param sevar A matrix of estimated sampling error variances for the meta-analytic correlations in `r` (can be full or lower-triangular).
+#' @param source A matrix indicating the sources of the meta-analytic correlations in `r` (can be full or lower-triangular). Used to estimate overlapping sample size for correlations when `n_overlap == NULL`.
+#' @param rho A meta-analytic matrix of corrected correlations (can be full or lower-triangular).
+#' @param sevar_rho A matrix of estimated sampling error variances for the meta-analytic corrected correlations in `rho` (can be full or lower-triangular).
+#' @param n_overlap A matrix indicating the overlapping sample size for the unique (lower triangular) values in `r` (can be full or lower-triangular). Values must be arranged in the order returned by `cor_labels(colnames(R))`.
 #'
 #' @details If both `source` and `n_overlap` are `NULL`, it is assumed that all meta-analytic correlations come from the the same source.
 #'
@@ -203,45 +205,52 @@ cor_labels <- function(var_names) {
 #' Unpublished manuscript.
 #'
 #' @examples
-#' cor_covariance_meta(mindfulness$r, mindfulness$n, mindfulness$sevar_r, mindfulness$source)
-cor_covariance_meta <- function(R, n, sevar, source = NULL, n_overlap = NULL) {
-  if (is.null(colnames(R))) colnames(R) <- 1:ncol(R)
-  if (is.null(rownames(R))) rownames(R) <- 1:nrow(R)
-  if (!all(colnames(R) == rownames(R))) stop("Row names and column names of 'R' must be the same")
-  var_names <- colnames(R)
+#' cor_covariance_meta(r = mindfulness$r, n = mindfulness$n,
+#'                     sevar = mindfulness$sevar_r, source = mindfulness$source)
+cor_covariance_meta <- function(r, n, sevar, source = NULL, rho = NULL, sevar_rho = NULL, n_overlap = NULL) {
+  if (is.null(colnames(r))) colnames(r) <- 1:ncol(r)
+  if (is.null(rownames(r))) rownames(r) <- 1:nrow(r)
+  if (!all(colnames(r) == rownames(r))) stop("Row names and column names of 'r' must be the same")
+  var_names <- colnames(r)
   cor_names <- outer(var_names, var_names, paste, sep = "-") %>% t() %>% vechs()
 
-  if (is.null(colnames(n))) if (!all(colnames(n) == var_names)) stop("Column names of 'n' and 'R' must be the same")
-  if (is.null(rownames(n))) if (!all(rownames(n) == var_names)) stop("Row names of 'n' and 'R' must be the same")
+  if (is.null(colnames(n))) if (!all(colnames(n) == var_names)) stop("Column names of 'n' and 'r' must be the same")
+  if (is.null(rownames(n))) if (!all(rownames(n) == var_names)) stop("Row names of 'n' and 'r' must be the same")
 
-  if (is.null(colnames(sevar))) if (!all(colnames(sevar) == var_names)) stop("Column names of 'sevar' and 'R' must be the same")
-  if (is.null(rownames(sevar))) if (!all(rownames(sevar) == var_names)) stop("Row names of 'sevar' and 'R' must be the same")
+  if (is.null(colnames(sevar))) if (!all(colnames(sevar) == var_names)) stop("Column names of 'sevar' and 'r' must be the same")
+  if (is.null(rownames(sevar))) if (!all(rownames(sevar) == var_names)) stop("Row names of 'sevar' and 'r' must be the same")
 
   if (!is.null(source)) {
-    if (is.null(colnames(source))) if (!all(colnames(source) == var_names)) stop("Column names of 'source' and 'R' must be the same")
-    if (is.null(rownames(source))) if (!all(rownames(source) == var_names)) stop("Row names of 'source' and 'R' must be the same")
+    if (is.null(colnames(source))) if (!all(colnames(source) == var_names)) stop("Column names of 'source' and 'r' must be the same")
+    if (is.null(rownames(source))) if (!all(rownames(source) == var_names)) stop("Row names of 'source' and 'r' must be the same")
   }
 
   if (!is.null(n_overlap)) {
-    if (!is.null(colnames(n_overlap))) if (!all(colnames(n_overlap) == cor_names)) stop("Column names of 'n_overlap' must be identical to 'cor_labels(colnames(R))'")
-    if (!is.null(rownames(n_overlap))) if (!all(rownames(n_overlap) == cor_names)) stop("Row names of 'n_overlap' must be identical to 'cor_labels(colnames(R))'")
+    if (!is.null(colnames(n_overlap))) if (!all(colnames(n_overlap) == cor_names)) stop("Column names of 'n_overlap' must be identical to 'cor_labels(colnames(r))'")
+    if (!is.null(rownames(n_overlap))) if (!all(rownames(n_overlap) == cor_names)) stop("Row names of 'n_overlap' must be identical to 'cor_labels(colnames(r))'")
   }
 
-  R <- vechs2full(vechs(R))
+  r <- vechs2full(vechs(r))
   n <- vechs(n)
   sevar <- vechs(sevar)
+  if (!is.null(rho)) {
+    A <- vechs(r) / vechs(rho)
+  } else if (!is.null(sevar_rho)) {
+    A <- sqrt(sevar / vech(sevar_rho))
+  }
+
 
   if (is.null(n_overlap)) {
     n_overlap <- outer(n, n, FUN = function(X, Y) apply(cbind(X, Y), 1, min))
     if (!is.null(source)) {
       same_source <- outer(vechs(source), vechs(source), `==`)
-    } else same_source <- matrix(1, nrow(R), ncol(R))
-  } else same_source <- matrix(1, nrow(R), ncol(R))
+    } else same_source <- matrix(1, nrow(r), ncol(r))
+  } else same_source <- matrix(1, nrow(r), ncol(r))
 
   n_overlap <- n_overlap * same_source
   n_product <- outer(n, n)
 
-  p <- ncol(R)
+  p <- ncol(r)
   id <- diag(p)
 
   Ms <-
@@ -263,14 +272,16 @@ cor_covariance_meta <- function(R, n, sevar, source = NULL, n_overlap = NULL) {
     diag()
 
   Psi <-
-    0.5 * (4 * Ms %*% (R %x% R) %*% Ms -
-             2 * (R %x% R) %*% Md %*% (id %x% R + R %x% id) -
-             2 * (id %x% R + R %x% id) %*% Md %*% (R %x% R) +
-             (id %x% R + R %x% id) %*% Md %*% (R %x% R) %*%
-             Md %*% (id %x% R + R %x% id))
+    0.5 * (4 * Ms %*% (r %x% r) %*% Ms -
+             2 * (r %x% r) %*% Md %*% (id %x% r + r %x% id) -
+             2 * (id %x% r + r %x% id) %*% Md %*% (r %x% r) +
+             (id %x% r + r %x% id) %*% Md %*% (r %x% r) %*%
+             Md %*% (id %x% r + r %x% id))
 
   Kpc <- transition(p)
   out <- (Kpc %*% Psi %*% t(Kpc)) * (n_overlap / n_product)
+  diag(out) <- sevar
+  if (exists("A")) out <- out / outer(A, A)
   dimnames(out) <- list(cor_names, cor_names)
   out
 }

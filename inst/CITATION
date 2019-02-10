@@ -5,10 +5,10 @@ citEntry(entry = "Misc",
   year         = "2019",
   title        = "{configural: {An} {R} Package for Profile Analysis}",
   shorttitle   = "{configural}",
-  url          = "{https://github.org/bwiernik/configural}",
+  url          = "https://github.com/bwiernik/configural",
 
   textVersion  =
-  "Wiernik, B. M. (2019). configural: An R package for profile analysis [R package]. https://github.org/bwiernik/configural"
+  "Wiernik, B. M. (2019). configural: An R package for profile analysis [R package]. https://github.com/bwiernik/configural"
 )
 
 citEntry(entry = "Unpublished",

@@ -85,9 +85,9 @@
     while (iter < Nstarts) {
       sv <- c(stats::rnorm(p - 1) / sqrt(p - 1), 1000)
       tmp <- try(suppressWarnings(
-        optimx::optimr(par = sv, fn = minv, gr = gradf, method = "BFGS",
-                       control = list(fnscale = FNSCALE, maxit = 500,
-                                      parscale = c(rep(1, p - 1), 1)))))
+        stats::optim(par = sv, fn = minv, gr = gradf, method = "BFGS",
+                     control = list(fnscale = FNSCALE, maxit = 500,
+                                    parscale = c(rep(1, p - 1), 1)))))
       if (abs(tmp$value) > 1) tmp$convergence <- 1
       if (tmp$convergence == 0) {
         iter <- iter + 1
@@ -159,12 +159,15 @@
 #' _Psychometrika, 74_(4), 589–602. <https://doi.org/10/c3wbtd>
 #'
 #' @examples
-#' \dontrun{
-#'   mind <- cpa_mat(mindfulness ~ ES + A + C + Ex + O,
-#'                   cov_mat = mindful_rho,
-#'                   n = 17060)
-#'   mind_fung <- fungible(mind)
-#' }
+#' mind <- cpa_mat(mindfulness ~ ES + A + C + Ex + O,
+#'                 cov_mat = mindfulness$r,
+#'                 n = harmonic_mean(vechs(mindfulness$n)),
+#'                 se_var_mat = cor_covariance_meta(mindfulness$r,
+#'                                                  mindfulness$n,
+#'                                                  mindfulness$sevar_r,
+#'                                                  mindfulness$source),
+#'                 adjust = "pop")
+#' mind_fung <- fungible(mind, Nstarts = 100)
 fungible <- function(object, theta = .005, Nstarts = 1000,
                      MaxMin = c("min", "max"), silent = FALSE, ...) {
   UseMethod("fungible")
@@ -193,12 +196,15 @@ fungible <- function(object, theta = .005, Nstarts = 1000,
 #' @export
 #'
 #' @examples
-#' \dontrun{
-#'   mind <- cpa_mat(mindfulness ~ ES + A + C + Ex + O,
-#'                   cov_mat = mindful_rho,
-#'                   n = 17060)
-#'   mind_fung <- fungible(mind)
-#' }
+#' mind <- cpa_mat(mindfulness ~ ES + A + C + Ex + O,
+#'                 cov_mat = mindfulness$r,
+#'                 n = harmonic_mean(vechs(mindfulness$n)),
+#'                 se_var_mat = cor_covariance_meta(mindfulness$r,
+#'                                                  mindfulness$n,
+#'                                                  mindfulness$sevar_r,
+#'                                                  mindfulness$source),
+#'                 adjust = "pop")
+#' mind_fung <- fungible(mind, Nstarts = 100)
 fungible.cpa <- function(object, theta = .005, Nstarts = 1000,
                          MaxMin = c("min", "max"), silent = FALSE, ...) {
   if (!inherits(object, "cpa")) stop("'object' must have class 'cpa'")
@@ -319,11 +325,9 @@ print.fungible_extrema <- function(object,
 #' @export
 #'
 #' @examples
-#' \dontrun{
-#'   lm_mtcars <- lm(mpg ~ cyl + disp + hp + drat + wt + qsec + vs + am + gear + carb,
-#'                   data = mtcars)
-#'   lm_mtcars_fung <- fungible(lm_mtcars)
-#' }
+#' lm_mtcars <- lm(mpg ~ cyl + disp + hp + drat + wt + qsec + vs + am + gear + carb,
+#'                 data = mtcars)
+#' lm_mtcars_fung <- fungible(lm_mtcars, Nstarts = 100)
 fungible.lm <- function(object, theta = .005, Nstarts = 1000,
                         MaxMin = c("min", "max"), silent = FALSE, ...) {
   if (!inherits(object, "lm")) stop("'object' must have class 'lm'")

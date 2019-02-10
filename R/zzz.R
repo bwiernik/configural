@@ -1,5 +1,4 @@
 ## Messages to be displayed when the user loads configural:
-#' @importFrom rlang .data
 .onAttach <- function(libname, pkgname) {
     version <- read.dcf(file = system.file("DESCRIPTION", package = pkgname), fields = "Version")
     packageStartupMessage(crayon::white("----------------------------------------------------- ", crayon::bold(paste(pkgname, "version", version)), " --"))

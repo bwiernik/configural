@@ -6,18 +6,23 @@
 \title{Estimate the asymptotic sampling covariance matrix for the unique elements of
 a meta-analytic correlation matrix}
 \usage{
-cor_covariance_meta(R, n, sevar, source = NULL, n_overlap = NULL)
+cor_covariance_meta(r, n, sevar, source = NULL, rho = NULL,
+  sevar_rho = NULL, n_overlap = NULL)
 }
 \arguments{
-\item{R}{A meta-analytic correlation matrix (can be full or lower-triangular).}
+\item{r}{A meta-analytic matrix of observed correlations (can be full or lower-triangular).}
 
-\item{n}{A matrix of total sample sizes for the meta-analytic correlations in \code{R} (can be full or lower-triangular).}
+\item{n}{A matrix of total sample sizes for the meta-analytic correlations in \code{r} (can be full or lower-triangular).}
 
-\item{sevar}{A matrix of estimated sampling error variances for the meta-analytic correlations in \code{R} (can be full or lower-triangular).}
+\item{sevar}{A matrix of estimated sampling error variances for the meta-analytic correlations in \code{r} (can be full or lower-triangular).}
 
-\item{source}{A matrix indicating the sources of the meta-analytic correlations in \code{R} (can be full or lower-triangular). Used to estimate overlapping sample size for correlations when \code{n_overlap == NULL}.}
+\item{source}{A matrix indicating the sources of the meta-analytic correlations in \code{r} (can be full or lower-triangular). Used to estimate overlapping sample size for correlations when \code{n_overlap == NULL}.}
 
-\item{n_overlap}{A matrix indicating the overlapping sample size for the unique (lower triangular) values in \code{R} (can be full or lower-triangular). Values must be arranged in the order returned by \code{cor_labels(colnames(R))}.}
+\item{rho}{A meta-analytic matrix of corrected correlations (can be full or lower-triangular).}
+
+\item{sevar_rho}{A matrix of estimated sampling error variances for the meta-analytic corrected correlations in \code{rho} (can be full or lower-triangular).}
+
+\item{n_overlap}{A matrix indicating the overlapping sample size for the unique (lower triangular) values in \code{r} (can be full or lower-triangular). Values must be arranged in the order returned by \code{cor_labels(colnames(R))}.}
 }
 \value{
 The estimated asymptotic sampling covariance matrix
@@ -30,7 +35,8 @@ a meta-analytic correlation matrix
 If both \code{source} and \code{n_overlap} are \code{NULL}, it is assumed that all meta-analytic correlations come from the the same source.
 }
 \examples{
-cor_covariance_meta(mindfulness$r, mindfulness$n, mindfulness$sevar_r, mindfulness$source)
+cor_covariance_meta(r = mindfulness$r, n = mindfulness$n,
+                    sevar = mindfulness$sevar_r, source = mindfulness$source)
 }
 \references{
 Nel, D. G. (1985).

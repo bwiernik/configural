@@ -5,16 +5,24 @@
 \name{team}
 \alias{team}
 \title{Meta-analytic correlations among team processes and team effectiveness}
-\format{list with entries \code{rho} (mean corrected correlations),
-\code{n} (sample sizes), \code{sevar_rho} (sampling error variances for mean corrected
-correlations), and \code{source} (character labels indicating which meta-analytic
-correlations came from the same source)}
+\format{list with entries \code{r} (mean oberseved correlations), \code{rho} (mean
+corrected correlations), \code{n} (sample sizes), \code{sevar_r} (sampling error
+variances for mean observed correlations), \code{sevar_rho} (sampling error
+variances for mean corrected correlations), and \code{source} (character labels
+indicating which meta-analytic correlations came from the same source)}
 \usage{
 data(team)
 }
 \description{
 Team process intercorrelations and team process–team performance/affect
 correlations from LePine et al. (2008).
+}
+\details{
+Note that LePine et al. (2008) did not report confidence intervals, sampling
+error variances, or heterogeneity estimates for correlations among team
+processes; included sampling error variances in this list are based on total
+sample size only and do not include uncertainty stemmming from any effect
+size heterogeneity.
 }
 \examples{
 data(team)

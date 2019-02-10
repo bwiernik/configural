@@ -28,12 +28,15 @@ A list containing the alternative weights and other fungible weights estimation 
 Identify maximally similar or dissimilar criterion patterns in criterion profile analysis
 }
 \examples{
-\dontrun{
-  mind <- cpa_mat(mindfulness ~ ES + A + C + Ex + O,
-                  cov_mat = mindful_rho,
-                  n = 17060)
-  mind_fung <- fungible(mind)
-}
+mind <- cpa_mat(mindfulness ~ ES + A + C + Ex + O,
+                cov_mat = mindfulness$r,
+                n = harmonic_mean(vechs(mindfulness$n)),
+                se_var_mat = cor_covariance_meta(mindfulness$r,
+                                                 mindfulness$n,
+                                                 mindfulness$sevar_r,
+                                                 mindfulness$source),
+                adjust = "pop")
+mind_fung <- fungible(mind, Nstarts = 100)
 }
 \references{
 Wiernik, B. M., Wilmot, M. P., Davison, M. L., & Ones, D. S. (2019).

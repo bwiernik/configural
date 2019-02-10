@@ -28,11 +28,9 @@ A list containing the alternative weights and other fungible weights estimation 
 Identify maximally similar or dissimilar sets of fungible standardized regression coefficients from an OLS regression model
 }
 \examples{
-\dontrun{
-  lm_mtcars <- lm(mpg ~ cyl + disp + hp + drat + wt + qsec + vs + am + gear + carb,
-                  data = mtcars)
-  lm_mtcars_fung <- fungible(lm_mtcars)
-}
+lm_mtcars <- lm(mpg ~ cyl + disp + hp + drat + wt + qsec + vs + am + gear + carb,
+                data = mtcars)
+lm_mtcars_fung <- fungible(lm_mtcars, Nstarts = 100)
 }
 \references{
 Waller, N. G., & Jones, J. A. (2009).
