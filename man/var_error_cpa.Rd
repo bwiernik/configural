@@ -26,8 +26,5 @@ A list containing sampling covariance matrices or sampling erorr variance estima
 Estimate the sampling error variance for criterion profile analysis parameters
 }
 \examples{
-\dontrun{
-  var_error_cpa(mindful_rho[1:5, 1:5], mindful_rho[1:5, 6],
-          n = 17060)
-}
+var_error_cpa(mindfulness$rho[1:5, 1:5], mindfulness$rho[1:5, 6], n = 17060)
 }

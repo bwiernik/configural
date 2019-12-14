@@ -12,10 +12,7 @@
 #' @encoding UTF-8
 #'
 #' @examples
-#' \dontrun{
-#'   var_error_cpa(mindful_rho[1:5, 1:5], mindful_rho[1:5, 6],
-#'           n = 17060)
-#' }
+#' var_error_cpa(mindfulness$rho[1:5, 1:5], mindfulness$rho[1:5, 6], n = 17060)
 var_error_cpa <- function(Rxx, rxy, n, se_var_mat = "normal", adjust = c("fisher", "pop", "cv")) {
   adjust <- match.arg(adjust)
   Rxx <- as.matrix(Rxx)
@@ -61,10 +58,7 @@ var_error_cpa <- function(Rxx, rxy, n, se_var_mat = "normal", adjust = c("fisher
 
     # BStar
     bstar <- Q %*% beta
-    dbstar.drxx <- Q %*% dbeta.drxx
-    dbstar.drxy <- Rinv
-    j.bstar <- cbind(dbstar.drxx, dbstar.drxy)
-    j.bstar <- j.bstar[, match(old.ord, new.ord)]
+    j.bstar <- Q %*% j.beta
     v.bstar <- j.bstar %*% Sigma %*% t(j.bstar)
 
     # R Squared
