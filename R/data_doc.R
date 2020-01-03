@@ -204,17 +204,11 @@
 #' GRE–GPA correlations in `rho` are corrected for direct range restriction on
 #' the GRE and unreliability in GPA. Subtest intercorrelations in `rho` are
 #' observed correlations computed among applicant norm samples. These values are
-#' also used in `r` to permit accurate computation of sampling error in
-#' [cor_covariance_meta()]. To conduct analyses with a correlation matrix
-#' representing a restricted sample of admitted students, use `r_admitted`. GRE
-#' subtest intercorrelations in `r_admitted` are the values in `rho` attenuated
-#' using the bivariate direct range restriction formula (Alexander et al., 1987).
-#' `sevar_rho` and`sevar_r` for GRE subtest intercorrelations is computed with an assumed
+#' also used in `r`. Due to compensatory selection on GRE scores, these values
+#' will not accurately reflect subtest intercorrelations in selected-student
+#' (range-restricted) samples. `sevar_rho` and`sevar_r` for GRE subtest
+#' intercorrelations are computed with an assumed
 #' \if{latex}{\eqn{SD_\rho}}\ifelse{html}{\out{SD<sub>&rho;</sub>}}{SD_rho} = .02.
-#' `sevar_r_admitted` for GRE subtest intercorrelations computed using the estimated
-#' values for `r_admitted`, an assumed
-#' \if{latex}{\eqn{SD_\rho}}\ifelse{html}{\out{SD<sub>&rho;</sub>}}{SD_rho} = .02,
-#' and the N and k values for `rho`.
 #'
 #' @docType data
 #'
@@ -231,10 +225,6 @@
 #' @keywords datasets
 #'
 #' @references
-#' Alexander, R. A., Carson, K. P., Alliger, G. M., & Carr, L. (1987).
-#' Correcting doubly truncated correlations: An improved approximation for correcting the bivariate normal correlation when truncation has occurred on both variables.
-#' _Educational and Psychological Measurement, 47_(2), 309–315. <https://doi.org/10.1177/0013164487472002>
-#'
 #' Kuncel, N. R., Hezlett, S. A., & Ones, D. S. (2001).
 #' A comprehensive meta-analysis of the predictive validity of the graduate record examinations: Implications for graduate student selection and performance.
 #' _Psychological Bulletin, 127_(1), 162–181. <https://doi.org/10/cffkhc>

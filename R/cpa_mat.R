@@ -79,9 +79,16 @@ cpa_mat <- function(formula, cov_mat, n = NULL,
 
   se_var <- var_error_cpa(Rxx = Rxx, rxy = rxy, n = n, se_var_mat = se_var_mat, adjust = adjust)
 
-  if (is.null(n)) n <- n_effective_R2(R2_total, se_var$r.total, p)
+  if (is.null(n)) {
+    n <- n_effective_R2(R2_total, se_var$r.total.squared, p)
+    n_effective <- n
+    n_null <- TRUE
+  } else {
+    n_effective <- NULL
+    n_null <- FALSE
+  }
 
-  if (is.na(n)) R2_adj <- R2_total else R2_adj <- adjust_Rsq(R2_total, n, p, adjust)
+  if (is.na(n) | is.infinite(n)) R2_adj <- R2_total else R2_adj <- adjust_Rsq(R2_total, n, p, adjust)
   R_adj <- if (R2_adj < 0) 0 else sqrt(R2_adj)
 
   pat_adj <- lev * levpat + sqrt(max((1 - levpat2) * (R2_adj - lev2), 0))
@@ -93,7 +100,7 @@ cpa_mat <- function(formula, cov_mat, n = NULL,
   delta_lev_adj <- R2_adj - pat2_adj
   delta_pat_adj <- R2_adj - lev2
 
-  if (is.infinite(n)) {
+  if (is.infinite(n) | is.na(n) | n_null) {
     moe <- stats::qnorm((1 - conf_level) / 2, lower.tail = FALSE)
   } else {
     moe <- stats::qt((1 - conf_level) / 2, n - p - 1, lower.tail = FALSE)
@@ -124,12 +131,12 @@ cpa_mat <- function(formula, cov_mat, n = NULL,
   se_delta <- c(sqrt(unlist(se_var[c("delta.r.squared.level", "delta.r.squared.pattern")])), NA)
   summary_mat <- cbind(c(lev, pat, R_total),
                        se_R,
-                       c(lev, pat, R_total) - se_R * moe,
-                       c(lev, pat, R_total) + se_R * moe,
+                       suppressWarnings(sqrt(c(lev2, pat2, R2_total) - se_R2 * moe)),
+                       suppressWarnings(sqrt(c(lev2, pat2, R2_total) + se_R2 * moe)),
                        c(lev2, pat2, R2_total),
                        se_R2,
-                       (c(lev, pat, R_total) - sign(c(lev, pat, R_total)) * se_R * moe)^2,
-                       (c(lev, pat, R_total) + sign(c(lev, pat, R_total)) * se_R * moe)^2,
+                       c(lev2, pat2, R2_total) - se_R2 * moe,
+                       c(lev2, pat2, R2_total) + se_R2 * moe,
                        c(delta_lev, delta_pat, NA),
                        se_delta,
                        c(delta_lev, delta_pat, NA) - se_delta * moe,
@@ -155,12 +162,12 @@ cpa_mat <- function(formula, cov_mat, n = NULL,
   se_delta_adj <- c(sqrt(unlist(se_var[c("adjusted.delta.r.squared.level", "adjusted.delta.r.squared.pattern")])), NA)
   adj_summary_mat <- cbind(c(lev, pat_adj, R_adj),
                            se_R_adj,
-                           c(lev, pat_adj, R_adj) - se_R_adj * moe,
-                           c(lev, pat_adj, R_adj) + se_R_adj * moe,
+                           suppressWarnings(sqrt(c(lev2, pat2_adj, R2_adj) - se_R2_adj * moe)),
+                           suppressWarnings(sqrt(c(lev2, pat2_adj, R2_adj) + se_R2_adj * moe)),
                            c(lev2, pat2_adj, R2_adj),
                            se_R2_adj,
-                           (c(lev, pat_adj, R_adj) - se_R_adj * moe)^2,
-                           (c(lev, pat_adj, R_adj) + se_R_adj * moe)^2,
+                           c(lev2, pat2_adj, R2_adj) - se_R2_adj * moe,
+                           c(lev2, pat2_adj, R2_adj) + se_R2_adj * moe,
                            c(delta_lev_adj, delta_pat_adj, NA),
                            se_delta_adj,
                            c(delta_lev_adj, delta_pat_adj, NA) - se_delta_adj * moe,
@@ -195,7 +202,8 @@ cpa_mat <- function(formula, cov_mat, n = NULL,
     n = n,
     rank = p + 1,
     model = list(R = R, Rxx = Rxx, rxy = rxy),
-    vcov = se_var
+    vcov = se_var,
+    n_eff = n
   )
 
   class(out) <- "cpa"
@@ -224,6 +232,13 @@ print.cpa <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
 
   cat("\n\nCorrelation Between Profile Level and Criterion Pattern Similarity:\n")
   print(x$r.level.pattern, digits = digits)
+
+  cat("\nSample Size:\n")
+  print(x$n, digits = digits)
+  if (!is.null(n_eff)) {
+    cat("\nEffective Sample Size:\n")
+    print(x$n_eff, digits = digits)
+  }
 
   cat("\n\nDegrees of freedom:\n  Level: 1 and", x$n - 2,
       "\n  Pattern:", x$rank - 2, "and", x$n - x$rank + 1,
