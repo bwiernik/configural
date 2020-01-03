@@ -203,7 +203,7 @@ cpa_mat <- function(formula, cov_mat, n = NULL,
     rank = p + 1,
     model = list(R = R, Rxx = Rxx, rxy = rxy),
     vcov = se_var,
-    n_eff = n
+    n_eff = n_null
   )
 
   class(out) <- "cpa"
@@ -233,12 +233,11 @@ print.cpa <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
   cat("\n\nCorrelation Between Profile Level and Criterion Pattern Similarity:\n")
   print(x$r.level.pattern, digits = digits)
 
-  cat("\nSample Size:\n")
-  print(x$n, digits = digits)
-  if (!is.null(n_eff)) {
+
+  if (x$n_eff) {
     cat("\nEffective Sample Size:\n")
-    print(x$n_eff, digits = digits)
-  }
+  } else cat("\nSample Size:\n")
+  print(x$n, digits = digits)
 
   cat("\n\nDegrees of freedom:\n  Level: 1 and", x$n - 2,
       "\n  Pattern:", x$rank - 2, "and", x$n - x$rank + 1,
