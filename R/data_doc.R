@@ -203,13 +203,16 @@
 #'
 #' GRE–GPA correlations in `rho` are corrected for direct range restriction on
 #' the GRE and unreliability in GPA. Subtest intercorrelations in `rho` are
-#' observed correlations computed among applicant norm samples. GRE subtest
-#' intercorrelations in `r` are the values in `rho` attenuated using the bivariate
-#' direct range restriction formula (Alexander et al., 1987). `sevar_rho` for
-#' GRE subtest intercorrelations computed with an assumed
+#' observed correlations computed among applicant norm samples. These values are
+#' also used in `r` to permit accurate computation of sampling error in
+#' [cor_covariance_meta()]. To conduct analyses with a correlation matrix
+#' representing a restricted sample of admitted students, use `r_admitted`. GRE
+#' subtest intercorrelations in `r_admitted` are the values in `rho` attenuated
+#' using the bivariate direct range restriction formula (Alexander et al., 1987).
+#' `sevar_rho` and`sevar_r` for GRE subtest intercorrelations is computed with an assumed
 #' \if{latex}{\eqn{SD_\rho}}\ifelse{html}{\out{SD<sub>&rho;</sub>}}{SD_rho} = .02.
-#' `sevar_r` for GRE subtest intercorrelations computed using the estimated
-#' values for `r`, an assumed
+#' `sevar_r_admitted` for GRE subtest intercorrelations computed using the estimated
+#' values for `r_admitted`, an assumed
 #' \if{latex}{\eqn{SD_\rho}}\ifelse{html}{\out{SD<sub>&rho;</sub>}}{SD_rho} = .02,
 #' and the N and k values for `rho`.
 #'

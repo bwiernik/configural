@@ -14,18 +14,21 @@ indicating which meta-analytic correlations came from the same source)}
 data(jobchar)
 }
 \description{
-Correlations between GRE subtests adn graduate student GPA from Kuncel et al. (2001).
+Correlations between GRE subtests and graduate student GPA from Kuncel et al. (2001).
 }
 \details{
 GRE–GPA correlations in \code{rho} are corrected for direct range restriction on
 the GRE and unreliability in GPA. Subtest intercorrelations in \code{rho} are
-observed correlations computed among applicant norm samples. GRE subtest
-intercorrelations in \code{r} are the values in \code{rho} attenuated using the bivariate
-direct range restriction formula (Alexander et al., 1987). \code{sevar_rho} for
-GRE subtest intercorrelations computed with an assumed
+observed correlations computed among applicant norm samples. These values are
+also used in \code{r} to permit accurate computation of sampling error in
+\code{\link[=cor_covariance_meta]{cor_covariance_meta()}}. To conduct analyses with a correlation matrix
+representing a restricted sample of admitted students, use \code{r_admitted}. GRE
+subtest intercorrelations in \code{r_admitted} are the values in \code{rho} attenuated
+using the bivariate direct range restriction formula (Alexander et al., 1987).
+\code{sevar_rho} and\code{sevar_r} for GRE subtest intercorrelations is computed with an assumed
 \if{latex}{\eqn{SD_\rho}}\ifelse{html}{\out{SD<sub>&rho;</sub>}}{SD_rho} = .02.
-\code{sevar_r} for GRE subtest intercorrelations computed using the estimated
-values for \code{r}, an assumed
+\code{sevar_r_admitted} for GRE subtest intercorrelations computed using the estimated
+values for \code{r_admitted}, an assumed
 \if{latex}{\eqn{SD_\rho}}\ifelse{html}{\out{SD<sub>&rho;</sub>}}{SD_rho} = .02,
 and the N and k values for \code{rho}.
 }
