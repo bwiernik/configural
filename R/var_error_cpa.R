@@ -2,8 +2,8 @@
 #'
 #' @param Rxx An intercorrelation matrix among the predictor variables
 #' @param rxy A vector of predictor–criterion correlations
-#' @param n The sample size
-#' @param se_var_mat The method used to calculate the sampling covariance matrix for the unique elements of Rxx and rxy. Can be "normal" to estimate the covariance matrix using "n" or a matrix of sampling covariance values.
+#' @param n The sample size. If NULL and `se_var_mat` is provided, `n` will be estimated as the effective sample size based on `se_var_mat`. See [n_effective_R2()].
+#' @param se_var_mat A matrix of sampling covariance values for the elements of `Rxx` and `rxy`. If NULL, generated using the Normal theory covariance matrix based on `n`.
 #' @param adjust Method to adjust R-squared for overfitting. See \code{\link{adjust_Rsq}} for details.
 #'
 #' @return A list containing sampling covariance matrices or sampling erorr variance estimates for CPA parameters
@@ -13,7 +13,16 @@
 #'
 #' @examples
 #' var_error_cpa(mindfulness$rho[1:5, 1:5], mindfulness$rho[1:5, 6], n = 17060)
-var_error_cpa <- function(Rxx, rxy, n, se_var_mat = "normal", adjust = c("fisher", "pop", "cv")) {
+var_error_cpa <- function(Rxx, rxy, n = NULL, se_var_mat = NULL, adjust = c("fisher", "pop", "cv")) {
+  if (is.null(n) & is.null(se_var_mat)) {
+    stop("At least one of `n` or `se_var_mat` must be supplied.")
+  }
+  if (!is.null(se_var_mat)) {
+    if (!is.matrix(se_var_mat)) {
+      stop("`se_var_mat` must be either NULL or a matrix of sampling covariances.")
+    }
+  }
+
   adjust <- match.arg(adjust)
   Rxx <- as.matrix(Rxx)
   p <- ncol(Rxx)
@@ -30,7 +39,7 @@ var_error_cpa <- function(Rxx, rxy, n, se_var_mat = "normal", adjust = c("fisher
   } else {
     sR <- rbind(cbind(Rxx, rxy), c(rxy, 1))
 
-    if (inherits(se_var_mat, "matrix") ) {
+    if (is.matrix(se_var_mat) ) {
       Sigma <- se_var_mat
     } else {
       Sigma <- cor_covariance(sR, n)
@@ -69,6 +78,11 @@ var_error_cpa <- function(Rxx, rxy, n, se_var_mat = "normal", adjust = c("fisher
     j.R2 <- j.R2[, match(old.ord, new.ord)]
     v.R2 <- j.R2 %*% Sigma %*% j.R2
     v.R <- v.R2 / (4 * R2)
+
+    ## Compute effective N if no N is supplied
+    if (is.matrix(se_var_mat) & is.null(n)) {
+      n <- n_effective_R2(R2, v.R2, p)
+    }
 
     # Level Squared
     lev <- (t(rxy) %*% one) / sqrt(t(one) %*% Rxx %*% one)
@@ -227,4 +241,40 @@ var_error_cpa <- function(Rxx, rxy, n, se_var_mat = "normal", adjust = c("fisher
   class(out) <- "var_cpa"
 
   return(out)
+}
+
+#' Effective sample size
+#'
+#' Estimate an effective sample size for a statistic given the observed statistic
+#' and the estimated sampling error variance (cf. Revelle et al., 2017).
+#'
+#' `n_effective_R2` estimates the effective sample size for the _R_^2^ value from
+#' an OLS regression model, using the sampling error variance formula from Cohen
+#' et al. (2003).
+#'
+#' @param R2 Observed _R_^2^ value
+#' @param var_R2 Estimated sampling error variance for _R_^2^
+#' @param p Number of predictors in the regression model
+#'
+#' @return An effective sample size.
+#' @export
+#'
+#' @references
+#' Revelle, W., Condon, D. M., Wilt, J., French, J. A., Brown, A., & Elleman, L. G. (2017).
+#' Web- and phone-based data collection using planned missing designs.
+#' In N. G. Fielding, R. M. Lee, & G. Blank, _The SAGE Handbook of Online Research Methods_ (pp. 578–594).
+#' SAGE Publications. https://doi.org/10.4135/9781473957992.n33
+#'
+#' Cohen, J., Cohen, P., West, S. G., & Aiken, L. S. (2003).
+#' _Applied multiple regression/correlation analysis for the behavioral sciences_ (3rd ed.).
+#' Routledge. https://doi.org/10/crtf
+#'
+#' @examples
+#' n_effective_R2(0.3953882, 0.0005397923, 5)
+n_effective_R2 <- function(R2, var_R2, p) {
+  f <- function(n) {
+    var_R2 - (4 * R2  * (1 - R2 ) * (n^2 - 2 * (p + 1) * n + (p + 1)^2) / (n^3 + 3*n^2 - n + 3))
+  }
+  n <- stats::uniroot(f, c(1, .Machine$integer.max))
+  return(n$root)
 }

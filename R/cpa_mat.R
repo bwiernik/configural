@@ -2,7 +2,7 @@
 #'
 #' @param formula Regression formula with a single outcome variable on the left-hand side and one or more predictor variables on the right-hand side (e.g., Y ~ X1 + X2).
 #' @param cov_mat Correlation matrix containing the variables to be used in the regression.
-#' @param n Sample size to be used in calculating adjusted R-squared and, if `se_var_mat` is NULL, standard errors.
+#' @param n Sample size. Used to compute adjusted R-squared and, if `se_var_mat` is NULL, standard errors. If NULL and `se_var_mat` is specified, effective sample size is computed based on `se_var_mat` (cf. Revelle et al., 2017).
 #' @param se_var_mat Optional. The sampling error covariance matrix among the unique elements of \code{cov_mat}. Used to calculate standard errors. If not supplied, the sampling covariance matrix is calculated using \code{n}.
 #' @param se_beta_method Method to use to estimate the standard errors of standardized regression (beta) coefficients. Current options include "normal" (use the Jones-Waller, 2015, normal-theory approach) and "lm" (estimate standard errors using conventional regression formulas).
 #' @param adjust Method to adjust R-squared for overfitting. See \code{\link{adjust_Rsq}} for details.
@@ -17,7 +17,12 @@
 #' @references
 #' Jones, J. A., & Waller, N. G. (2015).
 #' The normal-theory and asymptotic distribution-free (ADF) covariance matrix of standardized regression coefficients: Theoretical extensions and finite sample behavior.
-#' \emph{Psychometrika, 80}(2), 365–378. \url{https://doi.org/10/gckfx5}
+#' _Psychometrika, 80_(2), 365–378. \url{https://doi.org/10/gckfx5}
+#'
+#' Revelle, W., Condon, D. M., Wilt, J., French, J. A., Brown, A., & Elleman, L. G. (2017).
+#' Web- and phone-based data collection using planned missing designs.
+#' In N. G. Fielding, R. M. Lee, & G. Blank, _The SAGE Handbook of Online Research Methods_ (pp. 578–594).
+#' SAGE Publications. https://doi.org/10.4135/9781473957992.n33
 #'
 #' Wiernik, B. M., Wilmot, M. P., Davison, M. L., & Ones, D. S. (2019).
 #' _Meta-analytic criterion profile analysis._
@@ -27,10 +32,10 @@
 #' sevar <- cor_covariance_meta(mindfulness$r, mindfulness$n, mindfulness$sevar_r, mindfulness$source)
 #' cpa_mat(mindfulness ~ ES + A + C + Ex + O,
 #'           cov_mat = mindfulness$rho,
-#'           n = harmonic_mean(vechs(mindfulness$n)),
+#'           n = NULL,
 #'           se_var_mat = sevar,
 #'           adjust = "pop")
-cpa_mat <- function(formula, cov_mat, n = Inf,
+cpa_mat <- function(formula, cov_mat, n = NULL,
                     se_var_mat = NULL,
                     se_beta_method = c("normal", "lm"),
                     adjust = c("fisher", "pop", "cv"),
@@ -58,8 +63,6 @@ cpa_mat <- function(formula, cov_mat, n = Inf,
   beta <- Rinv %*% rxy
   R2_total <- t(rxy) %*% beta
   R_total <- sqrt(R2_total)
-  if (is.infinite(n)) R2_adj <- R2_total else R2_adj <- adjust_Rsq(R2_total, n, p, adjust)
-  R_adj <- if (R2_adj < 0) 0 else sqrt(R2_adj)
 
   bstar <- Q %*% beta
   lev <- (t(rxy) %*% one) / sqrt(t(one) %*% Rxx %*% one)
@@ -72,6 +75,15 @@ cpa_mat <- function(formula, cov_mat, n = Inf,
   Rxx_cpa <- matrix(c(1, levpat, levpat, 1), nrow = 2)
   beta_cpa <- solve(Rxx_cpa) %*% c(lev, pat)
 
+  if ((is.null(n) & is.null(se_var_mat))) n <- NA
+
+  se_var <- var_error_cpa(Rxx = Rxx, rxy = rxy, n = n, se_var_mat = se_var_mat, adjust = adjust)
+
+  if (is.null(n)) n <- n_effective_R2(R2_total, se_var$r.total, p)
+
+  if (is.na(n)) R2_adj <- R2_total else R2_adj <- adjust_Rsq(R2_total, n, p, adjust)
+  R_adj <- if (R2_adj < 0) 0 else sqrt(R2_adj)
+
   pat_adj <- lev * levpat + sqrt(max((1 - levpat2) * (R2_adj - lev2), 0))
   pat2_adj <- pat_adj^2
   beta_cpa_adj <- solve(Rxx_cpa) %*% c(lev, pat_adj)
@@ -80,8 +92,6 @@ cpa_mat <- function(formula, cov_mat, n = Inf,
   delta_pat <- R2_total - lev2
   delta_lev_adj <- R2_adj - pat2_adj
   delta_pat_adj <- R2_adj - lev2
-
-  se_var <- var_error_cpa(Rxx = Rxx, rxy = rxy, n = n, se_var_mat = se_var_mat, adjust = adjust)
 
   if (is.infinite(n)) {
     moe <- stats::qnorm((1 - conf_level) / 2, lower.tail = FALSE)
@@ -198,28 +208,28 @@ cpa_mat <- function(formula, cov_mat, n = Inf,
 #' @keywords internal
 #' @exportClass cpa
 #' @method print cpa
-print.cpa <- function(object, digits = max(3L, getOption("digits") - 3L), ...) {
+print.cpa <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
 
-  cat("\nCall:\n", paste(deparse(object$call), sep = "\n", collapse = "\n"),
+  cat("\nCall:\n", paste(deparse(x$call), sep = "\n", collapse = "\n"),
       "\n\n", sep = "")
 
   cat("\nCriterion Pattern:\n")
-  print(object$bstar, digits = digits)
+  print(x$bstar, digits = digits)
 
   cat("\n\nVariance Decomposition:\n")
-  print(object$fit, digits = digits)
+  print(x$fit, digits = digits)
 
   cat("\n\nAdjusted Variance Decomposition:\n")
-  print(object$adjusted_fit, digits = digits)
+  print(x$adjusted_fit, digits = digits)
 
   cat("\n\nCorrelation Between Profile Level and Criterion Pattern Similarity:\n")
-  print(object$r.level.pattern, digits = digits)
+  print(x$r.level.pattern, digits = digits)
 
-  cat("\n\nDegrees of freedom:\n  Level: 1 and", object$n - 2,
-      "\n  Pattern:", object$rank - 2, "and", object$n - object$rank + 1,
-      "\n  Total:", object$rank - 1, "and", object$n - object$rank)
+  cat("\n\nDegrees of freedom:\n  Level: 1 and", x$n - 2,
+      "\n  Pattern:", x$rank - 2, "and", x$n - x$rank + 1,
+      "\n  Total:", x$rank - 1, "and", x$n - x$rank)
 
-  invisible(object)
+  invisible(x)
 }
 
 #' @export
