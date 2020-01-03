@@ -18,7 +18,7 @@ var_error_cpa <- function(Rxx, rxy, n = NULL, se_var_mat = NULL, adjust = c("fis
     stop("At least one of `n` or `se_var_mat` must be supplied.")
   }
   if (!is.null(se_var_mat)) {
-    if (!is.matrix(se_var_mat)) {
+    if (!inherits(se_var_mat, "matrix")) {
       stop("`se_var_mat` must be either NULL or a matrix of sampling covariances.")
     }
   }
@@ -39,7 +39,7 @@ var_error_cpa <- function(Rxx, rxy, n = NULL, se_var_mat = NULL, adjust = c("fis
   } else {
     sR <- rbind(cbind(Rxx, rxy), c(rxy, 1))
 
-    if (is.matrix(se_var_mat) ) {
+    if (inherits(se_var_mat, "matrix")) {
       Sigma <- se_var_mat
     } else {
       Sigma <- cor_covariance(sR, n)
@@ -80,7 +80,7 @@ var_error_cpa <- function(Rxx, rxy, n = NULL, se_var_mat = NULL, adjust = c("fis
     v.R <- v.R2 / (4 * R2)
 
     ## Compute effective N if no N is supplied
-    if (is.matrix(se_var_mat) & is.null(n)) {
+    if (inherits(se_var_mat, "matrix") & is.null(n)) {
       n <- n_effective_R2(R2, v.R2, p)
     }
 

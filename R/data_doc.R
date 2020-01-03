@@ -196,3 +196,46 @@
 #' @examples
 #' data(jobchar)
 "jobchar"
+
+#' Meta-analytic correlations of Graduate Record Examination subtests with graduate grade point average
+#'
+#' Correlations between GRE subtests adn graduate student GPA from Kuncel et al. (2001).
+#'
+#' GRE–GPA correlations in `rho` are corrected for direct range restriction on
+#' the GRE and unreliability in GPA. Subtest intercorrelations in `rho` are
+#' observed correlations computed among applicant norm samples. GRE subtest
+#' intercorrelations in `r` are the values in `rho` attenuated using the bivariate
+#' direct range restriction formula (Alexander et al., 1987). `sevar_rho` for
+#' GRE subtest intercorrelations computed with an assumed
+#' \if{latex}{\eqn{SD_\rho}}\ifelse{html}{\out{SD<sub>&rho;</sub>}}{SD_rho} = .02.
+#' `sevar_r` for GRE subtest intercorrelations computed using the estimated
+#' values for `r`, an assumed
+#' \if{latex}{\eqn{SD_\rho}}\ifelse{html}{\out{SD<sub>&rho;</sub>}}{SD_rho} = .02,
+#' and the N and k values for `rho`.
+#'
+#' @docType data
+#'
+#' @encoding UTF-8
+#'
+#' @usage data(jobchar)
+#'
+#' @format list with entries `r` (mean oberseved correlations), `rho` (mean
+#' corrected correlations), `n` (sample sizes), `sevar_r` (sampling error
+#' variances for mean observed correlations), `sevar_rho` (sampling error
+#' variances for mean corrected correlations), and `source` (character labels
+#' indicating which meta-analytic correlations came from the same source)
+#'
+#' @keywords datasets
+#'
+#' @references
+#' Alexander, R. A., Carson, K. P., Alliger, G. M., & Carr, L. (1987).
+#' Correcting doubly truncated correlations: An improved approximation for correcting the bivariate normal correlation when truncation has occurred on both variables.
+#' _Educational and Psychological Measurement, 47_(2), 309–315. <https://doi.org/10.1177/0013164487472002>
+#'
+#' Kuncel, N. R., Hezlett, S. A., & Ones, D. S. (2001).
+#' A comprehensive meta-analysis of the predictive validity of the graduate record examinations: Implications for graduate student selection and performance.
+#' _Psychological Bulletin, 127_(1), 162–181. <https://doi.org/10/cffkhc>
+#'
+#' @examples
+#' data(gre)
+"gre"
