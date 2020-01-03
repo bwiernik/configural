@@ -199,7 +199,7 @@
 
 #' Meta-analytic correlations of Graduate Record Examination subtests with graduate grade point average
 #'
-#' Correlations between GRE subtests adn graduate student GPA from Kuncel et al. (2001).
+#' Correlations between GRE subtests and graduate student GPA from Kuncel et al. (2001).
 #'
 #' GRE–GPA correlations in `rho` are corrected for direct range restriction on
 #' the GRE and unreliability in GPA. Subtest intercorrelations in `rho` are
