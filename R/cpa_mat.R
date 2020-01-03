@@ -237,7 +237,7 @@ print.cpa <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
   if (x$n_eff) {
     cat("\nEffective Sample Size:\n")
   } else cat("\nSample Size:\n")
-  print(x$n, digits = digits)
+  cat(round(x$n, digits = digits))
 
   cat("\n\nDegrees of freedom:\n  Level: 1 and", x$n - 2,
       "\n  Pattern:", x$rank - 2, "and", x$n - x$rank + 1,
