@@ -189,7 +189,7 @@ cpa_mat <- function(formula, cov_mat, n = NULL,
 
   levpat_mat <- cbind(levpat)
   rownames(levpat_mat) <- ""
-  colnames(levpat_mat) <- c("r.pattern.level")
+  colnames(levpat_mat) <- c("r.level.pattern")
 
   out <- list(
     beta = beta_mat,
