@@ -100,16 +100,17 @@ cpa_mat <- function(formula, cov_mat, n = NULL,
   delta_lev_adj <- R2_adj - pat2_adj
   delta_pat_adj <- R2_adj - lev2
 
+  moe <- stats::qnorm((1 - conf_level) / 2, lower.tail = FALSE)
   if (is.infinite(n) | is.na(n) | n_null) {
-    moe <- stats::qnorm((1 - conf_level) / 2, lower.tail = FALSE)
+    moe_beta <- stats::qnorm((1 - conf_level) / 2, lower.tail = FALSE)
   } else {
-    moe <- stats::qt((1 - conf_level) / 2, n - p - 1, lower.tail = FALSE)
+    moe_beta <- stats::qt((1 - conf_level) / 2, n - p - 1, lower.tail = FALSE)
   }
 
   se_beta <- sqrt(diag(se_var$beta))
   se_bstar <- sqrt(diag(se_var$bstar))
 
-  beta_mat <- cbind(beta, se_beta, beta - se_beta * moe, beta + se_beta * moe)
+  beta_mat <- cbind(beta, se_beta, beta - se_beta * moe_beta, beta + se_beta * moe_beta)
   rownames(beta_mat) <- x_col
   colnames(beta_mat) <- c("beta",
                           "SE",
@@ -117,7 +118,7 @@ cpa_mat <- function(formula, cov_mat, n = NULL,
                           paste0((1 - (1 - conf_level) / 2) * 100, "%")
   )
 
-  bstar_mat <- cbind(bstar, se_bstar, bstar - se_bstar * moe, bstar + se_bstar * moe)
+  bstar_mat <- cbind(bstar, se_bstar, bstar - se_bstar * moe_beta, bstar + se_bstar * moe_beta)
   rownames(bstar_mat) <- x_col
   colnames(bstar_mat) <- c("bstar",
                            "SE",
@@ -162,8 +163,8 @@ cpa_mat <- function(formula, cov_mat, n = NULL,
   se_delta_adj <- c(sqrt(unlist(se_var[c("adjusted.delta.r.squared.level", "adjusted.delta.r.squared.pattern")])), NA)
   adj_summary_mat <- cbind(c(lev, pat_adj, R_adj),
                            se_R_adj,
-                           suppressWarnings(sqrt(c(lev2, pat2_adj, R2_adj) - se_R2_adj * moe)),
-                           suppressWarnings(sqrt(c(lev2, pat2_adj, R2_adj) + se_R2_adj * moe)),
+                           c(lev, pat_adj, R_adj) - se_R_adj * moe,
+                           c(lev, pat_adj, R_adj) + se_R_adj * moe,
                            c(lev2, pat2_adj, R2_adj),
                            se_R2_adj,
                            c(lev2, pat2_adj, R2_adj) - se_R2_adj * moe,
@@ -187,9 +188,10 @@ cpa_mat <- function(formula, cov_mat, n = NULL,
                                  "Adj. beta"
                                  )
 
-  levpat_mat <- cbind(levpat)
+  se_levpat <- sqrt(se_var$r.level.pattern)
+  levpat_mat <- data.frame(levpat, se_levpat, levpat - se_levpat * moe, levpat + se_levpat * moe)
+  colnames(levpat_mat) <- c("R", "SE", paste0((1 - conf_level) / 2 * 100, "%"), paste0((1 - (1 - conf_level) / 2) * 100, "%"))
   rownames(levpat_mat) <- ""
-  colnames(levpat_mat) <- c("r.level.pattern")
 
   out <- list(
     beta = beta_mat,

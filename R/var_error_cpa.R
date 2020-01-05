@@ -247,21 +247,21 @@ var_error_cpa <- function(Rxx, rxy, n = NULL, se_var_mat = NULL, adjust = c("fis
   out <- list(
     beta = v.beta,
     bstar = v.bstar,
-    r.total = v.R,
-    r.total.squared = v.R2,
-    r.level = v.lev,
-    r.level.squared = v.lev2,
-    r.pattern = v.pat,
-    r.pattern.squared = v.pat2,
-    r.level.pattern = v.levpat,
-    delta.r.squared.level = v.deltalev,
-    delta.r.squared.pattern = v.deltapat,
-    adjusted.r.total = v.R_adj,
-    adjusted.r.total.squared = v.R2_adj,
-    adjusted.r.pattern = v.pat_adj,
-    adjusted.r.pattern.squared = v.pat2_adj,
-    adjusted.delta.r.squared.level = v.deltalev_adj,
-    adjusted.delta.r.squared.pattern = v.deltapat_adj
+    r.total = as.vector(v.R),
+    r.total.squared = as.vector(v.R2),
+    r.level = as.vector(v.lev),
+    r.level.squared = as.vector(v.lev2),
+    r.pattern = as.vector(v.pat),
+    r.pattern.squared = as.vector(v.pat2),
+    r.level.pattern = as.vector(v.levpat),
+    delta.r.squared.level = as.vector(v.deltalev),
+    delta.r.squared.pattern = as.vector(v.deltapat),
+    adjusted.r.total = as.vector(v.R_adj),
+    adjusted.r.total.squared = as.vector(v.R2_adj),
+    adjusted.r.pattern = as.vector(v.pat_adj),
+    adjusted.r.pattern.squared = as.vector(v.pat2_adj),
+    adjusted.delta.r.squared.level = as.vector(v.deltalev_adj),
+    adjusted.delta.r.squared.pattern = as.vector(v.deltapat_adj)
   )
 
   class(out) <- "var_cpa"
