@@ -5,8 +5,14 @@
 \alias{fungible.lm}
 \title{Locate extrema of fungible OLS regression weights}
 \usage{
-\method{fungible}{lm}(object, theta = 0.005, Nstarts = 1000,
-  MaxMin = c("min", "max"), silent = FALSE, ...)
+\method{fungible}{lm}(
+  object,
+  theta = 0.005,
+  Nstarts = 1000,
+  MaxMin = c("min", "max"),
+  silent = FALSE,
+  ...
+)
 }
 \arguments{
 \item{object}{A fitted model object of class "lm" or "summary.lm".}

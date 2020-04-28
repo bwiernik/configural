@@ -5,11 +5,13 @@
 \name{hrm}
 \alias{hrm}
 \title{Meta-analytic correlations of HRM practices with organizational financial performance}
-\format{list with entries \code{r} (mean oberseved correlations), \code{rho} (mean
+\format{
+list with entries \code{r} (mean oberseved correlations), \code{rho} (mean
 corrected correlations), \code{n} (sample sizes), \code{sevar_r} (sampling error
 variances for mean observed correlations), \code{sevar_rho} (sampling error
 variances for mean corrected correlations), and \code{source} (character labels
-indicating which meta-analytic correlations came from the same source)}
+indicating which meta-analytic correlations came from the same source)
+}
 \usage{
 data(hrm)
 }

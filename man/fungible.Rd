@@ -5,8 +5,14 @@
 \alias{fungible}
 \title{Locate extrema of fungible weights for regression and related models}
 \usage{
-fungible(object, theta = 0.005, Nstarts = 1000, MaxMin = c("min",
-  "max"), silent = FALSE, ...)
+fungible(
+  object,
+  theta = 0.005,
+  Nstarts = 1000,
+  MaxMin = c("min", "max"),
+  silent = FALSE,
+  ...
+)
 }
 \arguments{
 \item{object}{A fitted model object. Currently supported classes are: "cpa"}

@@ -5,8 +5,14 @@
 \alias{fungible.cpa}
 \title{Locate extrema of fungible criterion profile patterns}
 \usage{
-\method{fungible}{cpa}(object, theta = 0.005, Nstarts = 1000,
-  MaxMin = c("min", "max"), silent = FALSE, ...)
+\method{fungible}{cpa}(
+  object,
+  theta = 0.005,
+  Nstarts = 1000,
+  MaxMin = c("min", "max"),
+  silent = FALSE,
+  ...
+)
 }
 \arguments{
 \item{object}{A fitted model object of class "cpa".}

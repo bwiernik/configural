@@ -5,8 +5,13 @@
 \alias{var_error_cpa}
 \title{Estimate the sampling error variance for criterion profile analysis parameters}
 \usage{
-var_error_cpa(Rxx, rxy, n = NULL, se_var_mat = NULL,
-  adjust = c("fisher", "pop", "cv"))
+var_error_cpa(
+  Rxx,
+  rxy,
+  n = NULL,
+  se_var_mat = NULL,
+  adjust = c("fisher", "pop", "cv")
+)
 }
 \arguments{
 \item{Rxx}{An intercorrelation matrix among the predictor variables}

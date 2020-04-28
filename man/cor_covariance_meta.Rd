@@ -6,8 +6,15 @@
 \title{Estimate the asymptotic sampling covariance matrix for the unique elements of
 a meta-analytic correlation matrix}
 \usage{
-cor_covariance_meta(r, n, sevar, source = NULL, rho = NULL,
-  sevar_rho = NULL, n_overlap = NULL)
+cor_covariance_meta(
+  r,
+  n,
+  sevar,
+  source = NULL,
+  rho = NULL,
+  sevar_rho = NULL,
+  n_overlap = NULL
+)
 }
 \arguments{
 \item{r}{A meta-analytic matrix of observed correlations (can be full or lower-triangular).}

@@ -47,7 +47,7 @@ cpa_mat <- function(formula, cov_mat, n = NULL,
   y_col <- as.character(formula[[2]])
   y_col <- unique(y_col[y_col %in% rownames(cov_mat)])
   x_col <- as.character(formula)[[3]]
-  x_col <- stringr::str_split(x_col, pattern = "[+]")[[1]]
+  x_col <- strsplit(x_col, split = "\\s*[+]\\s*")[[1]]
   x_col <- .remove_charmargins(x = x_col)
   x_col <- unique(x_col[x_col %in% rownames(cov_mat)])
 

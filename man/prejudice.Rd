@@ -5,8 +5,10 @@
 \name{prejudice}
 \alias{prejudice}
 \title{Correlations between study design moderators and effect sizes for prejudice reduction following intergroup contact}
-\format{list with entries \code{r} (observed correlations among moderators) and
-\code{k} (number of samples in meta-analysis)}
+\format{
+list with entries \code{r} (observed correlations among moderators) and
+\code{k} (number of samples in meta-analysis)
+}
 \usage{
 data(prejudice)
 }

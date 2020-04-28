@@ -5,8 +5,14 @@
 \alias{.fungible_extrema}
 \title{Locate extrema of fungible OLS regression weights}
 \usage{
-.fungible_extrema(theta, Rxx, rxy, Nstarts = 1000, MaxMin = c("min",
-  "max"), silent = FALSE)
+.fungible_extrema(
+  theta,
+  Rxx,
+  rxy,
+  Nstarts = 1000,
+  MaxMin = c("min", "max"),
+  silent = FALSE
+)
 }
 \arguments{
 \item{theta}{The value of the R-squared decrement used to generate a family of fungible coefficients.}

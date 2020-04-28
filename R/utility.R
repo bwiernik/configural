@@ -78,8 +78,6 @@ harmonic_mean <- function(x, na.rm = TRUE, zero = TRUE) {
 #'
 #' @keywords internal
 #'
-#' @importFrom dplyr %>%
-#'
 #' @references
 #' Nel, D. G. (1985).
 #' A matrix derivation of the asymptotic covariance matrix of sample correlation coefficients.
@@ -101,7 +99,7 @@ transition <- function(p) {
     p2 <- p2 - 1
   }
 
-  Kpc <- solve(t(Dp) %*% Dp) %*% t(Dp) %>% `[`(-rows, )
+  Kpc <- (solve(t(Dp) %*% Dp) %*% t(Dp))[-rows, ]
 
   return(Kpc)
 
@@ -132,7 +130,7 @@ cor_covariance <- function(r, n) {
   id <- diag(p)
 
   Ms <-
-    matrix(
+    (matrix(
       c(rep(
         c(rep(
           c(1, rep(
@@ -141,13 +139,10 @@ cor_covariance <- function(r, n) {
           1, rep(0, times = p) ), times = p - 1),
         rep(c(1, rep(0, times = p * p + (p - 1))), times = p - 1),
         1),
-      nrow = p^2) %>%
-    `+`(diag(p^2)) / 2
+      nrow = p^2) + diag(p^2) ) / 2
 
   Md <-
-    rep(0, p^2) %>%
-    replace(seq(1, (p^2), by = (p + 1)), 1) %>%
-    diag()
+    diag(replace(rep(0, p^2), seq(1, (p^2), by = (p + 1)), 1))
 
   Psi <-
     0.5 * (4 * Ms %*% (r %x% r) %*% Ms -
@@ -212,7 +207,7 @@ cor_covariance_meta <- function(r, n, sevar, source = NULL, rho = NULL, sevar_rh
   if (is.null(rownames(r))) rownames(r) <- 1:nrow(r)
   if (!all(colnames(r) == rownames(r))) stop("Row names and column names of 'r' must be the same")
   var_names <- colnames(r)
-  cor_names <- outer(var_names, var_names, paste, sep = "-") %>% t() %>% vechs()
+  cor_names <- vechs(t(outer(var_names, var_names, paste, sep = "-")))
 
   if (is.null(colnames(n))) if (!all(colnames(n) == var_names)) stop("Column names of 'n' and 'r' must be the same")
   if (is.null(rownames(n))) if (!all(rownames(n) == var_names)) stop("Row names of 'n' and 'r' must be the same")
@@ -254,7 +249,7 @@ cor_covariance_meta <- function(r, n, sevar, source = NULL, rho = NULL, sevar_rh
   id <- diag(p)
 
   Ms <-
-    matrix(
+    (matrix(
       c(rep(
         c(rep(
           c(1, rep(
@@ -263,13 +258,9 @@ cor_covariance_meta <- function(r, n, sevar, source = NULL, rho = NULL, sevar_rh
           1, rep(0, times = p) ), times = p - 1),
         rep(c(1, rep(0, times = p * p + (p - 1))), times = p - 1),
         1),
-      nrow = p^2) %>%
-    `+`(diag(p^2)) / 2
+      nrow = p^2) + diag(p^2)) / 2
 
-  Md <-
-    rep(0, p^2) %>%
-    replace(seq(1, (p^2), by = (p + 1)), 1) %>%
-    diag()
+  Md <- diag(replace(rep(0, p^2), seq(1, (p^2), by = (p + 1)), 1))
 
   Psi <-
     0.5 * (4 * Ms %*% (r %x% r) %*% Ms -

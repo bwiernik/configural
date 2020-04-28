@@ -5,9 +5,16 @@
 \alias{cpa_mat}
 \title{Conduct criterion profile analysis using a correlation matrix}
 \usage{
-cpa_mat(formula, cov_mat, n = NULL, se_var_mat = NULL,
-  se_beta_method = c("normal", "lm"), adjust = c("fisher", "pop",
-  "cv"), conf_level = 0.95, ...)
+cpa_mat(
+  formula,
+  cov_mat,
+  n = NULL,
+  se_var_mat = NULL,
+  se_beta_method = c("normal", "lm"),
+  adjust = c("fisher", "pop", "cv"),
+  conf_level = 0.95,
+  ...
+)
 }
 \arguments{
 \item{formula}{Regression formula with a single outcome variable on the left-hand side and one or more predictor variables on the right-hand side (e.g., Y ~ X1 + X2).}

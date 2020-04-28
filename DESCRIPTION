@@ -1,7 +1,7 @@
 Package: configural
 Type: Package
 Title: Multivariate Profile Analysis 
-Version: 0.1.1
+Version: 0.1.1.9999
 Date: 2019-01-20
 Authors@R: c( person("Brenton M.", "Wiernik", role = c("aut", "cre"), email = "brenton@wiernik.org")
               )
@@ -11,8 +11,9 @@ License: GPL (>= 3)
 Depends: R (>= 3.4.0)
 Encoding: UTF-8
 LazyData: true
-Imports: stats, dplyr, crayon, cli, stringr
-RoxygenNote: 6.1.1
+Imports: stats
+Suggests: crayon
+RoxygenNote: 7.1.0
 Roxygen: list(markdown = TRUE)
 NeedsCompilation: no
 Packaged: 2018-05-01 18:29:28 UTC; brenton
