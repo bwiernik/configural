@@ -6,7 +6,7 @@ Date: 2019-01-20
 Authors@R: c( person("Brenton M.", "Wiernik", role = c("aut", "cre"), email = "brenton@wiernik.org")
               )
 BugReports: https://github.com/bwiernik/configural/issues
-Description: R functions for criterion profile analysis, Davison and Davenport (2002) <doi:10.1037/1082-989X.7.4.468> and meta-analytic criterion profile analysis, Wiernik, Wilmot, Davison, and Ones (2019). Sensitivity analyses to aid in interpreting criterion profile analysis results are also included.
+Description: R functions for criterion profile analysis, Davison and Davenport (2002) <doi:10.1037/1082-989X.7.4.468> and meta-analytic criterion profile analysis, Wiernik et a. (2020). Sensitivity analyses to aid in interpreting criterion profile analysis results are also included.
 License: GPL (>= 3)
 Depends: R (>= 3.4.0)
 Encoding: UTF-8
