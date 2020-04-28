@@ -299,8 +299,8 @@ predict.cpa <- predict(object, newdata, se.fit = FALSE, scale = NULL, df = Inf,
   type <- match.arg(type)
 
   tt <- terms(object)
-  if (!inherits(object, "lm"))
-    warning("calling predict.lm(<fake-lm-object>) ...")
+  if (!inherits(object, "cpa"))
+    warning("calling predict.cpa(<fake-cpa-object>) ...")
   if (missing(newdata) || is.null(newdata)) {
     mm <- X <- model.matrix(object)
     mmDone <- TRUE
