@@ -152,7 +152,9 @@ cor_covariance <- function(r, n) {
              Md %*% (id %x% r + r %x% id))
 
   Kpc <- transition(p)
-  return((Kpc %*% Psi %*% t(Kpc)) / (n - 3))
+  out <- (Kpc %*% Psi %*% t(Kpc)) / (n - 3)
+  rownames(out) <- colnames(out) <- cor_labels(colnames(r))
+  return(out)
 }
 
 #' Generate labels for correlations from a vector of variable names
@@ -205,24 +207,24 @@ cor_labels <- function(var_names) {
 cor_covariance_meta <- function(r, n, sevar, source = NULL, rho = NULL, sevar_rho = NULL, n_overlap = NULL) {
   if (is.null(colnames(r))) colnames(r) <- 1:ncol(r)
   if (is.null(rownames(r))) rownames(r) <- 1:nrow(r)
-  if (!all(colnames(r) == rownames(r))) stop("Row names and column names of 'r' must be the same")
+  if (!all(colnames(r) == rownames(r))) stop("Row names and column names of `r` must be the same")
   var_names <- colnames(r)
-  cor_names <- vechs(t(outer(var_names, var_names, paste, sep = "-")))
+  cor_names <- cor_labels(var_names)
 
-  if (is.null(colnames(n))) if (!all(colnames(n) == var_names)) stop("Column names of 'n' and 'r' must be the same")
-  if (is.null(rownames(n))) if (!all(rownames(n) == var_names)) stop("Row names of 'n' and 'r' must be the same")
+  if (is.null(colnames(n))) if (!all(colnames(n) == var_names)) stop("Column names of `n` and `r` must be the same")
+  if (is.null(rownames(n))) if (!all(rownames(n) == var_names)) stop("Row names of `n` and `r` must be the same")
 
-  if (is.null(colnames(sevar))) if (!all(colnames(sevar) == var_names)) stop("Column names of 'sevar' and 'r' must be the same")
-  if (is.null(rownames(sevar))) if (!all(rownames(sevar) == var_names)) stop("Row names of 'sevar' and 'r' must be the same")
+  if (is.null(colnames(sevar))) if (!all(colnames(sevar) == var_names)) stop("Column names of `sevar` and `r` must be the same")
+  if (is.null(rownames(sevar))) if (!all(rownames(sevar) == var_names)) stop("Row names of `sevar` and `r` must be the same")
 
   if (!is.null(source)) {
-    if (is.null(colnames(source))) if (!all(colnames(source) == var_names)) stop("Column names of 'source' and 'r' must be the same")
-    if (is.null(rownames(source))) if (!all(rownames(source) == var_names)) stop("Row names of 'source' and 'r' must be the same")
+    if (is.null(colnames(source))) if (!all(colnames(source) == var_names)) stop("Column names of `source` and `r` must be the same")
+    if (is.null(rownames(source))) if (!all(rownames(source) == var_names)) stop("Row names of `source` and `r` must be the same")
   }
 
   if (!is.null(n_overlap)) {
-    if (!is.null(colnames(n_overlap))) if (!all(colnames(n_overlap) == cor_names)) stop("Column names of 'n_overlap' must be identical to 'cor_labels(colnames(r))'")
-    if (!is.null(rownames(n_overlap))) if (!all(rownames(n_overlap) == cor_names)) stop("Row names of 'n_overlap' must be identical to 'cor_labels(colnames(r))'")
+    if (!is.null(colnames(n_overlap))) if (!all(colnames(n_overlap) == cor_names)) stop("Column names of `n_overlap` must be identical to the result of:\n  `cor_labels(colnames(r))`")
+    if (!is.null(rownames(n_overlap))) if (!all(rownames(n_overlap) == cor_names)) stop("Row names of `n_overlap` must be identical to the result of:\n  `cor_labels(colnames(r))`")
   }
 
   r <- vechs2full(vechs(r))
