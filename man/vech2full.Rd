@@ -23,10 +23,10 @@ These functions return the symmetric matrix that produces the given
 half-vectorization result.
 }
 \details{
-The input consists of a vector ofthe elements in the lower triangle
+The input consists of a vector of the elements in the lower triangle
 of the resulting matrix (for \code{vech2full}, including the elements along the diagonal
 of the matrix, as a column vector), filled column-wise. For \code{vechs2full},
-the diagonal values are filled as 1 by defualt, alternative values can be
+the diagonal values are filled as 1 by default, alternative values can be
 specified using the \code{diag} argument. The inverse half-vectorization takes a
 vector and reconstructs a symmetric matrix such that vech2full(vech(x)) is
 identical to x if x is symmetric.

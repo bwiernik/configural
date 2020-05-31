@@ -25,7 +25,7 @@ var_error_cpa(
 \item{adjust}{Method to adjust R-squared for overfitting. See \code{\link{adjust_Rsq}} for details.}
 }
 \value{
-A list containing sampling covariance matrices or sampling erorr variance estimates for CPA parameters
+A list containing sampling covariance matrices or sampling error variance estimates for CPA parameters
 }
 \description{
 Estimate the sampling error variance for criterion profile analysis parameters

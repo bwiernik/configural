@@ -12,7 +12,7 @@ harmonic_mean(x, na.rm = TRUE, zero = TRUE)
 
 \item{na.rm}{Logical. If \code{TRUE}, remove \code{NA} values before processing}
 
-\item{zero}{Logical, If \code{TRUE}, if there are any zeroes, retun 0, else, return the harmonic mean of the non-zero elements}
+\item{zero}{Logical, If \code{TRUE}, if there are any zeroes, return 0, else, return the harmonic mean of the non-zero elements}
 }
 \value{
 The harmonic mean of x

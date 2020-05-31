@@ -6,7 +6,7 @@
 \alias{mindfulness}
 \title{Meta-analytic correlations among Big Five personality traits and trait mindfulness}
 \format{
-list with entries \code{r} (mean oberseved correlations), \code{rho} (mean
+list with entries \code{r} (mean observed correlations), \code{rho} (mean
 corrected correlations), \code{n} (sample sizes), \code{sevar_r} (sampling error
 variances for mean observed correlations), \code{sevar_rho} (sampling error
 variances for mean corrected correlations), and \code{source} (character labels
@@ -26,14 +26,14 @@ data(mindfulness)
 \references{
 Davies, S. E., Connelly, B. L., Ones, D. S., & Birkland, A. S. (2015).
 The general factor of personality: The “Big One,” a self-evaluative trait, or a methodological gnat that won’t go away?
-\emph{Personality and Individual Differences, 81}, 13–22. \url{https://doi.org/10/bc98}
+\emph{Personality and Individual Differences, 81}, 13–22. \url{https://doi.org/10.1016/j.paid.2015.01.006}
 
 Giluk, T. L. (2009).
 Mindfulness, Big Five personality, and affect: A meta-analysis.
-\emph{Personality and Individual Differences, 47}(8), 805–811. \url{https://doi.org/10/d23n2k}
+\emph{Personality and Individual Differences, 47}(8), 805–811. \url{https://doi.org/10.1016/j.paid.2009.06.026}
 
 Hanley, A. W., & Garland, E. L. (2017).
 The mindful personality: A meta-analysis from a cybernetic perspective.
-\emph{Mindfulness, 8}(6), 1456–1470. \url{https://doi.org/10/gcmvb4}
+\emph{Mindfulness, 8}(6), 1456–1470. \url{https://doi.org/10.1007/s12671-017-0736-8}
 }
 \keyword{datasets}

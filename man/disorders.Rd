@@ -6,7 +6,7 @@
 \alias{disorders}
 \title{Meta-analytic correlations among Big Five personality traits and psychological disorders}
 \format{
-list with entries \code{r} (mean oberseved correlations), \code{rho} (mean
+list with entries \code{r} (mean observed correlations), \code{rho} (mean
 corrected correlations), \code{n} (sample sizes), \code{sevar_r} (sampling error
 variances for mean observed correlations), \code{sevar_rho} (sampling error
 variances for mean corrected correlations), and \code{source} (character labels
@@ -27,9 +27,9 @@ data(disorders)
 \references{
 Davies, S. E., Connelly, B. L., Ones, D. S., & Birkland, A. S. (2015).
 The general factor of personality: The “Big One,” a self-evaluative trait, or a methodological gnat that won’t go away?
-\emph{Personality and Individual Differences, 81}, 13–22. \url{https://doi.org/10/bc98}
+\emph{Personality and Individual Differences, 81}, 13–22. \url{https://doi.org/10.1016/j.paid.2015.01.006}
 
 Kotov, R., Gamez, W., Schmidt, F., & Watson, D. (2010). Linking “big” personality traits to anxiety, depressive, and substance use disorders: A meta-analysis.
-\emph{Psychological Bulletin, 136}(5), 768–821. \url{https://doi.org/10/bxzt2k}
+\emph{Psychological Bulletin, 136}(5), 768–821. \url{https://doi.org/10.1037/a0020327}
 }
 \keyword{datasets}

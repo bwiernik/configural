@@ -6,7 +6,7 @@
 \alias{jobchar}
 \title{Meta-analytic correlations of job characteristics with performance and satisfaction}
 \format{
-list with entries \code{r} (mean oberseved correlations), \code{rho} (mean
+list with entries \code{r} (mean observed correlations), \code{rho} (mean
 corrected correlations), \code{n} (sample sizes), \code{sevar_r} (sampling error
 variances for mean observed correlations), \code{sevar_rho} (sampling error
 variances for mean corrected correlations), and \code{source} (character labels
@@ -26,6 +26,6 @@ data(jobchar)
 \references{
 Humphrey, S. E., Nahrgang, J. D., & Morgeson, F. P. (2007).
 Integrating motivational, social, and contextual work design features: A meta-analytic summary and theoretical extension of the work design literature.
-\emph{Journal of Applied Psychology, 92}(5), 1332–1356. \url{https://doi.org/10/dch52t}
+\emph{Journal of Applied Psychology, 92}(5), 1332–1356. \url{https://doi.org/10.1037/0021-9010.92.5.1332}
 }
 \keyword{datasets}

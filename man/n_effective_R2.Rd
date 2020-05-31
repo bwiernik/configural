@@ -36,5 +36,5 @@ SAGE Publications. https://doi.org/10.4135/9781473957992.n33
 
 Cohen, J., Cohen, P., West, S. G., & Aiken, L. S. (2003).
 \emph{Applied multiple regression/correlation analysis for the behavioral sciences} (3rd ed.).
-Routledge. https://doi.org/10/crtf
+Routledge. https://doi.org/10.4324/9780203774441
 }

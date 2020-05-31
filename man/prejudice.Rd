@@ -25,6 +25,6 @@ data(prejudice)
 \references{
 Pettigrew, T. F., & Tropp, L. R. (2006).
 A meta-analytic test of intergroup contact theory.
-\emph{Journal of Personality and Social Psychology, 90}(5), 751–783. \url{https://doi.org/10/fmsz26}
+\emph{Journal of Personality and Social Psychology, 90}(5), 751–783. \url{https://doi.org/10.1037/0022-3514.90.5.751}
 }
 \keyword{datasets}

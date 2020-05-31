@@ -24,7 +24,7 @@ cor_covariance(matrix(c(1, .2, .3, .2, 1, .3, .3, .3, 1), ncol = 3), 100)
 \references{
 Nel, D. G. (1985).
 A matrix derivation of the asymptotic covariance matrix of sample correlation coefficients.
-\emph{Linear Algebra and Its Applications, 67}, 137–145. \url{https://doi.org/10/c75jmg}
+\emph{Linear Algebra and Its Applications, 67}, 137–145. \url{https://doi.org/10.1016/0024-3795(85)90191-0}
 }
 \author{
 Based on an internal function from the \pkg{fungible} package by Niels Waller

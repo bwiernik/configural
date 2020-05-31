@@ -15,7 +15,7 @@
 #' @references
 #' Shieh, G. (2008).
 #' Improved shrinkage estimation of squared multiple correlation coefficient and squared cross-validity coefficient.
-#' _Organizational Research Methods, 11_(2), 387–407. <https://doi.org/10/bcwqf3>
+#' _Organizational Research Methods, 11_(2), 387–407. <https://doi.org/10.1177/1094428106292901>
 #'
 #' @examples
 #' adjust_Rsq(.55, 100, 6, adjust = "pop")
@@ -41,7 +41,7 @@ adjust_Rsq <- function(Rsq, n, p, adjust = c("fisher", "pop", "cv")) {
 #'
 #' @param x A vector, matrix, or data.frame
 #' @param na.rm Logical. If `TRUE`, remove `NA` values before processing
-#' @param zero Logical, If `TRUE`, if there are any zeroes, retun 0, else, return the harmonic mean of the non-zero elements
+#' @param zero Logical, If `TRUE`, if there are any zeroes, return 0, else, return the harmonic mean of the non-zero elements
 #'
 #' @return The harmonic mean of x
 #'
@@ -81,7 +81,7 @@ harmonic_mean <- function(x, na.rm = TRUE, zero = TRUE) {
 #' @references
 #' Nel, D. G. (1985).
 #' A matrix derivation of the asymptotic covariance matrix of sample correlation coefficients.
-#' _Linear Algebra and Its Applications, 67_, 137–145. <https://doi.org/10/c75jmg>
+#' _Linear Algebra and Its Applications, 67_, 137–145. <https://doi.org/10.1016/0024-3795(85)90191-0>
 #'
 #' @examples
 #' transition(5)
@@ -121,7 +121,7 @@ transition <- function(p) {
 #' @references
 #' Nel, D. G. (1985).
 #' A matrix derivation of the asymptotic covariance matrix of sample correlation coefficients.
-#' _Linear Algebra and Its Applications, 67_, 137–145. <https://doi.org/10/c75jmg>
+#' _Linear Algebra and Its Applications, 67_, 137–145. <https://doi.org/10.1016/0024-3795(85)90191-0>
 #'
 #' @examples
 #' cor_covariance(matrix(c(1, .2, .3, .2, 1, .3, .3, .3, 1), ncol = 3), 100)
@@ -195,7 +195,7 @@ cor_labels <- function(var_names) {
 #' @references
 #' Nel, D. G. (1985).
 #' A matrix derivation of the asymptotic covariance matrix of sample correlation coefficients.
-#' _Linear Algebra and Its Applications, 67_, 137–145. <https://doi.org/10/c75jmg>
+#' _Linear Algebra and Its Applications, 67_, 137–145. <https://doi.org/10.1016/0024-3795(85)90191-0>
 #'
 #' Wiernik, B. M. (2018).
 #' _Accounting for dependency in meta-analytic structural equations modeling: A flexible alternative to generalized least squares and two-stage structural equations modeling._
@@ -581,10 +581,10 @@ rvec <- function(x) {
 #' These functions return the symmetric matrix that produces the given
 #' half-vectorization result.
 #'
-#' @details The input consists of a vector ofthe elements in the lower triangle
+#' @details The input consists of a vector of the elements in the lower triangle
 #' of the resulting matrix (for `vech2full`, including the elements along the diagonal
 #' of the matrix, as a column vector), filled column-wise. For `vechs2full`,
-#' the diagonal values are filled as 1 by defualt, alternative values can be
+#' the diagonal values are filled as 1 by default, alternative values can be
 #' specified using the `diag` argument. The inverse half-vectorization takes a
 #' vector and reconstructs a symmetric matrix such that vech2full(vech(x)) is
 #' identical to x if x is symmetric.

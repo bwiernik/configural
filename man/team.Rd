@@ -6,7 +6,7 @@
 \alias{team}
 \title{Meta-analytic correlations among team processes and team effectiveness}
 \format{
-list with entries \code{r} (mean oberseved correlations), \code{rho} (mean
+list with entries \code{r} (mean observed correlations), \code{rho} (mean
 corrected correlations), \code{n} (sample sizes), \code{sevar_r} (sampling error
 variances for mean observed correlations), \code{sevar_rho} (sampling error
 variances for mean corrected correlations), and \code{source} (character labels
@@ -23,7 +23,7 @@ correlations from LePine et al. (2008).
 Note that LePine et al. (2008) did not report confidence intervals, sampling
 error variances, or heterogeneity estimates for correlations among team
 processes; included sampling error variances in this list are based on total
-sample size only and do not include uncertainty stemmming from any effect
+sample size only and do not include uncertainty stemming from any effect
 size heterogeneity.
 }
 \examples{
@@ -32,6 +32,6 @@ data(team)
 \references{
 LePine, J. A., Piccolo, R. F., Jackson, C. L., Mathieu, J. E., & Saul, J. R. (2008).
 A meta-analysis of teamwork processes: tests of a multidimensional model and relationships with team effectiveness criteria.
-\emph{Personnel Psychology, 61}(2), 273–307. \url{https://doi.org/10/d5nxg9}
+\emph{Personnel Psychology, 61}(2), 273–307. \url{https://doi.org/10.1111/j.1744-6570.2008.00114.x}
 }
 \keyword{datasets}

@@ -6,7 +6,7 @@
 #' @param se_var_mat A matrix of sampling covariance values for the elements of `Rxx` and `rxy`. If NULL, generated using the Normal theory covariance matrix based on `n`.
 #' @param adjust Method to adjust R-squared for overfitting. See \code{\link{adjust_Rsq}} for details.
 #'
-#' @return A list containing sampling covariance matrices or sampling erorr variance estimates for CPA parameters
+#' @return A list containing sampling covariance matrices or sampling error variance estimates for CPA parameters
 #' @export
 #'
 #' @encoding UTF-8
@@ -293,7 +293,7 @@ var_error_cpa <- function(Rxx, rxy, n = NULL, se_var_mat = NULL, adjust = c("fis
 #'
 #' Cohen, J., Cohen, P., West, S. G., & Aiken, L. S. (2003).
 #' _Applied multiple regression/correlation analysis for the behavioral sciences_ (3rd ed.).
-#' Routledge. https://doi.org/10/crtf
+#' Routledge. https://doi.org/10.4324/9780203774441
 #'
 #' @examples
 #' n_effective_R2(0.3953882, 0.0005397923, 5)

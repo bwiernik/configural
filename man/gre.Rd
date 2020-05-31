@@ -6,7 +6,7 @@
 \alias{gre}
 \title{Meta-analytic correlations of Graduate Record Examination subtests with graduate grade point average}
 \format{
-list with entries \code{r} (mean oberseved correlations), \code{rho} (mean
+list with entries \code{r} (mean observed correlations), \code{rho} (mean
 corrected correlations), \code{n} (sample sizes), \code{sevar_r} (sampling error
 variances for mean observed correlations), \code{sevar_rho} (sampling error
 variances for mean corrected correlations), and \code{source} (character labels
@@ -34,6 +34,6 @@ data(gre)
 \references{
 Kuncel, N. R., Hezlett, S. A., & Ones, D. S. (2001).
 A comprehensive meta-analysis of the predictive validity of the graduate record examinations: Implications for graduate student selection and performance.
-\emph{Psychological Bulletin, 127}(1), 162–181. \url{https://doi.org/10/cffkhc}
+\emph{Psychological Bulletin, 127}(1), 162–181. \url{https://doi.org/10.1037/0033-2909.127.1.162}
 }
 \keyword{datasets}
