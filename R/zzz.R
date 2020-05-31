@@ -11,7 +11,7 @@
                               "  https://cran.r-project.org/package=configural (Original work published 2019)\n\n",
                               "  Wiernik, B. M., Wilmot, M. P., Davison, M. L., & Ones, D. S. (2020).\n",
                               "  Meta-analytic criterion profile analysis.\n  ",
-                              crayon::italic("Psychological Methods."))
+                              crayon::italic("Psychological Methods."), "https://doi.org/10.1037/met0000305")
     } else {
         packageStartupMessage(paste("----------------------------------------------------- ", pkgname, "version", pkg_version, " --"))
         packageStartupMessage("\nPlease report any bugs to github.com/bwiernik/configural/issues \nor brenton@wiernik.org")
@@ -21,7 +21,7 @@
                               "  https://cran.r-project.org/package=configural (Original work published 2019)\n\n",
                               "  Wiernik, B. M., Wilmot, M. P., Davison, M. L., & Ones, D. S. (2020).\n",
                               "  Meta-analytic criterion profile analysis.\n",
-                              "  Psychological Methods.")
+                              "  Psychological Methods. https://doi.org/10.1037/met0000305")
     }
 
     packageStartupMessage("\nFind info about configural on the web at ",

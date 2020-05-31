@@ -27,7 +27,7 @@ cpa_mat(
 
 \item{se_beta_method}{Method to use to estimate the standard errors of standardized regression (beta) coefficients. Current options include "normal" (use the Jones-Waller, 2015, normal-theory approach) and "lm" (estimate standard errors using conventional regression formulas).}
 
-\item{adjust}{Method to adjust R-squared for overfitting. See \code{\link{adjust_Rsq}} for details.}
+\item{adjust}{Method to adjust R-squared for overfitting. See \code{\link[=adjust_Rsq]{adjust_Rsq()}} for details.}
 
 \item{conf_level}{Confidence level to use for confidence intervals.}
 
@@ -42,7 +42,7 @@ Conduct criterion profile analysis using a correlation matrix
 \examples{
 sevar <- cor_covariance_meta(mindfulness$r, mindfulness$n, mindfulness$sevar_r, mindfulness$source)
 cpa_mat(mindfulness ~ ES + A + C + Ex + O,
-          cov_mat = mindfulness$rho,
+          cov_mat = mindfulness$r,
           n = NULL,
           se_var_mat = sevar,
           adjust = "pop")
@@ -50,14 +50,14 @@ cpa_mat(mindfulness ~ ES + A + C + Ex + O,
 \references{
 Jones, J. A., & Waller, N. G. (2015).
 The normal-theory and asymptotic distribution-free (ADF) covariance matrix of standardized regression coefficients: Theoretical extensions and finite sample behavior.
-\emph{Psychometrika, 80}(2), 365–378. \url{https://doi.org/10/gckfx5}
+\emph{Psychometrika, 80}(2), 365–378. \link{https://doi.org/10.1007/s11336-013-9380-y}
 
 Revelle, W., Condon, D. M., Wilt, J., French, J. A., Brown, A., & Elleman, L. G. (2017).
 Web- and phone-based data collection using planned missing designs.
 In N. G. Fielding, R. M. Lee, & G. Blank, \emph{The SAGE Handbook of Online Research Methods} (pp. 578–594).
-SAGE Publications. https://doi.org/10.4135/9781473957992.n33
+SAGE Publications. \link{https://doi.org/10.4135/9781473957992.n33}
 
 Wiernik, B. M., Wilmot, M. P., Davison, M. L., & Ones, D. S. (2019).
-\emph{Meta-analytic criterion profile analysis.}
-Manuscript submitted for publication.
+Meta-analytic criterion profile analysis.
+\emph{Psychological Methods} \link{https://doi.org/10.1037/met0000305}
 }

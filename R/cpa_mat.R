@@ -3,9 +3,9 @@
 #' @param formula Regression formula with a single outcome variable on the left-hand side and one or more predictor variables on the right-hand side (e.g., Y ~ X1 + X2).
 #' @param cov_mat Correlation matrix containing the variables to be used in the regression.
 #' @param n Sample size. Used to compute adjusted R-squared and, if `se_var_mat` is NULL, standard errors. If NULL and `se_var_mat` is specified, effective sample size is computed based on `se_var_mat` (cf. Revelle et al., 2017).
-#' @param se_var_mat Optional. The sampling error covariance matrix among the unique elements of \code{cov_mat}. Used to calculate standard errors. If not supplied, the sampling covariance matrix is calculated using \code{n}.
+#' @param se_var_mat Optional. The sampling error covariance matrix among the unique elements of `cov_mat`. Used to calculate standard errors. If not supplied, the sampling covariance matrix is calculated using `n`.
 #' @param se_beta_method Method to use to estimate the standard errors of standardized regression (beta) coefficients. Current options include "normal" (use the Jones-Waller, 2015, normal-theory approach) and "lm" (estimate standard errors using conventional regression formulas).
-#' @param adjust Method to adjust R-squared for overfitting. See \code{\link{adjust_Rsq}} for details.
+#' @param adjust Method to adjust R-squared for overfitting. See [adjust_Rsq()] for details.
 #' @param conf_level Confidence level to use for confidence intervals.
 #' @param ... Additional arguments.
 #'
@@ -17,21 +17,21 @@
 #' @references
 #' Jones, J. A., & Waller, N. G. (2015).
 #' The normal-theory and asymptotic distribution-free (ADF) covariance matrix of standardized regression coefficients: Theoretical extensions and finite sample behavior.
-#' _Psychometrika, 80_(2), 365–378. \url{https://doi.org/10/gckfx5}
+#' _Psychometrika, 80_(2), 365–378. [https://doi.org/10.1007/s11336-013-9380-y]
 #'
 #' Revelle, W., Condon, D. M., Wilt, J., French, J. A., Brown, A., & Elleman, L. G. (2017).
 #' Web- and phone-based data collection using planned missing designs.
 #' In N. G. Fielding, R. M. Lee, & G. Blank, _The SAGE Handbook of Online Research Methods_ (pp. 578–594).
-#' SAGE Publications. https://doi.org/10.4135/9781473957992.n33
+#' SAGE Publications. [https://doi.org/10.4135/9781473957992.n33]
 #'
 #' Wiernik, B. M., Wilmot, M. P., Davison, M. L., & Ones, D. S. (2019).
-#' _Meta-analytic criterion profile analysis._
-#' Manuscript submitted for publication.
+#' Meta-analytic criterion profile analysis.
+#' _Psychological Methods_ [https://doi.org/10.1037/met0000305]
 #'
 #' @examples
 #' sevar <- cor_covariance_meta(mindfulness$r, mindfulness$n, mindfulness$sevar_r, mindfulness$source)
 #' cpa_mat(mindfulness ~ ES + A + C + Ex + O,
-#'           cov_mat = mindfulness$rho,
+#'           cov_mat = mindfulness$r,
 #'           n = NULL,
 #'           se_var_mat = sevar,
 #'           adjust = "pop")
@@ -284,4 +284,101 @@ coef.cpa <- function(object, parameter = "bstar", ...) {
 #' @method confint cpa
 confint.cpa <- function(object, ...) {
   object$bstar[,3:4]
+}
+
+#' Compute CPA level and pattern scores for a set of data
+#'
+#' @param cpa_mod A model returned from [cpa_mat()] (a model of class `"cpa"`)
+#' @param newdata A data frame or matrix containing columns with the same names as
+#' the predictors in `cpa_mod`.
+#' @param cpa_names Character vector of length 2 giving the variable names to assign
+#' to the CPA score columns.
+#' @param augment Should be CPA score columns be added to `newdata` (`TRUE`, default)
+#' or returned alone (`FALSE`)?
+#' @param scale Logical. Should the variables in `newdata` be scaled (standardized)?
+#' @param scale_center If `scale` is `TRUE`, passed to the `center` argument in
+#' [base::scale()]. Can be `TRUE` (center columns of `newdata` around the column
+#' means), `FALSE` (don't center), or a numeric vector of length equal to the
+#' number of predictors in `cpa_mod` containing the values to center around.
+#' @param scale_scale If `scale` is `TRUE`, passed to the `scale` argument in
+#' [base::scale()]. Can be `TRUE` (scale/standardize columns of `newdata` using
+#' the column standard deviations or root mean squares), `FALSE` (don't scale),
+#' or a numeric vector of length equal to the number of predictors in `cpa_mod`
+#' containing the values to scale by. See [base::scale()] for details.
+#'
+#' @return
+#' A data frame containing the CPA score variables.
+#'
+#' @export
+#'
+#' @examples
+#' sevar <- cor_covariance_meta(mindfulness$r, mindfulness$n, mindfulness$sevar_r, mindfulness$source)
+#' cpa_mod <- cpa_mat(mindfulness ~ ES + A + C + Ex + O,
+#'                    cov_mat = mindfulness$r,
+#'                    n = NULL,
+#'                    se_var_mat = sevar,
+#'                    adjust = "pop")
+#'
+#' nd <- data.frame(ES = c(4.2, 3.2, 3.4, 4.2, 3.8, 4.0, 5.6, 2.8, 3.4, 2.8),
+#'                  A  = c(4.0, 4.2, 3.8, 4.6, 4.0, 4.6, 4.6, 2.6, 3.6, 5.4),
+#'                  C  = c(2.8, 4.0, 4.0, 3.0, 4.4, 5.6, 4.4, 3.4, 4.0, 5.6),
+#'                  Ex = c(3.8, 5.0, 4.2, 3.6, 4.8, 5.6, 4.2, 2.4, 3.4, 4.8),
+#'                  O  = c(3.0, 4.0, 4.8, 3.2, 3.6, 5.0, 5.4, 4.2, 5.0, 5.2)
+#'                  )
+#'
+#' nd_cpa <- cpa_scores(cpa_mod, nd, augment = FALSE)
+#' nd_augment <- cpa_scores(cpa_mod, nd, augment = FALSE)
+cpa_scores <- function(cpa_mod, newdata = NULL, augment = TRUE,
+                       cpa_names = c("cpa_lev", "cpa_pat"),
+                       scale = FALSE, scale_center = TRUE, scale_scale = TRUE) {
+  if (!is.logical(scale)) {
+    stop("`scale` must be either TRUE or FALSE.")
+  }
+  if (!inherits(cpa_mod, "cpa")) {
+    stop("`cpa_mod` must be an object of class 'cpa'.")
+  }
+
+  bstar <- coef(cpa_mod)[,"bstar"]
+  pred_names <- names(bstar)
+
+  data_pred <- as.data.frame(newdata[,pred_names])
+  if (scale) {
+    if (!is.logical(scale_center)) {
+      if (is.numeric(scale_center)) {
+        if (!(length(scale_center) == 1 | length(scale_center) == length(bstar))) {
+          stop("`scale_center` must be of length 1 or the same length as the number of predictors in `cpa_mod`.")
+        }
+      } else {
+        stop("`scale_center` must be logical or numeric.")
+      }
+    }
+    if (!is.logical(scale_scale)) {
+      if (is.numeric(scale_scale)) {
+        if (!(length(scale_scale) == 1 | length(scale_scale) == length(bstar))) {
+          stop("`scale_scale` must be of length 1 or the same length as the number of predictors in `cpa_mod`.")
+        }
+      } else {
+        stop("`scale_scale` must be logical or numeric.")
+      }
+    }
+    data_pred <- mapply(scale, data_pred, scale_center, scale_scale)
+  }
+
+  lev <- rowMeans(data_pred)
+  pat <- apply(data_pred, 1, cov, y = bstar)
+  cpa_scores <- data.frame(lev, pat)
+  colnames(cpa_scores) <- cpa_names
+
+  if (augment) {
+    data_return <- cbind(newdata, cpa_scores)
+  } else {
+    data_return <- cpa_scores
+  }
+  if (is.matrix(newdata)) {
+    data_return <- as.matrix(data_return)
+  } else {
+    class(data_return) <- class(newdata)
+  }
+
+  return(data_return)
 }
