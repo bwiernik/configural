@@ -3,3 +3,5 @@
 ^\.Rproj\.user$
 LICENSE
 ^data-raw$
+^CRAN-RELEASE$
+^cran-comments\.md$
