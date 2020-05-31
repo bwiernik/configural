@@ -17,16 +17,16 @@
 #' @references
 #' Jones, J. A., & Waller, N. G. (2015).
 #' The normal-theory and asymptotic distribution-free (ADF) covariance matrix of standardized regression coefficients: Theoretical extensions and finite sample behavior.
-#' _Psychometrika, 80_(2), 365–378. [https://doi.org/10.1007/s11336-013-9380-y]
+#' _Psychometrika, 80_(2), 365–378. <https://doi.org/10.1007/s11336-013-9380-y>
 #'
 #' Revelle, W., Condon, D. M., Wilt, J., French, J. A., Brown, A., & Elleman, L. G. (2017).
 #' Web- and phone-based data collection using planned missing designs.
 #' In N. G. Fielding, R. M. Lee, & G. Blank, _The SAGE Handbook of Online Research Methods_ (pp. 578–594).
-#' SAGE Publications. [https://doi.org/10.4135/9781473957992.n33]
+#' SAGE Publications. <https://doi.org/10.4135/9781473957992.n33>
 #'
 #' Wiernik, B. M., Wilmot, M. P., Davison, M. L., & Ones, D. S. (2019).
 #' Meta-analytic criterion profile analysis.
-#' _Psychological Methods_ [https://doi.org/10.1037/met0000305]
+#' _Psychological Methods_ <https://doi.org/10.1037/met0000305>
 #'
 #' @examples
 #' sevar <- cor_covariance_meta(mindfulness$r, mindfulness$n, mindfulness$sevar_r, mindfulness$source)
@@ -310,6 +310,8 @@ confint.cpa <- function(object, ...) {
 #' A data frame containing the CPA score variables.
 #'
 #' @export
+#'
+#' @importFrom stats coef cov
 #'
 #' @examples
 #' sevar <- cor_covariance_meta(mindfulness$r, mindfulness$n, mindfulness$sevar_r, mindfulness$source)

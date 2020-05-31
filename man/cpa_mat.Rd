@@ -50,14 +50,14 @@ cpa_mat(mindfulness ~ ES + A + C + Ex + O,
 \references{
 Jones, J. A., & Waller, N. G. (2015).
 The normal-theory and asymptotic distribution-free (ADF) covariance matrix of standardized regression coefficients: Theoretical extensions and finite sample behavior.
-\emph{Psychometrika, 80}(2), 365–378. \link{https://doi.org/10.1007/s11336-013-9380-y}
+\emph{Psychometrika, 80}(2), 365–378. \url{https://doi.org/10.1007/s11336-013-9380-y}
 
 Revelle, W., Condon, D. M., Wilt, J., French, J. A., Brown, A., & Elleman, L. G. (2017).
 Web- and phone-based data collection using planned missing designs.
 In N. G. Fielding, R. M. Lee, & G. Blank, \emph{The SAGE Handbook of Online Research Methods} (pp. 578–594).
-SAGE Publications. \link{https://doi.org/10.4135/9781473957992.n33}
+SAGE Publications. \url{https://doi.org/10.4135/9781473957992.n33}
 
 Wiernik, B. M., Wilmot, M. P., Davison, M. L., & Ones, D. S. (2019).
 Meta-analytic criterion profile analysis.
-\emph{Psychological Methods} \link{https://doi.org/10.1037/met0000305}
+\emph{Psychological Methods} \url{https://doi.org/10.1037/met0000305}
 }
