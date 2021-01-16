@@ -1,3 +1,7 @@
+Changes in Version 0.1.3 (2021-01-16)
+=====================================
+- Bug fix in `print.fungible_extrema()`
+
 Changes in Version 0.1.2 (2020-05-31)
 =====================================
 - Added `cpa_scores()` function to compute profile and level scores for new data

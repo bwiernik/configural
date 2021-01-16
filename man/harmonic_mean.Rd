@@ -24,5 +24,5 @@ The harmonic mean is merely the reciprocal of the arithmetic mean of the recipro
 harmonic_mean(1:10)
 }
 \author{
-Adapted from \code{\link[psych:harmonic.mean]{psych::harmonic.mean()}} by William Revelle
+Adapted from \code{psych::harmonic.mean()} by William Revelle
 }

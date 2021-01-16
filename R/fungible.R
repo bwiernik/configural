@@ -10,7 +10,7 @@
 #' @encoding UTF-8
 #'
 #' @return A list containing the alternative weights and other fungible weights estimation parameters
-#' @author Adapted from [fungible::fungibleExtrema()] by Niels Waller and Jeff Jones
+#' @author Adapted from `fungible::fungibleExtrema()` by Niels Waller and Jeff Jones
 #'
 #' @export
 #'
@@ -143,7 +143,7 @@
 #'
 #' @return A list containing the alternative weights and other fungible weights estimation parameters
 #'
-#' @author Niels Waller, Jeff Jones, Brenton M. Wiernik. Adapted from [fungible::fungibleExtrema()].
+#' @author Niels Waller, Jeff Jones, Brenton M. Wiernik. Adapted from `fungible::fungibleExtrema()`.
 #'
 #' @encoding UTF-8
 #'
@@ -185,9 +185,9 @@ fungible <- function(object, theta = .005, Nstarts = 1000,
 #' @param ... Additional arguments
 #'
 #' @references
-#' Wiernik, B. M., Wilmot, M. P., Davison, M. L., & Ones, D. S. (2019).
-#' _Meta-analytic criterion profile analysis_.
-#' Manuscript submitted for publication, University of South Florida.
+#' Wiernik, B. M., Wilmot, M. P., Davison, M. L., & Ones, D. S. (2020).
+#' Meta-analytic criterion profile analysis.
+#' _Psychological Methods_. https://doi.org/10.1037/met0000305
 #'
 #' @return A list containing the alternative weights and other fungible weights estimation parameters
 #'
@@ -268,39 +268,52 @@ fungible.cpa <- function(object, theta = .005, Nstarts = 1000,
 
 }
 
-print.fungible_extrema <- function(object,
+#' @export
+#' @keywords internal
+#' @exportClass fungible_extrema
+#' @method print fungible_extrema
+print.fungible_extrema <- function(x,
                                    digits = max(3L, getOption("digits") - 3L),
                                    ...) {
   cat("\nFungible weights analysis\n")
   cat(  "=========================\n\n")
-  if (object$MaxMin == "max") {
+  if (x$MaxMin == "max") {
     cat("  Identifying most similar coefficients\n\n")
   } else {
     cat("  Identifying most dissimilar coefficients\n\n")
   }
 
-  if (exists("coefficients_ols", object)) {
+  if (exists("coefficients_ols", x)) {
     cat("OLS Regression:\n\n")
 
     cat("Regression coefficients:\n")
-    print(round(object$coefficients_ols, digits))
+    print(round(x$coefficients_ols, digits))
     cat("\n\n")
   }
 
-  if (exists("coefficients_cpa", object)) {
+  if (exists("coefficients_cpa", x)) {
     cat("Criterion Profile Analysis:\n\n")
 
     cat("Criterion pattern:\n")
-    print(round(object$coefficients_cpa, digits))
+    print(round(x$coefficients_cpa, digits))
     cat("\n\n")
 
     cat("Model comparison:\n")
-    print(round(object$fit_cpa, digits))
+    print(round(x$fit_cpa, digits))
     cat("\n\n")
   }
 
-  invisible(object)
+  invisible(x)
 }
+
+#' @export
+#' @keywords internal
+#' @exportClass fungible_extrema
+#' @method summary fungible_extrema
+summary.fungible_extrema <- function(object, ...) {
+  object
+}
+
 
 #' Locate extrema of fungible OLS regression weights
 #'

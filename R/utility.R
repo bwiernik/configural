@@ -45,7 +45,7 @@ adjust_Rsq <- function(Rsq, n, p, adjust = c("fisher", "pop", "cv")) {
 #'
 #' @return The harmonic mean of x
 #'
-#' @author Adapted from [psych::harmonic.mean()] by William Revelle
+#' @author Adapted from `psych::harmonic.mean()` by William Revelle
 #' @export
 #'
 #' @encoding UTF-8

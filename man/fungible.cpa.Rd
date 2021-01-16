@@ -45,7 +45,7 @@ mind <- cpa_mat(mindfulness ~ ES + A + C + Ex + O,
 mind_fung <- fungible(mind, Nstarts = 100)
 }
 \references{
-Wiernik, B. M., Wilmot, M. P., Davison, M. L., & Ones, D. S. (2019).
-\emph{Meta-analytic criterion profile analysis}.
-Manuscript submitted for publication, University of South Florida.
+Wiernik, B. M., Wilmot, M. P., Davison, M. L., & Ones, D. S. (2020).
+Meta-analytic criterion profile analysis.
+\emph{Psychological Methods}. https://doi.org/10.1037/met0000305
 }

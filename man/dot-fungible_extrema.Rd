@@ -34,6 +34,6 @@ A list containing the alternative weights and other fungible weights estimation 
 Locate extrema of fungible OLS regression weights
 }
 \author{
-Adapted from \code{\link[fungible:fungibleExtrema]{fungible::fungibleExtrema()}} by Niels Waller and Jeff Jones
+Adapted from \code{fungible::fungibleExtrema()} by Niels Waller and Jeff Jones
 }
 \keyword{internal}
