@@ -32,6 +32,6 @@ data(team)
 \references{
 LePine, J. A., Piccolo, R. F., Jackson, C. L., Mathieu, J. E., & Saul, J. R. (2008).
 A meta-analysis of teamwork processes: tests of a multidimensional model and relationships with team effectiveness criteria.
-\emph{Personnel Psychology, 61}(2), 273–307. \url{https://doi.org/10.1111/j.1744-6570.2008.00114.x}
+\emph{Personnel Psychology, 61}(2), 273–307. \doi{10.1111/j.1744-6570.2008.00114.x}
 }
 \keyword{datasets}

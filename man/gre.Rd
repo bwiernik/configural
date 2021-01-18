@@ -34,6 +34,6 @@ data(gre)
 \references{
 Kuncel, N. R., Hezlett, S. A., & Ones, D. S. (2001).
 A comprehensive meta-analysis of the predictive validity of the graduate record examinations: Implications for graduate student selection and performance.
-\emph{Psychological Bulletin, 127}(1), 162–181. \url{https://doi.org/10.1037/0033-2909.127.1.162}
+\emph{Psychological Bulletin, 127}(1), 162–181. \doi{10.1037/0033-2909.127.1.162}
 }
 \keyword{datasets}

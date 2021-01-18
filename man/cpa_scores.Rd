@@ -53,13 +53,13 @@ cpa_mod <- cpa_mat(mindfulness ~ ES + A + C + Ex + O,
                    se_var_mat = sevar,
                    adjust = "pop")
 
-nd <- data.frame(ES = c(4.2, 3.2, 3.4, 4.2, 3.8, 4.0, 5.6, 2.8, 3.4, 2.8),
-                 A  = c(4.0, 4.2, 3.8, 4.6, 4.0, 4.6, 4.6, 2.6, 3.6, 5.4),
-                 C  = c(2.8, 4.0, 4.0, 3.0, 4.4, 5.6, 4.4, 3.4, 4.0, 5.6),
-                 Ex = c(3.8, 5.0, 4.2, 3.6, 4.8, 5.6, 4.2, 2.4, 3.4, 4.8),
-                 O  = c(3.0, 4.0, 4.8, 3.2, 3.6, 5.0, 5.4, 4.2, 5.0, 5.2)
-                 )
+newdata <- data.frame(ES = c(4.2, 3.2, 3.4, 4.2, 3.8, 4.0, 5.6, 2.8, 3.4, 2.8),
+                      A  = c(4.0, 4.2, 3.8, 4.6, 4.0, 4.6, 4.6, 2.6, 3.6, 5.4),
+                      C  = c(2.8, 4.0, 4.0, 3.0, 4.4, 5.6, 4.4, 3.4, 4.0, 5.6),
+                      Ex = c(3.8, 5.0, 4.2, 3.6, 4.8, 5.6, 4.2, 2.4, 3.4, 4.8),
+                      O  = c(3.0, 4.0, 4.8, 3.2, 3.6, 5.0, 5.4, 4.2, 5.0, 5.2)
+                      )
 
-nd_cpa <- cpa_scores(cpa_mod, nd, augment = FALSE)
-nd_augment <- cpa_scores(cpa_mod, nd, augment = FALSE)
+newdata_cpa <- cpa_scores(cpa_mod, newdata, augment = FALSE)
+newdata_augment <- cpa_scores(cpa_mod, newdata, augment = TRUE)
 }

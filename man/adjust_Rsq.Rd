@@ -28,5 +28,5 @@ adjust_Rsq(.55, 100, 6, adjust = "pop")
 \references{
 Shieh, G. (2008).
 Improved shrinkage estimation of squared multiple correlation coefficient and squared cross-validity coefficient.
-\emph{Organizational Research Methods, 11}(2), 387–407. \url{https://doi.org/10.1177/1094428106292901}
+\emph{Organizational Research Methods, 11}(2), 387–407. \doi{10.1177/1094428106292901}
 }

@@ -289,11 +289,11 @@ var_error_cpa <- function(Rxx, rxy, n = NULL, se_var_mat = NULL, adjust = c("fis
 #' Revelle, W., Condon, D. M., Wilt, J., French, J. A., Brown, A., & Elleman, L. G. (2017).
 #' Web- and phone-based data collection using planned missing designs.
 #' In N. G. Fielding, R. M. Lee, & G. Blank, _The SAGE Handbook of Online Research Methods_ (pp. 578–594).
-#' SAGE Publications. https://doi.org/10.4135/9781473957992.n33
+#' SAGE Publications. \doi{0.4135/9781473957992.n33}
 #'
 #' Cohen, J., Cohen, P., West, S. G., & Aiken, L. S. (2003).
 #' _Applied multiple regression/correlation analysis for the behavioral sciences_ (3rd ed.).
-#' Routledge. https://doi.org/10.4324/9780203774441
+#' Routledge. \doi{10.4324/9780203774441}
 #'
 #' @examples
 #' n_effective_R2(0.3953882, 0.0005397923, 5)

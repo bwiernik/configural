@@ -152,11 +152,11 @@
 #' @references
 #' Waller, N. G. (2008).
 #' Fungible weights in multiple regression.
-#' _Psychometrika, 73_(4), 691–703. <https://doi.org/10.1007%2Fs11336-008-9066-z>
+#' _Psychometrika, 73_(4), 691–703. \doi{10.1007/s11336-008-9066-z}
 #'
 #' Waller, N. G., & Jones, J. A. (2009).
 #' Locating the extrema of fungible regression weights.
-#' _Psychometrika, 74_(4), 589–602. <https://doi.org/10.1007/s11336-008-9087-7>
+#' _Psychometrika, 74_(4), 589–602. \doi{10.1007/s11336-008-9087-7}
 #'
 #' @examples
 #' mind <- cpa_mat(mindfulness ~ ES + A + C + Ex + O,
@@ -187,7 +187,7 @@ fungible <- function(object, theta = .005, Nstarts = 1000,
 #' @references
 #' Wiernik, B. M., Wilmot, M. P., Davison, M. L., & Ones, D. S. (2020).
 #' Meta-analytic criterion profile analysis.
-#' _Psychological Methods_. https://doi.org/10.1037/met0000305
+#' _Psychological Methods_. \doi{10.1037/met0000305}
 #'
 #' @return A list containing the alternative weights and other fungible weights estimation parameters
 #'
@@ -329,7 +329,7 @@ summary.fungible_extrema <- function(object, ...) {
 #' @references
 #' Waller, N. G., & Jones, J. A. (2009).
 #' Locating the extrema of fungible regression weights.
-#' _Psychometrika, 74_(4), 589–602. <https://doi.org/10.1007/s11336-008-9087-7>
+#' _Psychometrika, 74_(4), 589–602. \doi{10.1007/s11336-008-9087-7}
 #'
 #' @return A list containing the alternative weights and other fungible weights estimation parameters
 #'

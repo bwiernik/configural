@@ -26,10 +26,10 @@ data(hrm)
 \references{
 Combs, J., Liu, Y., Hall, A., & Ketchen, D. (2006).
 How much do high-performance work practices matter? A meta-analysis of their effects on organizational performance.
-\emph{Personnel Psychology, 59}(3), 501–528. \url{https://doi.org/10.1111/j.1744-6570.2006.00045.x}
+\emph{Personnel Psychology, 59}(3), 501–528. \doi{10.1111/j.1744-6570.2006.00045.x}
 
 Guest, D., Conway, N., & Dewe, P. (2004).
 Using sequential tree analysis to search for ‘bundles’ of HR practices.
-\emph{Human Resource Management Journal, 14}(1), 79–96. \url{https://doi.org/10.1111/j.1748-8583.2004.tb00113.x}
+\emph{Human Resource Management Journal, 14}(1), 79–96. \doi{10.1111/j.1748-8583.2004.tb00113.x}
 }
 \keyword{datasets}

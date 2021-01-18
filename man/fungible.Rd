@@ -47,11 +47,11 @@ mind_fung <- fungible(mind, Nstarts = 100)
 \references{
 Waller, N. G. (2008).
 Fungible weights in multiple regression.
-\emph{Psychometrika, 73}(4), 691–703. \url{https://doi.org/10.1007\%2Fs11336-008-9066-z}
+\emph{Psychometrika, 73}(4), 691–703. \doi{10.1007/s11336-008-9066-z}
 
 Waller, N. G., & Jones, J. A. (2009).
 Locating the extrema of fungible regression weights.
-\emph{Psychometrika, 74}(4), 589–602. \url{https://doi.org/10.1007/s11336-008-9087-7}
+\emph{Psychometrika, 74}(4), 589–602. \doi{10.1007/s11336-008-9087-7}
 }
 \author{
 Niels Waller, Jeff Jones, Brenton M. Wiernik. Adapted from \code{fungible::fungibleExtrema()}.

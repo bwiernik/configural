@@ -47,5 +47,5 @@ mind_fung <- fungible(mind, Nstarts = 100)
 \references{
 Wiernik, B. M., Wilmot, M. P., Davison, M. L., & Ones, D. S. (2020).
 Meta-analytic criterion profile analysis.
-\emph{Psychological Methods}. https://doi.org/10.1037/met0000305
+\emph{Psychological Methods}. \doi{10.1037/met0000305}
 }

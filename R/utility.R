@@ -15,7 +15,7 @@
 #' @references
 #' Shieh, G. (2008).
 #' Improved shrinkage estimation of squared multiple correlation coefficient and squared cross-validity coefficient.
-#' _Organizational Research Methods, 11_(2), 387–407. <https://doi.org/10.1177/1094428106292901>
+#' _Organizational Research Methods, 11_(2), 387–407. \doi{10.1177/1094428106292901}
 #'
 #' @examples
 #' adjust_Rsq(.55, 100, 6, adjust = "pop")
@@ -81,7 +81,7 @@ harmonic_mean <- function(x, na.rm = TRUE, zero = TRUE) {
 #' @references
 #' Nel, D. G. (1985).
 #' A matrix derivation of the asymptotic covariance matrix of sample correlation coefficients.
-#' _Linear Algebra and Its Applications, 67_, 137–145. <https://doi.org/10.1016/0024-3795(85)90191-0>
+#' _Linear Algebra and Its Applications, 67_, 137–145. \doi{10.1016/0024-3795(85)90191-0}
 #'
 #' @examples
 #' transition(5)
@@ -121,7 +121,7 @@ transition <- function(p) {
 #' @references
 #' Nel, D. G. (1985).
 #' A matrix derivation of the asymptotic covariance matrix of sample correlation coefficients.
-#' _Linear Algebra and Its Applications, 67_, 137–145. <https://doi.org/10.1016/0024-3795(85)90191-0>
+#' _Linear Algebra and Its Applications, 67_, 137–145. \doi{10.1016/0024-3795(85)90191-0}
 #'
 #' @examples
 #' cor_covariance(matrix(c(1, .2, .3, .2, 1, .3, .3, .3, 1), ncol = 3), 100)
@@ -195,7 +195,7 @@ cor_labels <- function(var_names) {
 #' @references
 #' Nel, D. G. (1985).
 #' A matrix derivation of the asymptotic covariance matrix of sample correlation coefficients.
-#' _Linear Algebra and Its Applications, 67_, 137–145. <https://doi.org/10.1016/0024-3795(85)90191-0>
+#' _Linear Algebra and Its Applications, 67_, 137–145. \doi{10.1016/0024-3795(85)90191-0}
 #'
 #' Wiernik, B. M. (2018).
 #' _Accounting for dependency in meta-analytic structural equations modeling: A flexible alternative to generalized least squares and two-stage structural equations modeling._

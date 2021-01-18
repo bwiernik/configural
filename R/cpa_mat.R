@@ -17,16 +17,16 @@
 #' @references
 #' Jones, J. A., & Waller, N. G. (2015).
 #' The normal-theory and asymptotic distribution-free (ADF) covariance matrix of standardized regression coefficients: Theoretical extensions and finite sample behavior.
-#' _Psychometrika, 80_(2), 365–378. <https://doi.org/10.1007/s11336-013-9380-y>
+#' _Psychometrika, 80_(2), 365–378. \doi{10.1007/s11336-013-9380-y}
 #'
 #' Revelle, W., Condon, D. M., Wilt, J., French, J. A., Brown, A., & Elleman, L. G. (2017).
 #' Web- and phone-based data collection using planned missing designs.
 #' In N. G. Fielding, R. M. Lee, & G. Blank, _The SAGE Handbook of Online Research Methods_ (pp. 578–594).
-#' SAGE Publications. <https://doi.org/10.4135/9781473957992.n33>
+#' SAGE Publications. \doi{10.4135/9781473957992.n33}
 #'
 #' Wiernik, B. M., Wilmot, M. P., Davison, M. L., & Ones, D. S. (2019).
 #' Meta-analytic criterion profile analysis.
-#' _Psychological Methods_ <https://doi.org/10.1037/met0000305>
+#' _Psychological Methods_ \doi{10.1037/met0000305}
 #'
 #' @examples
 #' sevar <- cor_covariance_meta(mindfulness$r, mindfulness$n, mindfulness$sevar_r, mindfulness$source)
@@ -321,15 +321,15 @@ confint.cpa <- function(object, ...) {
 #'                    se_var_mat = sevar,
 #'                    adjust = "pop")
 #'
-#' nd <- data.frame(ES = c(4.2, 3.2, 3.4, 4.2, 3.8, 4.0, 5.6, 2.8, 3.4, 2.8),
-#'                  A  = c(4.0, 4.2, 3.8, 4.6, 4.0, 4.6, 4.6, 2.6, 3.6, 5.4),
-#'                  C  = c(2.8, 4.0, 4.0, 3.0, 4.4, 5.6, 4.4, 3.4, 4.0, 5.6),
-#'                  Ex = c(3.8, 5.0, 4.2, 3.6, 4.8, 5.6, 4.2, 2.4, 3.4, 4.8),
-#'                  O  = c(3.0, 4.0, 4.8, 3.2, 3.6, 5.0, 5.4, 4.2, 5.0, 5.2)
-#'                  )
+#' newdata <- data.frame(ES = c(4.2, 3.2, 3.4, 4.2, 3.8, 4.0, 5.6, 2.8, 3.4, 2.8),
+#'                       A  = c(4.0, 4.2, 3.8, 4.6, 4.0, 4.6, 4.6, 2.6, 3.6, 5.4),
+#'                       C  = c(2.8, 4.0, 4.0, 3.0, 4.4, 5.6, 4.4, 3.4, 4.0, 5.6),
+#'                       Ex = c(3.8, 5.0, 4.2, 3.6, 4.8, 5.6, 4.2, 2.4, 3.4, 4.8),
+#'                       O  = c(3.0, 4.0, 4.8, 3.2, 3.6, 5.0, 5.4, 4.2, 5.0, 5.2)
+#'                       )
 #'
-#' nd_cpa <- cpa_scores(cpa_mod, nd, augment = FALSE)
-#' nd_augment <- cpa_scores(cpa_mod, nd, augment = FALSE)
+#' newdata_cpa <- cpa_scores(cpa_mod, newdata, augment = FALSE)
+#' newdata_augment <- cpa_scores(cpa_mod, newdata, augment = TRUE)
 cpa_scores <- function(cpa_mod, newdata = NULL, augment = TRUE,
                        cpa_names = c("cpa_lev", "cpa_pat"),
                        scale = FALSE, scale_center = TRUE, scale_scale = TRUE) {

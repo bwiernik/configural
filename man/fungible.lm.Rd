@@ -41,5 +41,5 @@ lm_mtcars_fung <- fungible(lm_mtcars, Nstarts = 100)
 \references{
 Waller, N. G., & Jones, J. A. (2009).
 Locating the extrema of fungible regression weights.
-\emph{Psychometrika, 74}(4), 589–602. \url{https://doi.org/10.1007/s11336-008-9087-7}
+\emph{Psychometrika, 74}(4), 589–602. \doi{10.1007/s11336-008-9087-7}
 }

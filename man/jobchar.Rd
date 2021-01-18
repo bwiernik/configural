@@ -26,6 +26,6 @@ data(jobchar)
 \references{
 Humphrey, S. E., Nahrgang, J. D., & Morgeson, F. P. (2007).
 Integrating motivational, social, and contextual work design features: A meta-analytic summary and theoretical extension of the work design literature.
-\emph{Journal of Applied Psychology, 92}(5), 1332–1356. \url{https://doi.org/10.1037/0021-9010.92.5.1332}
+\emph{Journal of Applied Psychology, 92}(5), 1332–1356. \doi{10.1037/0021-9010.92.5.1332}
 }
 \keyword{datasets}
