@@ -195,6 +195,22 @@
 #'
 #' @examples
 #' data(jobchar)
+#' predictors <- c('auto', 'skill_var', 'task_var', 'task_sig', 'task_id', 'fb_job', 'job_comp', 'interdep', 'fb_others', 'soc_support)
+#' sevar_jobchar_perf <-
+#'   cor_covariance_meta(
+#'     r = jobchar$r[c('perform', predictors), c('perform', predictors)],
+#'                     n = jobchar$n[c('perform', predictors), c('perform', predictors)],
+#'                     sevar = jobchar$sevar_r[c('perform', predictors), c('perform', predictors)],
+#'                     rho = jobchar$rho[c('perform', predictors), c('perform', predictors)],
+#'                     sevar_rho = jobchar$sevar_rho[c('perform', predictors), c('perform', predictors)],
+#'                     jobchar$source[c('perform', predictors), c('perform', predictors)])
+#' cpa_jobchar_perf <- cpa_mat(perform ~ auto + skill_var + task_var + task_sig +
+#'                               task_id + fb_job + job_comp +
+#'                               interdep + fb_others + soc_support,
+#'                             cov_mat = jobchar$rho,
+#'                             n = harmonic_mean(as.vector(jobchar$n[c('perform', predictors), c('perform', predictors)])),
+#'                             se_var_mat = sevar_jobchar_perf,
+#'                             adjust = "pop", conf_level = .95)
 "jobchar"
 
 #' Meta-analytic correlations of Graduate Record Examination subtests with graduate grade point average
@@ -214,7 +230,7 @@
 #'
 #' @encoding UTF-8
 #'
-#' @usage data(jobchar)
+#' @usage data(gre)
 #'
 #' @format list with entries `r` (mean observed correlations), `rho` (mean
 #' corrected correlations), `n` (sample sizes), `sevar_r` (sampling error
