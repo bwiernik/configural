@@ -41,6 +41,9 @@ var_error_cpa <- function(Rxx, rxy, n = NULL, se_var_mat = NULL, adjust = c("fis
 
     if (inherits(se_var_mat, "matrix")) {
       Sigma <- se_var_mat
+      if (any(base::eigen(se_var_mat)$values < 0)) {
+        warning("`se_var_mat` is not positive definite.\nInterpert standard errors with caution.\nConsider smoothing the matrix with:\n  Matrix::nearPD(se_var_mat, keepDiag = TRUE, ensureSymmetry = TRUE)")
+      }
     } else {
       Sigma <- cor_covariance(sR, n)
     }
