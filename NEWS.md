@@ -1,3 +1,7 @@
+# configural (development version)
+
+- Added warnings when estimated or supplied sampling error covariance matrix is non-positive definite
+
 # configural 0.1.4 (2021-01-18)
 
 - Bug fix in `print.fungible_extrema()`
