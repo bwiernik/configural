@@ -278,7 +278,7 @@ cor_covariance_meta <- function(r, n, sevar, source = NULL, rho = NULL, sevar_rh
   dimnames(out) <- list(cor_names, cor_names)
 
   if (any(base::eigen(out)$values < 0)) {
-    warning("Estiamted sampling covariance matrix is not positive definite.\nConsider smoothing the matrix with:\n  Matrix::nearPD(se_var_mat, keepDiag = TRUE, ensureSymmetry = TRUE)")
+    warning("Estiamted sampling covariance matrix is not positive definite.\nConsider smoothing the matrix with:\n  Matrix::nearPD(se_var_mat, keepDiag = TRUE, ensureSymmetry = TRUE) or\n  Matrix::nearPD(se_var_mat, ensureSymmetry = TRUE)")
   }
 
   out
