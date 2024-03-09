@@ -270,7 +270,6 @@ fungible.cpa <- function(object, theta = .005, Nstarts = 1000,
 
 #' @export
 #' @keywords internal
-#' @exportClass fungible_extrema
 #' @method print fungible_extrema
 print.fungible_extrema <- function(x,
                                    digits = max(3L, getOption("digits") - 3L),
@@ -308,7 +307,6 @@ print.fungible_extrema <- function(x,
 
 #' @export
 #' @keywords internal
-#' @exportClass fungible_extrema
 #' @method summary fungible_extrema
 summary.fungible_extrema <- function(object, ...) {
   object

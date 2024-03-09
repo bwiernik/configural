@@ -216,7 +216,6 @@ cpa_mat <- function(formula, cov_mat, n = NULL,
 
 #' @export
 #' @keywords internal
-#' @exportClass cpa
 #' @method print cpa
 print.cpa <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
 
@@ -250,7 +249,6 @@ print.cpa <- function(x, digits = max(3L, getOption("digits") - 3L), ...) {
 
 #' @export
 #' @keywords internal
-#' @exportClass cpa
 #' @method summary cpa
 summary.cpa <- function(object, ...) {
   object
@@ -258,7 +256,6 @@ summary.cpa <- function(object, ...) {
 
 #' @export
 #' @keywords internal
-#' @exportClass cpa
 #' @method vcov cpa
 vcov.cpa <- function(object, parameter = NULL, ...) {
   if (is.null(parameter)) {
@@ -272,7 +269,6 @@ vcov.cpa <- function(object, parameter = NULL, ...) {
 
 #' @export
 #' @keywords internal
-#' @exportClass cpa
 #' @method coef cpa
 coef.cpa <- function(object, parameter = "bstar", ...) {
   get(parameter, object)
@@ -280,7 +276,6 @@ coef.cpa <- function(object, parameter = "bstar", ...) {
 
 #' @export
 #' @keywords internal
-#' @exportClass cpa
 #' @method confint cpa
 confint.cpa <- function(object, ...) {
   object$bstar[,3:4]
