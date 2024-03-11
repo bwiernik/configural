@@ -6,4 +6,4 @@
 ## R CMD check results
 0 errors √ | 0 warnings √ | 0 notes √
 
-Corrected the DOI link syntax from the last submission.
+Corrected errors in CRAN check results.
