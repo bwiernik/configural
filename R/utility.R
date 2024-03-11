@@ -227,15 +227,16 @@ cor_covariance_meta <- function(r, n, sevar, source = NULL, rho = NULL, sevar_rh
     if (!is.null(rownames(n_overlap))) if (!all(rownames(n_overlap) == cor_names)) stop("Row names of `n_overlap` must be identical to the result of:\n  `cor_labels(colnames(r))`")
   }
 
-  r <- vechs2full(vechs(r))
-  n <- vechs(n)
-  sevar <- vechs(sevar)
+  r <- complete_matrix(r)
+  n <- vechs(complete_matrix(n))
+  sevar <- vechs(complete_matrix(sevar))
   if (!is.null(rho)) {
+    rho <- complete_matrix(rho)
     A <- vechs(r) / vechs(rho)
   } else if (!is.null(sevar_rho)) {
-    A <- sqrt(sevar / vech(sevar_rho))
+    sevar_rho <- vechs(complete_matrix(sevar_rho))
+    A <- sqrt(sevar / sevar_rho)
   }
-
 
   if (is.null(n_overlap)) {
     n_overlap <- outer(n, n, FUN = function(X, Y) apply(cbind(X, Y), 1, min))
@@ -652,4 +653,29 @@ vechs2full <- function(x, diagonal = 1) {
   ret[upper.tri(ret)] <- t(ret)[upper.tri(ret)]
   diag(ret) <- diagonal
   return(ret)
+}
+
+#' Make a matrix symmetric by averaging with its transpose
+#'
+#' Makes a matrix symmetric by averaging the elements of the matrix and its
+#' transpose. When This function fills in `NA` elements of a matrix with the corresponding
+#' value from the matrix transpose, if available
+#'
+#' @param m Numeric matrix to complete.
+#' @param na.rm Logical. Should missing values be dropped? (default: `TRUE`)
+#'
+#' @return A completed matrix.
+#' @export
+#'
+#' @examples
+#' predictors <- c('auto', 'skill_var', 'task_var', 'task_sig', 'task_id',
+#' 'fb_job', 'job_comp', 'interdep', 'fb_others', 'soc_support')
+#' m <- jobchar$sevar_r[c('perform', predictors), c('perform', predictors)]
+#' complete_matrix(m)
+complete_matrix <- function(m, na.rm = TRUE) {
+  values <- colMeans(rbind(m[lower.tri(m)], t(m)[lower.tri(m)]), na.rm = na.rm)
+  tmp <- matrix(0, nrow = nrow(m), ncol = ncol(m))
+  tmp[lower.tri(m)] <- values
+  out <- tmp + t(tmp) + diag(diag(m))
+  return(out)
 }

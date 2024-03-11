@@ -13,7 +13,7 @@ variances for mean corrected correlations), and \code{source} (character labels
 indicating which meta-analytic correlations came from the same source)
 }
 \usage{
-data(jobchar)
+data(gre)
 }
 \description{
 Correlations between GRE subtests and graduate student GPA from Kuncel et al. (2001).

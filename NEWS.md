@@ -1,6 +1,8 @@
-# configural (development version)
+# configural 0.1.5 (2024-03-11)
 
 - Added warnings when estimated or supplied sampling error covariance matrix is non-positive definite
+- Bug fix in `cor_covariance_meta()` to accommodate matrices with missing values both above and below diagonal
+- Added `complete_matrix()` function to make a matrix symmetric by averaging with its transpose
 
 # configural 0.1.4 (2021-01-18)
 
