@@ -32,7 +32,7 @@ sevar_jobchar_perf <-
                     rho = jobchar$rho[c('perform', predictors), c('perform', predictors)],
                     sevar_rho = jobchar$sevar_rho[c('perform', predictors),
                                                   c('perform', predictors)],
-                    jobchar$source[c('perform', predictors), c('perform', predictors)])
+                    source = jobchar$source[c('perform', predictors), c('perform', predictors)])
 cpa_jobchar_perf <- cpa_mat(perform ~ auto + skill_var + task_var + task_sig +
                               task_id + fb_job + job_comp +
                               interdep + fb_others + soc_support,

@@ -2,7 +2,7 @@ Package: configural
 Type: Package
 Title: Multivariate Profile Analysis 
 Version: 0.1.5
-Date: 2024-03-05
+Date: 2024-03-11
 Authors@R: c( person("Brenton M.", "Wiernik", role = c("aut", "cre"), email = "brenton@wiernik.org")
               )
 BugReports: https://github.com/bwiernik/configural/issues
