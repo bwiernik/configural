@@ -5,3 +5,4 @@ LICENSE
 ^data-raw$
 ^CRAN-RELEASE$
 ^cran-comments\.md$
+^CRAN-SUBMISSION$

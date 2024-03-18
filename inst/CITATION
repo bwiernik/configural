@@ -1,6 +1,6 @@
 citHeader("To cite ‘configural’ in publications, use:")
 
-citEntry(entry = "Misc",
+bibentry(bibtype = "Misc",
   author       = c(person("Brenton M.", "Wiernik")),
   year         = "2020",
   title        = "{configural}: Multivariate Profile Analysis",
@@ -12,7 +12,7 @@ citEntry(entry = "Misc",
   "Wiernik, B. M. (2020). configural: An R package for profile analysis [R package]. https://cran.r-project.org/package=configural"
 )
 
-citEntry(entry = "Article",
+bibentry(bibtype = "Article",
   author       = c(person("Brenton M.", "Wiernik"),
                    person("Michael P.", "Wilmot"),
                    person("Mark L.", "Davison"),

@@ -29,21 +29,3 @@
 
 }
 
-
-#' Retrieve the NEWS file for the configural package
-#'
-#' @description
-#' This function gives a shortcut to the `utils::news(package = "configural")` function and displays configural's NEWS file, which contains version information, outlines additions and changes to the package, and describes other updates.
-#'
-#' @export
-#'
-#' @importFrom utils news
-#'
-#' @encoding UTF-8
-#'
-#' @examples
-#' configural_news()
-configural_news <- function(){
-     news(package = "configural")
-}
-
